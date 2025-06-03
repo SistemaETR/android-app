@@ -44,6 +44,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void setup() {
         // Link XML to Java
+        TextView tvForgotPassword = findViewById(R.id.tvForgotPassword);
         TextView tvCreateAccount = findViewById(R.id.tvCreateAccount);
         EditText etvEmail = findViewById(R.id.etvEmail);
         EditText etvPassword = findViewById(R.id.etvPassword);
@@ -70,6 +71,10 @@ public class SignInActivity extends AppCompatActivity {
 
         // Add click listener to google sign in button
         btnGoogleSignIn.setOnClickListener(v -> signInWithGoogle());
+
+        // Add click listener to text view to navigate to password restoration screen
+        tvForgotPassword.setOnClickListener(v ->
+                startActivity(new Intent(SignInActivity.this, PasswordRestorationActivity.class)));
 
         // Add click listener to text view to navigate to sign up screen
         tvCreateAccount.setOnClickListener(v ->
