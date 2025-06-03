@@ -12,8 +12,8 @@
         android:layout_weight="1" />
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_gravity="center_horizontal"
         android:contentDescription="@string/ic_register"
         android:src="@drawable/logo" />
@@ -30,8 +30,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/system_etr"
-        android:textColor="@color/black"
-        android:textSize="32sp"
+        android:textSize="28sp"
         android:textStyle="bold" />
 
     <EditText
@@ -48,6 +47,7 @@
         android:textColorHint="@color/hintText" />
 
     <EditText
+        android:id="@+id/etvPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -68,6 +68,7 @@
         android:textSize="18sp" />
 
     <Button
+        android:id="@+id/btnSignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -77,6 +78,7 @@
         android:textSize="24sp" />
 
     <Button
+        android:id="@+id/btnGoogleSignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -88,14 +90,29 @@
         android:textSize="22sp"
         tools:ignore="RtlHardcoded" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:text="@string/dont_have_account"
-        android:textColor="@color/blue"
-        android:textSize="18sp" />
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dont_have_account"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvCreateAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/create_one"
+            android:textColor="@color/blue"
+            android:textSize="18sp" />
+
+    </LinearLayout>
 
     <Space
         android:layout_width="wrap_content"

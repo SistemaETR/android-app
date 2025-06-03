@@ -85,7 +85,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     .addOnSuccessListener(aVoid -> {
                                         // User data saved successfully
                                         Toast.makeText(this, getString(R.string.user_created), Toast.LENGTH_SHORT).show();
-                                        // finish();
+                                        finish();
                                     })
                                     .addOnFailureListener(e -> Toast.makeText(this, getString(R.string.error_saving_user), Toast.LENGTH_SHORT).show());
                         }
