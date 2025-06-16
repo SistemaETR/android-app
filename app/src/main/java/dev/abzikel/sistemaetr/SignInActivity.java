@@ -27,6 +27,7 @@ import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Objects;
@@ -40,6 +41,18 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         setup();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            // User is already logged in, navigate to BluetoothActivity
+            startActivity(new Intent(SignInActivity.this, BluetoothActivity.class));
+            finish();
+        }
     }
 
     private void setup() {
@@ -86,10 +99,11 @@ public class SignInActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Login successful, navigate to home activity
+                        // Login successful, navigate to Bluetooth activity
                         Toast.makeText(SignInActivity.this,
                                 getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SignInActivity.this, HomeActivity.class));
+                        startActivity(new Intent(SignInActivity.this, BluetoothActivity.class));
+                        finish();
                     } else {
                         // Login failed, display a message to the user
                         Toast.makeText(SignInActivity.this,
@@ -164,7 +178,8 @@ public class SignInActivity extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         Toast.makeText(SignInActivity.this,
                                 getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SignInActivity.this, HomeActivity.class));
+                        startActivity(new Intent(SignInActivity.this, BluetoothActivity.class));
+                        finish();
                     } else {
                         // If sign in fails, display a message to the user
                         Toast.makeText(SignInActivity.this,
