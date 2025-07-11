@@ -177,6 +177,7 @@
         android:textStyle="bold" />
 
     <ImageButton
+        android:id="@+id/btnStartStop"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"

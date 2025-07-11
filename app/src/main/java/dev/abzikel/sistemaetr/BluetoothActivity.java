@@ -24,8 +24,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import dev.abzikel.sistemaetr.services.BLEServerService;
+
 public class BluetoothActivity extends AppCompatActivity {
     private static final int REQUEST_BLUETOOTH_PERMISSION = 1;
+    private static final int REQUEST_BLUETOOTH_ADVERTISE = 2;
     private static final int BT_NOT_SUPPORTED = 0;
     private static final int BT_DISABLED = 1;
     private static final int BT_ENABLED = 2;
@@ -86,23 +89,32 @@ public class BluetoothActivity extends AppCompatActivity {
     }
 
     private void bluetoothEnabled() {
-        // Bluetooth is enabled
-        ivBluetoothStatus.setBackgroundResource(R.drawable.ic_bluetooth_enabled);
-        tvBluetoothStatus.setText(getResources().getString(R.string.bluetooth_enabled));
-        progressBar.setVisibility(View.VISIBLE);
+        // Request Bluetooth permission
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && checkSelfPermission(Manifest.permission.BLUETOOTH_ADVERTISE) != PackageManager.PERMISSION_GRANTED)
+            requestPermissions(new String[]{Manifest.permission.BLUETOOTH_ADVERTISE}, REQUEST_BLUETOOTH_ADVERTISE);
+        else {
+            // Permission granted, start Bluetooth server
+            Intent intent = new Intent(this, BLEServerService.class);
+            startService(intent);
 
-        // Change activity after 2 seconds
-        new CountDownTimer(2000, 20) {
-            public void onTick(long millisUntilFinished) {
-                int progress = 100 - (int) (millisUntilFinished / 20);
-                progressBar.setProgress(progress);
-            }
+            // Bluetooth is enabled
+            ivBluetoothStatus.setBackgroundResource(R.drawable.ic_bluetooth_enabled);
+            tvBluetoothStatus.setText(getResources().getString(R.string.bluetooth_enabled));
+            progressBar.setVisibility(View.VISIBLE);
 
-            public void onFinish() {
-                startActivity(new Intent(BluetoothActivity.this, HomeActivity.class));
-                finish();
-            }
-        }.start();
+            // Change activity after 2 seconds
+            new CountDownTimer(2000, 20) {
+                public void onTick(long millisUntilFinished) {
+                    int progress = 100 - (int) (millisUntilFinished / 20);
+                    progressBar.setProgress(progress);
+                }
+
+                public void onFinish() {
+                    startActivity(new Intent(BluetoothActivity.this, HomeActivity.class));
+                    finish();
+                }
+            }.start();
+        }
     }
 
     private int getBluetoothStatus() {
@@ -170,6 +182,12 @@ public class BluetoothActivity extends AppCompatActivity {
             } else {
                 // Bluetooth permission was not granted, inform user about permission functionality
                 showPermissionDialog();
+            }
+        } else if (requestCode == REQUEST_BLUETOOTH_ADVERTISE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, start service
+                Intent intent = new Intent(this, BLEServerService.class);
+                startService(intent);
             }
         }
     }

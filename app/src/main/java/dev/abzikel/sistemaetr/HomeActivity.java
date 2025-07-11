@@ -36,6 +36,18 @@ public class HomeActivity extends AppCompatActivity {
 
         // Listeners
         btnSignOut.setOnClickListener(v -> signOut());
+        btnShortWeapon.setOnClickListener(v -> changeActivity("Classic6"));
+        btnLongWeapon.setOnClickListener(v -> changeActivity("Classic12"));
+        btnReaction.setOnClickListener(v -> changeActivity("Reaction6"));
+        btnAdvancedReaction.setOnClickListener(v -> changeActivity("Advanced6"));
+        btnInfinite.setOnClickListener(v -> changeActivity("Infinite"));
+    }
+
+    private void changeActivity(String gameMode) {
+        // Go to control activity
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra("mode", gameMode);
+        startActivity(intent);
     }
 
     private void signOut() {
