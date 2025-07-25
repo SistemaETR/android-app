@@ -1,6 +1,9 @@
 package dev.abzikel.sistemaetr.services;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -23,6 +26,8 @@ import android.os.IBinder;
 import android.os.ParcelUuid;
 import android.util.Log;
 
+import androidx.core.app.NotificationCompat;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -32,7 +37,9 @@ import dev.abzikel.sistemaetr.R;
 import dev.abzikel.sistemaetr.utils.SharedPreferencesManager;
 
 public class BLEServerService extends Service {
+    private static final int NOTIFICATION_ID = 1;
     private static final String TAG = BLEServerService.class.getSimpleName();
+    private static final String CHANNEL_ID = "BLEServerServiceChannel";
     private final IBinder mBinder = new LocalBinder();
     private SharedPreferencesManager sharedPreferencesManager;
     private BluetoothManager mBluetoothManager;
@@ -58,13 +65,71 @@ public class BLEServerService extends Service {
     };
     private String[] MAC_ADDRESSES = new String[6];
 
-    // Variables for the game
+    // Important variables
     private String mode;
     private final byte[] batteries = {0, 0, 0, 0, 0, 0};
     private int hits = 0;
     private int failures = 0;
     private byte randomNumber = 5;
     private byte connectedDevices = 0;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        // Initialize variables
+        sharedPreferencesManager = SharedPreferencesManager.getInstance(this);
+        SERVICE_UUID = UUID.fromString(sharedPreferencesManager.getServiceUUID());
+        MAC_ADDRESSES = sharedPreferencesManager.getMacAddresses();
+        mode = getResources().getString(R.string.restart);
+
+        mBluetoothManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
+        mBluetoothAdapter = mBluetoothManager.getAdapter();
+
+        if (mBluetoothAdapter == null) {
+            Log.e(TAG, "Unable to obtain a BluetoothAdapter.");
+        }
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
+            Log.e(TAG, "Bluetooth is not enabled");
+
+            return START_NOT_STICKY;
+        }
+
+        startInForeground();
+        startAdvertising();
+        startServer();
+
+        return START_STICKY;
+    }
+
+    private void startInForeground() {
+        // Create notification channel
+        NotificationChannel serviceChannel = new NotificationChannel(
+                CHANNEL_ID,
+                getString(R.string.app_name),
+                NotificationManager.IMPORTANCE_LOW
+        );
+
+        // Create notification manager
+        NotificationManager manager = getSystemService(NotificationManager.class);
+        if (manager != null) {
+            manager.createNotificationChannel(serviceChannel);
+        }
+
+        // Create notification
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle(getString(R.string.target_system_active))
+                .setContentText(getString(R.string.ble_server_working))
+                .setSmallIcon(R.drawable.logo)
+                .build();
+
+        // Start foreground service
+        startForeground(NOTIFICATION_ID, notification);
+    }
 
     public void noImpact() {
         // Generate new random number
@@ -281,38 +346,6 @@ public class BLEServerService extends Service {
         }
 
         return null;
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        // Initialize variables
-        sharedPreferencesManager = SharedPreferencesManager.getInstance(this);
-        SERVICE_UUID = UUID.fromString(sharedPreferencesManager.getServiceUUID());
-        MAC_ADDRESSES = sharedPreferencesManager.getMacAddresses();
-        mode = getResources().getString(R.string.restart);
-
-        mBluetoothManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
-        mBluetoothAdapter = mBluetoothManager.getAdapter();
-
-        if (mBluetoothAdapter == null) {
-            Log.e(TAG, "Unable to obtain a BluetoothAdapter.");
-        }
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
-            Log.e(TAG, "Bluetooth is not enabled");
-
-            return START_NOT_STICKY;
-        }
-
-        startAdvertising();
-        startServer();
-
-        return START_STICKY;
     }
 
     @Override
