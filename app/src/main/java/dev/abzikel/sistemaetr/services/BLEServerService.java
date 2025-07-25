@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -33,18 +34,24 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import dev.abzikel.sistemaetr.HomeActivity;
 import dev.abzikel.sistemaetr.R;
 import dev.abzikel.sistemaetr.utils.SharedPreferencesManager;
 
 public class BLEServerService extends Service {
+    // Notification constants
     private static final int NOTIFICATION_ID = 1;
     private static final String TAG = BLEServerService.class.getSimpleName();
     private static final String CHANNEL_ID = "BLEServerServiceChannel";
+
+    // Variables for Bluetooth connection and SharedPreferences
     private final IBinder mBinder = new LocalBinder();
     private SharedPreferencesManager sharedPreferencesManager;
     private BluetoothManager mBluetoothManager;
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothGattServer mGattServer;
+
+    // UUID of BLE service, characteristics and mac addresses
     private UUID SERVICE_UUID;
     private static final String[] NOTIFY_STRINGS = {
             "3729d2dd-5f45-4800-9f67-1548f7b6c326",
@@ -65,7 +72,7 @@ public class BLEServerService extends Service {
     };
     private String[] MAC_ADDRESSES = new String[6];
 
-    // Important variables
+    // Important variables to control game and configuration
     private String mode;
     private final byte[] batteries = {0, 0, 0, 0, 0, 0};
     private int hits = 0;
@@ -83,26 +90,29 @@ public class BLEServerService extends Service {
         MAC_ADDRESSES = sharedPreferencesManager.getMacAddresses();
         mode = getResources().getString(R.string.restart);
 
+        // Initialize Bluetooth
         mBluetoothManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         mBluetoothAdapter = mBluetoothManager.getAdapter();
 
-        if (mBluetoothAdapter == null) {
-            Log.e(TAG, "Unable to obtain a BluetoothAdapter.");
-        }
+        // Error log if Bluetooth is not available
+        if (mBluetoothAdapter == null) Log.e(TAG, "Unable to obtain a BluetoothAdapter.");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        // Error log if Bluetooth is not enabled
         if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
             Log.e(TAG, "Bluetooth is not enabled");
 
             return START_NOT_STICKY;
         }
 
+        // Start foreground service, start advertising and start server
         startInForeground();
         startAdvertising();
         startServer();
 
+        // Return START_STICKY to ensure the service is restarted if it is killed by the system
         return START_STICKY;
     }
 
@@ -116,15 +126,22 @@ public class BLEServerService extends Service {
 
         // Create notification manager
         NotificationManager manager = getSystemService(NotificationManager.class);
-        if (manager != null) {
-            manager.createNotificationChannel(serviceChannel);
-        }
+        if (manager != null) manager.createNotificationChannel(serviceChannel);
+
+        // Create notification intent to open the app
+        Intent notificationIntent = new Intent(this, HomeActivity.class);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this, 0, notificationIntent,
+                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT
+        );
 
         // Create notification
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(getString(R.string.target_system_active))
                 .setContentText(getString(R.string.ble_server_working))
                 .setSmallIcon(R.drawable.logo)
+                .setContentIntent(pendingIntent)
                 .build();
 
         // Start foreground service
@@ -348,14 +365,6 @@ public class BLEServerService extends Service {
         return null;
     }
 
-    @Override
-    public void onDestroy() {
-        stopServer();
-        stopAdvertising();
-
-        super.onDestroy();
-    }
-
     private AdvertiseSettings createAdvertiseSettings() {
         return new AdvertiseSettings.Builder()
                 .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY)
@@ -476,6 +485,16 @@ public class BLEServerService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
+    }
+
+    @Override
+    public void onDestroy() {
+        // Stop server and advertising
+        stopServer();
+        stopAdvertising();
+
+        // Call super method onDestroy
+        super.onDestroy();
     }
 
     public byte[] getBatteryStatus() {
