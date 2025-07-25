@@ -10,23 +10,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.Date;
 import java.util.Locale;
 
 import dev.abzikel.sistemaetr.services.BLEServerService;
-import dev.abzikel.sistemaetr.utils.SharedPreferencesManager;
 
 public class GameActivity extends AppCompatActivity {
     private BLEServerService mService;
@@ -41,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
     private final ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
+            // Get the local binder and set the service
             BLEServerService.LocalBinder binder = (BLEServerService.LocalBinder) service;
             mService = binder.getService();
             mBound = true;
@@ -124,7 +118,6 @@ public class GameActivity extends AppCompatActivity {
             } else if (action.equals(getResources().getString(R.string.stop))) {
                 // Stop the game
                 stopGame();
-                btnStartStop.setImageResource(R.drawable.ic_restart);
             } else if (action.equals(getResources().getString(R.string.restart))) {
                 // Change mode
                 mService.setMode(action);
@@ -133,6 +126,11 @@ public class GameActivity extends AppCompatActivity {
                 // Restart timer and button image resource
                 tvTimer.setText(getString(R.string.zero_time));
                 btnStartStop.setImageResource(R.drawable.ic_play);
+
+                // Restart text views
+                tvPrecision.setText(getString(R.string.na));
+                tvReactionTime.setText(getString(R.string.na));
+                tvScore.setText(getString(R.string.na));
             }
         });
     }
@@ -155,43 +153,6 @@ public class GameActivity extends AppCompatActivity {
         }
     };
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        Intent intent = new Intent(this, BLEServerService.class);
-        bindService(intent, connection, Context.BIND_AUTO_CREATE);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Start broadcast receiver
-        registerReceiver(gameStatsReceiver, new IntentFilter("GAME_STATS_UPDATED"));
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(gameStatsReceiver);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        if (mBound) {
-            // Stop the game
-            mService.setMode(getString(R.string.stop));
-            handler.removeCallbacks(updateTimerThread);
-
-            // Unbind the service
-            unbindService(connection);
-            mBound = false;
-        }
-    }
-
     private void startGame() {
         // Change mode
         String newMode = getString(R.string.stop);
@@ -204,17 +165,56 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void stopGame() {
-        // Change mode
+        // Change mode and button image resource
         String newMode = getResources().getString(R.string.restart);
         changeMode(newMode);
+        btnStartStop.setImageResource(R.drawable.ic_restart);
 
         // Stop timer
-        timeSwapBuff += timeInMilliseconds;
         handler.removeCallbacks(updateTimerThread);
 
         // Get hits and failures
         int hits = Integer.parseInt(tvHits.getText().toString());
         int failures = Integer.parseInt(tvMisses.getText().toString());
+
+        // Calculate precision
+        double totalShots = hits + failures;
+        double precision = 0.0;
+        if (totalShots > 0) precision = (hits / totalShots) * 100.0;
+
+        // Calculate reaction time
+        long totalMilliseconds = timeSwapBuff + timeInMilliseconds;
+        double reactionTime = 0.0;
+        if (hits > 0) {
+            double totalSeconds = totalMilliseconds / 1000.0;
+            reactionTime = totalSeconds / hits;
+        }
+
+        // Calculate score based on game mode
+        int score = 0;
+        if (gameMode.equals(getString(R.string.short_weapon)) || gameMode.equals(getString(R.string.long_weapon))) {
+            // Classic modes, bonus for finishing faster than the 60-second limit
+            int timeBonus = (int) Math.max(0, (60.0 - (totalMilliseconds / 1000.0)) * 5);
+            score = (hits * 100) - (failures * 50) + timeBonus;
+        } else if (gameMode.equals(getString(R.string.reaction)) || gameMode.equals(getString(R.string.advanced_reaction))) {
+            // Reaction modes, bonus/penalty based on average reaction time, centered around 1.5s
+            double reactionBonus = (1.5 - reactionTime) * 100 * hits;
+            score = (hits * 150) - (failures * 75) + (int) reactionBonus;
+        } else if (gameMode.equals(getString(R.string.infinite))) {
+            // Infinite mode, simple cumulative score
+            score = (hits * 10) - (failures * 5);
+        }
+
+        // Ensure the score is not negative
+        if (score < 0) score = 0;
+
+        // Update user interface
+        String precisionText = String.format(Locale.getDefault(), "%.2f%%", precision);
+        String reactionTimeText = String.format(Locale.getDefault(), "%.3f s", reactionTime);
+        String scoreText = String.format(Locale.getDefault(), "%d pts.", score);
+        tvPrecision.setText(precisionText);
+        tvReactionTime.setText(reactionTimeText);
+        tvScore.setText(scoreText);
     }
 
     private void changeMode(String newMode) {
@@ -227,9 +227,11 @@ public class GameActivity extends AppCompatActivity {
         public void run() {
             if (!mBound) return;
 
+            // Get time in milliseconds
             timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
             long updatedTime = timeSwapBuff + timeInMilliseconds;
 
+            // Convert time to minutes, seconds and milliseconds
             int seconds = (int) (updatedTime / 1000);
             int minutes = seconds / 60;
             seconds = seconds % 60;
@@ -261,11 +263,52 @@ public class GameActivity extends AppCompatActivity {
             }
 
             // Update user interface
-            String textTime = "" + minutes + ":" + String.format(Locale.getDefault(), "%02d",
+            String textTime = minutes + ":" + String.format(Locale.getDefault(), "%02d",
                     seconds) + "." + String.format(Locale.getDefault(), "%03d", milliseconds);
             tvTimer.setText(textTime);
             handler.postDelayed(this, 0);
         }
     };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // Bind the service
+        Intent intent = new Intent(this, BLEServerService.class);
+        bindService(intent, connection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Start broadcast receiver
+        IntentFilter filter = new IntentFilter("GAME_STATS_UPDATED");
+        ContextCompat.registerReceiver(this, gameStatsReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Stop broadcast receiver
+        unregisterReceiver(gameStatsReceiver);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (mBound) {
+            // Stop the game
+            mService.setMode(getString(R.string.stop));
+            handler.removeCallbacks(updateTimerThread);
+
+            // Unbind the service
+            unbindService(connection);
+            mBound = false;
+        }
+    }
 
 }
