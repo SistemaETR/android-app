@@ -110,7 +110,7 @@ public class BluetoothActivity extends AppCompatActivity {
                 }
 
                 public void onFinish() {
-                    startActivity(new Intent(BluetoothActivity.this, HomeActivity.class));
+                    startActivity(new Intent(BluetoothActivity.this, MainActivity.class));
                     finish();
                 }
             }.start();

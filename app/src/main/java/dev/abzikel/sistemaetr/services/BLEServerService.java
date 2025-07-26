@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-import dev.abzikel.sistemaetr.HomeActivity;
+import dev.abzikel.sistemaetr.fragments.HomeFragment;
 import dev.abzikel.sistemaetr.R;
 import dev.abzikel.sistemaetr.utils.SharedPreferencesManager;
 
@@ -129,7 +129,7 @@ public class BLEServerService extends Service {
         if (manager != null) manager.createNotificationChannel(serviceChannel);
 
         // Create notification intent to open the app
-        Intent notificationIntent = new Intent(this, HomeActivity.class);
+        Intent notificationIntent = new Intent(this, HomeFragment.class);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this, 0, notificationIntent,
