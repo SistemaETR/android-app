@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -17,9 +18,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 
+import dev.abzikel.sistemaetr.pojos.Training;
 import dev.abzikel.sistemaetr.services.BLEServerService;
+import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
 public class GameActivity extends AppCompatActivity {
     private BLEServerService mService;
@@ -27,6 +32,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView tvHits, tvMisses, tvScore, tvPrecision, tvReactionTime, tvTimer;
     private ImageButton btnStartStop;
     private String action, gameMode;
+    private int gameModeId;
     private long startTime, timeInMilliseconds, timeSwapBuff, lastUpdateTimeInterval, timeInterval = 0;
     private byte maxShots = 6;
     private boolean classic, restartTime, mBound = false;
@@ -86,18 +92,23 @@ public class GameActivity extends AppCompatActivity {
         switch (mode) {
             case "Classic6":
                 gameMode = getResources().getString(R.string.short_weapon);
+                gameModeId = 1;
                 break;
             case "Classic12":
                 gameMode = getResources().getString(R.string.long_weapon);
+                gameModeId = 2;
                 break;
             case "Reaction6":
                 gameMode = getResources().getString(R.string.reaction);
+                gameModeId = 3;
                 break;
             case "Advanced6":
                 gameMode = getResources().getString(R.string.advanced_reaction);
+                gameModeId = 4;
                 break;
             default:
                 gameMode = getResources().getString(R.string.infinite);
+                gameModeId = 5;
                 break;
         }
 
@@ -175,10 +186,10 @@ public class GameActivity extends AppCompatActivity {
 
         // Get hits and failures
         int hits = Integer.parseInt(tvHits.getText().toString());
-        int failures = Integer.parseInt(tvMisses.getText().toString());
+        int misses = Integer.parseInt(tvMisses.getText().toString());
 
         // Calculate precision
-        double totalShots = hits + failures;
+        double totalShots = hits + misses;
         double precision = 0.0;
         if (totalShots > 0) precision = (hits / totalShots) * 100.0;
 
@@ -195,14 +206,14 @@ public class GameActivity extends AppCompatActivity {
         if (gameMode.equals(getString(R.string.short_weapon)) || gameMode.equals(getString(R.string.long_weapon))) {
             // Classic modes, bonus for finishing faster than the 60-second limit
             int timeBonus = (int) Math.max(0, (60.0 - (totalMilliseconds / 1000.0)) * 5);
-            score = (hits * 100) - (failures * 50) + timeBonus;
+            score = (hits * 100) - (misses * 50) + timeBonus;
         } else if (gameMode.equals(getString(R.string.reaction)) || gameMode.equals(getString(R.string.advanced_reaction))) {
             // Reaction modes, bonus/penalty based on average reaction time, centered around 1.5s
             double reactionBonus = (1.5 - reactionTime) * 100 * hits;
-            score = (hits * 150) - (failures * 75) + (int) reactionBonus;
+            score = (hits * 150) - (misses * 75) + (int) reactionBonus;
         } else if (gameMode.equals(getString(R.string.infinite))) {
             // Infinite mode, simple cumulative score
-            score = (hits * 10) - (failures * 5);
+            score = (hits * 10) - (misses * 5);
         }
 
         // Ensure the score is not negative
@@ -215,6 +226,34 @@ public class GameActivity extends AppCompatActivity {
         tvPrecision.setText(precisionText);
         tvReactionTime.setText(reactionTimeText);
         tvScore.setText(scoreText);
+
+        // Verify that it was an acceptable training
+        if (hits == 0 && misses == 0) return;
+
+        // Create training object
+        Training training = new Training();
+        training.setTrainingId(UUID.randomUUID().toString());
+        training.setModality(gameModeId);
+        training.setHits(hits);
+        training.setMisses(misses);
+        training.setScore(score);
+        training.setTrainingTime(totalMilliseconds);
+        training.setAverageShotTime(reactionTime);
+        training.setCreatedAt(new Date());
+
+        // Save training to Firestore
+        FirebaseManager.getInstance().saveTraining(this, training, new FirebaseManager.OnSaveTrainingListener() {
+            @Override
+            public void onSuccess() {
+                // Do nothing
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                // Handle error
+                Log.e("FirebaseError", getString(R.string.could_not_save_training), e);
+            }
+        });
     }
 
     private void changeMode(String newMode) {

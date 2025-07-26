@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class Training {
     private String trainingId;
-    private String modality;
+    private int modality;
     private int hits;
     private int misses;
     private int score;
-    private double trainingTime;
+    private long trainingTime;
     private double averageShotTime;
     private Date createdAt;
 
@@ -24,11 +24,11 @@ public class Training {
         this.trainingId = trainingId;
     }
 
-    public String getModality() {
+    public int getModality() {
         return modality;
     }
 
-    public void setModality(String modality) {
+    public void setModality(int modality) {
         this.modality = modality;
     }
 
@@ -60,7 +60,7 @@ public class Training {
         return trainingTime;
     }
 
-    public void setTrainingTime(double trainingTime) {
+    public void setTrainingTime(long trainingTime) {
         this.trainingTime = trainingTime;
     }
 
