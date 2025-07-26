@@ -1,5 +1,7 @@
 package dev.abzikel.sistemaetr.pojos;
 
+import java.util.Date;
+
 public class Training {
     private String trainingId;
     private String modality;
@@ -8,6 +10,7 @@ public class Training {
     private int score;
     private double trainingTime;
     private double averageShotTime;
+    private Date createdAt;
 
     // Empty constructor required for Firebase
     public Training() {
@@ -67,6 +70,14 @@ public class Training {
 
     public void setAverageShotTime(double averageShotTime) {
         this.averageShotTime = averageShotTime;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
 }
