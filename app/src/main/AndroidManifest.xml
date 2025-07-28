@@ -51,6 +51,10 @@
         <activity android:name=".GameActivity" />
         <activity android:name=".SettingsActivity" />
 
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>
