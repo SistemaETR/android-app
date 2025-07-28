@@ -12,5 +12,7 @@
     <color name="green">#8DC741</color>
     <color name="yellow">#FFC107</color>
     <color name="red">#D63230</color>
+    <color name="orange">#F46523</color>
+    <color name="dark_green">#019444</color>
     <color name="hintText">#828282</color>
 </resources>
