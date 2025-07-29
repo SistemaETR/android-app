@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import dev.abzikel.sistemaetr.R;
 import dev.abzikel.sistemaetr.SignInActivity;
+import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
 public class ProfileFragment extends Fragment {
 
@@ -36,7 +37,11 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Empty for the moment
+        // Link XML to Java
+        Button btnSignOut = view.findViewById(R.id.btnSignOut);
+
+        // Add listeners
+        btnSignOut.setOnClickListener(v -> signOut());
     }
 
     private void signOut() {
@@ -63,6 +68,9 @@ public class ProfileFragment extends Fragment {
         btnPositive.setOnClickListener(v -> {
             // Connect to Firebase Authentication and get user
             FirebaseAuth auth = FirebaseAuth.getInstance();
+
+            // Remove listener for user's documents changes
+            FirebaseManager.getInstance().stopListening();
 
             // Sign out
             auth.signOut();

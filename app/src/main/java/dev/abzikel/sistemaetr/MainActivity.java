@@ -1,25 +1,21 @@
 package dev.abzikel.sistemaetr;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.Objects;
 
 import dev.abzikel.sistemaetr.fragments.HomeFragment;
 import dev.abzikel.sistemaetr.fragments.ProfileFragment;
+import dev.abzikel.sistemaetr.pojos.User;
+import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
 public class MainActivity extends AppCompatActivity {
     private final HomeFragment homeFragment = new HomeFragment();
@@ -29,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Start listening for user's documents changes
+        startListeningForUserChanges();
 
         // Initialize toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -62,6 +61,23 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return true;
+        });
+    }
+
+    private void startListeningForUserChanges() {
+        // Start listening for user's documents changes
+        FirebaseManager.getInstance().startListeningForUserChanges(this, new FirebaseManager.OnUserDataChangedListener() {
+            @Override
+            public void onDataChanged(User user) {
+                // Log user data update
+                Log.d("MainActivity", getString(R.string.user_data_updated) + user.getUsername());
+            }
+
+            @Override
+            public void onError(Exception e) {
+                // Handle errors
+                Log.e("MainActivity", getString(R.string.error_listening_changes), e);
+            }
         });
     }
 
