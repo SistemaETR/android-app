@@ -1,11 +1,15 @@
 package dev.abzikel.sistemaetr.pojos;
 
+import java.util.Date;
+
 public class User {
     private String userId;
     private String email;
     private String username;
+    private int totalTrainings;
     private double averageShotTime;
     private double accuracy;
+    private Date createdAt;
 
     // Empty constructor required for Firebase
     public User() {
@@ -25,6 +29,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public int getTotalTrainings() {
+        return totalTrainings;
+    }
+
+    public void setTotalTrainings(int totalTrainings) {
+        this.totalTrainings = totalTrainings;
     }
 
     public String getEmail() {
@@ -49,6 +61,14 @@ public class User {
 
     public void setAccuracy(double accuracy) {
         this.accuracy = accuracy;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
 }

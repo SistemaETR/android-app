@@ -17,8 +17,12 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 import dev.abzikel.sistemaetr.R;
 import dev.abzikel.sistemaetr.SignInActivity;
+import dev.abzikel.sistemaetr.pojos.User;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
 public class ProfileFragment extends Fragment {
@@ -38,7 +42,27 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Link XML to Java
+        TextView tvUsername = view.findViewById(R.id.tvUsername);
+        TextView tvRegistrationDate = view.findViewById(R.id.tvRegistrationDate);
+        TextView tvPrecision = view.findViewById(R.id.tvPrecision);
+        TextView tvReactionTime = view.findViewById(R.id.tvReactionTime);
+        TextView tvTotalTrainings = view.findViewById(R.id.tvTotalTrainings);
         Button btnSignOut = view.findViewById(R.id.btnSignOut);
+
+        // Get user data from Firebase
+        User currentUser = FirebaseManager.getInstance().getCurrentUserData();
+
+        // Format registration date
+        Date registrationDate = currentUser.getCreatedAt();
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        String formattedDate = dateFormat.format(registrationDate);
+
+        // Initialize views
+        tvUsername.setText(currentUser.getUsername());
+        tvRegistrationDate.setText(getString(R.string.member_since, formattedDate));
+        tvPrecision.setText(getString(R.string.precision_value, currentUser.getAccuracy()));
+        tvReactionTime.setText(getString(R.string.reaction_time_value, currentUser.getAverageShotTime()));
+        tvTotalTrainings.setText(getString(R.string.total_trainings_value, currentUser.getTotalTrainings()));
 
         // Add listeners
         btnSignOut.setOnClickListener(v -> signOut());

@@ -76,6 +76,7 @@ public class SignUpActivity extends AppCompatActivity {
                             userData.setUserId(uid);
                             userData.setEmail(email);
                             userData.setUsername(username);
+                            userData.setTotalTrainings(0);
                             userData.setAverageShotTime(0.0);
                             userData.setAccuracy(0.0);
 
