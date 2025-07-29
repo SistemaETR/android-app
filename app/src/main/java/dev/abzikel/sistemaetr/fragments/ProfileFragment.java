@@ -60,7 +60,7 @@ public class ProfileFragment extends Fragment {
         // Initialize views
         tvUsername.setText(currentUser.getUsername());
         tvRegistrationDate.setText(getString(R.string.member_since, formattedDate));
-        tvPrecision.setText(getString(R.string.precision_value, currentUser.getAccuracy()));
+        tvPrecision.setText(getString(R.string.accuracy_value, currentUser.getAccuracy()));
         tvReactionTime.setText(getString(R.string.reaction_time_value, currentUser.getAverageShotTime()));
         tvTotalTrainings.setText(getString(R.string.total_trainings_value, currentUser.getTotalTrainings()));
 
