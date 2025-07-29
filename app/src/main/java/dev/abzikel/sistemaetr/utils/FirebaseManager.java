@@ -3,10 +3,18 @@ package dev.abzikel.sistemaetr.utils;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import dev.abzikel.sistemaetr.R;
 import dev.abzikel.sistemaetr.pojos.Training;
@@ -112,6 +120,58 @@ public class FirebaseManager {
                 .set(training)
                 .addOnSuccessListener(aVoid -> listener.onSuccess())
                 .addOnFailureListener(listener::onFailure);
+    }
+
+    public interface OnTrainingsFetchedListener {
+        void onSuccess(List<Training> trainings, DocumentSnapshot lastVisible);
+
+        void onFailure(Exception e);
+    }
+
+    public void fetchTrainings(Context context, int modality, @Nullable Date startDate, @Nullable Date endDate,
+                               @Nullable DocumentSnapshot lastVisible, OnTrainingsFetchedListener listener) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            listener.onFailure(new Exception(context.getString(R.string.no_authenticated_user)));
+            return;
+        }
+
+        // Initiate the Firestore query order by date, from newest to oldest
+        Query query = mDb.collection("users").document(currentUser.getUid())
+                .collection("trainings")
+                .orderBy("createdAt", Query.Direction.DESCENDING);
+
+        // Apply filters if provided
+        if (modality > 0) query = query.whereEqualTo("modality", modality);
+        if (startDate != null) query = query.whereGreaterThanOrEqualTo("createdAt", startDate);
+        if (endDate != null) query = query.whereLessThanOrEqualTo("createdAt", endDate);
+
+        // Apply pagination if cursor is provided
+        if (lastVisible != null) query = query.startAfter(lastVisible);
+
+        // Limit number of results to 15
+        query = query.limit(15);
+
+        // Execute the query
+        query.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            if (queryDocumentSnapshots == null || queryDocumentSnapshots.isEmpty()) {
+                // No more data to fetch or the list is empty
+                listener.onSuccess(new ArrayList<>(), null);
+                return;
+            }
+
+            // Convert the documents to a list of Training objects
+            List<Training> trainings = queryDocumentSnapshots.toObjects(Training.class);
+
+            // Get the last visible document in the query result for the next cursor
+            DocumentSnapshot newLastVisible = queryDocumentSnapshots.getDocuments()
+                    .get(queryDocumentSnapshots.size() - 1);
+
+            listener.onSuccess(trainings, newLastVisible);
+        }).addOnFailureListener(e -> {
+            Log.e("FirebaseManager", context.getString(R.string.error_getting_trainings), e);
+            listener.onFailure(e);
+        });
     }
 
 }
