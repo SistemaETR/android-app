@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.text.DateFormat;
 import java.util.Date;
 
+import dev.abzikel.sistemaetr.MyTrainingsActivity;
 import dev.abzikel.sistemaetr.R;
 import dev.abzikel.sistemaetr.SignInActivity;
 import dev.abzikel.sistemaetr.pojos.User;
@@ -47,6 +48,7 @@ public class ProfileFragment extends Fragment {
         TextView tvPrecision = view.findViewById(R.id.tvPrecision);
         TextView tvReactionTime = view.findViewById(R.id.tvReactionTime);
         TextView tvTotalTrainings = view.findViewById(R.id.tvTotalTrainings);
+        TextView tvMyTrainings = view.findViewById(R.id.tvMyTrainings);
         Button btnSignOut = view.findViewById(R.id.btnSignOut);
 
         // Get user data from Firebase
@@ -65,6 +67,7 @@ public class ProfileFragment extends Fragment {
         tvTotalTrainings.setText(getString(R.string.total_trainings_value, currentUser.getTotalTrainings()));
 
         // Add listeners
+        tvMyTrainings.setOnClickListener(v -> startActivity(new Intent(requireContext(), MyTrainingsActivity.class)));
         btnSignOut.setOnClickListener(v -> signOut());
     }
 

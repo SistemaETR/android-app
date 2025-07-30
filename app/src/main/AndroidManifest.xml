@@ -49,6 +49,7 @@
         <activity android:name=".BluetoothActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".GameActivity" />
+        <activity android:name=".MyTrainingsActivity" />
         <activity android:name=".SettingsActivity" />
 
         <meta-data
