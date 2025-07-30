@@ -161,7 +161,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="32dp"
-        android:text="@string/game_time"
+        android:text="@string/training_time"
         android:textSize="32sp" />
 
     <TextView

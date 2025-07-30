@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- General app strings -->
+    <string name="app_name">Sistema ETR</string>
+    <!-- Service strings -->
+    <string name="target_system_active">Sistema de Tiro Activo</string>
+    <string name="ble_server_working">El servidor BLE está funcionando.</string>
+    <!-- Sign-up screen strings -->
+    <string name="user_registration">Registro de Usuario</string>
+    <string name="email">Correo electrónico</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="create_account">Crear Cuenta</string>
+    <string name="ic_register">Icono de Registro</string>
+    <!-- Sign-in screen strings -->
+    <string name="system_etr">Sistema de Entrenamiento en Tiro de Reacción</string>
+    <string name="forgotten_password">¿Olvidaste tu contraseña?</string>
+    <string name="sign_in">Iniciar Sesión</string>
+    <string name="continue_with_google">Continuar con Google</string>
+    <string name="dont_have_account">¿No tienes una cuenta?</string>
+    <string name="create_one">Crear una</string>
+    <string name="ic_logo">Icono de Logo</string>
+    <!-- Password restoration screen strings -->
+    <string name="password_restoration">Restablecimiento de Contraseña</string>
+    <string name="password_restoration_instructions">Ingrese su correo electrónico para recuperar su contraseña</string>
+    <string name="restore_password">Restablecer Contraseña</string>
+    <string name="ic_lock">Icono de Candado</string>
+    <!-- Bluetooth screen strings -->
+    <string name="bluetooth_not_supported">Tu dispositivo no soporta Bluetooth</string>
+    <string name="bluetooth_disabled">El Bluetooth está desactivado, favor de activarlo para continuar</string>
+    <string name="bluetooth_enabled">El Bluetooth está habilitado, realizando ajustes para la conexión…</string>
+    <string name="permission_required">Permisos necesarios</string>
+    <string name="bluetooth_permission">El permiso de dispositivos cercanos sirve para encontrar los dispositivos Bluetooth necesarios para el funcionamiento de la aplicación. Si no se habilita, no podrá continuar.</string>
+    <string name="enable">Habilitar</string>
+    <string name="ic_bluetooth_status">Icono del Estatus Bluetooth</string>
+    <!-- Home screen strings -->
+    <string name="short_weapon">Arma corta</string>
+    <string name="long_weapon">Arma larga</string>
+    <string name="reaction">Reacción</string>
+    <string name="advanced_reaction">Reacción avanzada</string>
+    <string name="infinite">Infinito</string>
+    <string name="ic_short_weapon">Icono de arma corta</string>
+    <string name="ic_long_weapon">Icono de arma larga</string>
+    <string name="ic_reaction">Icono de modo reacción</string>
+    <string name="ic_advanced_reaction">Icono de modo reacción avanzado</string>
+    <string name="ic_infinite">Icono de modo infinito</string>
+    <!-- Profile screen strings -->
+    <string name="member_since">Miembro desde: %1$s</string>
+    <string name="statistics">Estadísticas</string>
+    <string name="total_trainings_value">Entrenamientos totales: %d</string>
+    <string name="my_trainings">Mis Entrenamientos</string>
+    <string name="change_password">Cambiar Contraseña</string>
+    <string name="ic_edit_profile">Icono de edición de perfil</string>
+    <!-- My trainings screen strings -->
+    <string name="since">Desde</string>
+    <string name="to">Hasta</string>
+    <string name="modality">Modalidad</string>
+    <string name="no_trainings">No hay entrenamientos aún.</string>
+    <string name="ic_trainings">Icono de entrenamientos</string>
+    <string-array name="modality_array">
+        <item>Todas las modalidades</item>
+        <item>@string/short_weapon</item>
+        <item>@string/long_weapon</item>
+        <item>@string/reaction</item>
+        <item>@string/advanced_reaction</item>
+        <item>@string/infinite</item>
+    </string-array>
+    <!-- Training item screen strings -->
+    <string name="score_value">Puntaje: %d pts.</string>
+    <string name="accuracy_value">Precisión: %.2f%%</string>
+    <string name="reaction_time_value">Tiempo de reacción: %.3f s</string>
+    <string name="hits_value">%d aciertos</string>
+    <string name="misses_value">%d fallos</string>
+    <string name="unknown_modality">Desconocida</string>
+    <!-- Game screen strings -->
+    <string name="zero">0</string>
+    <string name="hits">Aciertos</string>
+    <string name="misses">Fallos</string>
+    <string name="na">N/A</string>
+    <string name="training_time">Tiempo empleado</string>
+    <string name="zero_time">00:00:000</string>
+    <string name="minute_time">01:00:000</string>
+    <string name="start">Iniciar</string>
+    <string name="stop">Detener</string>
+    <string name="restart">Reiniciar</string>
+    <string name="ic_green_gun">Icono de arma corta verde</string>
+    <string name="ic_red_gun">Icono de arma corta roja</string>
+    <string name="ic_gun_target">Icono de blanco para arma</string>
+    <string name="ic_arrow_target">Icono de blanco para arco</string>
+    <string name="ic_chronometer">Icono de cronometro</string>
+    <string name="ic_play_button">Icono del botón de jugar</string>
+    <!-- Settings screen strings -->
+    <string name="sensibility">Sensibilidad</string>
+    <string name="low">Baja</string>
+    <string name="normal">Normal</string>
+    <string name="high">Alta</string>
+    <string name="test">Prueba</string>
+    <string name="target_number">Número de blanco</string>
+    <string name="battery_percentage">Porcentaje de bateria</string>
+    <string name="disconnected">Desconectado</string>
+    <string name="target1">Blanco 1</string>
+    <string name="target2">Blanco 2</string>
+    <string name="target3">Blanco 3</string>
+    <string name="target4">Blanco 4</string>
+    <string name="target5">Blanco 5</string>
+    <string name="target6">Blanco 6</string>
+    <string name="change_led_color">Cambiar color de LED</string>
+    <string name="full_intensity">Intensidad: 100%</string>
+    <string name="save_configuration">Guardar configuración</string>
+    <string name="intensity">Intensidad:</string>
+    <string name="ic_led">Icono del LED</string>
+    <!-- Content dialog messages -->
+    <string name="sign_out_confirmation">¿Estás seguro que deseas cerrar sesión?</string>
+    <string name="sign_out">Cerrar Sesión</string>
+    <string name="cancel">Cancelar</string>
+    <!-- Bottom navigation menu and toolbar-->
+    <string name="configuration">Configuración</string>
+    <string name="home">Inicio</string>
+    <string name="profile">Perfil</string>
+    <!-- Success messages -->
+    <string name="user_created">Usuario creado exitosamente.</string>
+    <string name="login_successful">Inicio de sesión exitoso.</string>
+    <string name="email_sent">Correo electrónico enviado.</string>
+    <string name="session_closed">Sesión cerrada.</string>
+    <string name="user_data_updated">Datos del usuario actualizados.</string>
+    <!-- Error messages -->
+    <string name="unfilled_fields">Por favor, completa todos los campos.</string>
+    <string name="invalid_email">El correo electrónico no es válido.</string>
+    <string name="username_length">El nombre de usuario debe tener al menos 4 caracteres.</string>
+    <string name="password_length">La contraseña debe tener al menos 6 caracteres.</string>
+    <string name="unmatched_passwords">Las contraseñas no coinciden.</string>
+    <string name="error_creating_account">Error al crear la cuenta:</string>
+    <string name="error_saving_user">Error al guardar datos del usuario.</string>
+    <string name="error_signing_in">Error al iniciar sesión.</string>
+    <string name="error_sending_email">Error al enviar el correo electrónico.</string>
+    <string name="no_authenticated_user">No hay usuario autenticado.</string>
+    <string name="could_not_save_training">No se pudo guardar el entrenamiento.</string>
+    <string name="error_listening_changes">Error al escuchar cambios.</string>
+    <string name="user_document_not_found">No se encontró el documento del usuario.</string>
+    <string name="error_getting_trainings">Error al obtener los entrenamientos.</string>
+    <string name="unknown_error">Error desconocido.</string>
+</resources>
