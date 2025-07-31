@@ -65,8 +65,9 @@ public class ProfileActivity extends AppCompatActivity {
         FirebaseManager.getInstance().updateUsername(this, newUsername, new FirebaseManager.OnUserUpdateListener() {
             @Override
             public void onSuccess() {
-                // Show success message and finish activity
+                // Show success message and update user object
                 Toast.makeText(ProfileActivity.this, getString(R.string.user_data_updated), Toast.LENGTH_SHORT).show();
+                currentUser.setUsername(newUsername);
                 finish();
             }
 

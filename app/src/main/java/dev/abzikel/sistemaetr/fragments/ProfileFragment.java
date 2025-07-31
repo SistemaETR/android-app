@@ -29,6 +29,7 @@ import dev.abzikel.sistemaetr.pojos.User;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
 public class ProfileFragment extends Fragment {
+    private TextView tvUsername;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -45,7 +46,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Link XML to Java
-        TextView tvUsername = view.findViewById(R.id.tvUsername);
+        tvUsername = view.findViewById(R.id.tvUsername);
         TextView tvRegistrationDate = view.findViewById(R.id.tvRegistrationDate);
         TextView tvPrecision = view.findViewById(R.id.tvPrecision);
         TextView tvReactionTime = view.findViewById(R.id.tvReactionTime);
@@ -63,7 +64,6 @@ public class ProfileFragment extends Fragment {
         String formattedDate = dateFormat.format(registrationDate);
 
         // Initialize views
-        tvUsername.setText(currentUser.getUsername());
         tvRegistrationDate.setText(getString(R.string.member_since, formattedDate));
         tvPrecision.setText(getString(R.string.accuracy_value, currentUser.getAccuracy()));
         tvReactionTime.setText(getString(R.string.reaction_time_value, currentUser.getAverageShotTime()));
@@ -119,6 +119,15 @@ public class ProfileFragment extends Fragment {
 
         // Show Alert Dialog
         dialog.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Get user data from Firebase and update view
+        User currentUser = FirebaseManager.getInstance().getCurrentUserData();
+        tvUsername.setText(currentUser.getUsername());
     }
 
 }
