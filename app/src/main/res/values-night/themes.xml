@@ -9,15 +9,15 @@
         <item name="colorSecondary">@color/etr_red</item>
         <item name="colorOnSecondary">@color/etr_white</item>
         <!-- Accent color. -->
-        <item name="android:colorBackground">@color/etr_background_light</item>
-        <item name="colorSurface">@color/etr_surface_light</item>
+        <item name="android:colorBackground">@color/etr_background_dark</item>
+        <item name="colorSurface">@color/etr_surface_dark</item>
         <!-- Background and surface colors. -->
-        <item name="colorOnBackground">@color/etr_text_primary_light</item>
-        <item name="colorOnSurface">@color/etr_text_primary_light</item>
-        <item name="android:textColorSecondary">@color/etr_text_secondary_light</item>
+        <item name="colorOnBackground">@color/etr_text_primary_dark</item>
+        <item name="colorOnSurface">@color/etr_text_primary_dark</item>
+        <item name="android:textColorSecondary">@color/etr_text_secondary_dark</item>
         <!-- Status bar colors. -->
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
         <!-- Font and text size. -->
         <item name="android:fontFamily">@font/dotgothic16</item>
         <item name="android:textSize">16sp</item>
