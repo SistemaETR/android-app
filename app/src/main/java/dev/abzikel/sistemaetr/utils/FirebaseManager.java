@@ -96,6 +96,29 @@ public class FirebaseManager {
         return currentUserData;
     }
 
+    public interface OnUserUpdateListener {
+        void onSuccess();
+        void onFailure(Exception e);
+    }
+
+    public void updateUsername(Context context, String newUsername, OnUserUpdateListener listener) {
+        // Get current user
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        // Check if user is authenticated
+        if (currentUser == null) {
+            listener.onFailure(new Exception(context.getString(R.string.no_authenticated_user)));
+            return;
+        }
+
+        // Update username in Firestore
+        String uid = currentUser.getUid();
+        mDb.collection("users").document(uid)
+                .update("username", newUsername)
+                .addOnSuccessListener(aVoid -> listener.onSuccess())
+                .addOnFailureListener(listener::onFailure);
+    }
+
     public interface OnSaveTrainingListener {
         // Callback methods for saving training
         void onSuccess();

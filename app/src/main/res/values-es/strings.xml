@@ -144,5 +144,6 @@
     <string name="error_listening_changes">Error al escuchar cambios.</string>
     <string name="user_document_not_found">No se encontró el documento del usuario.</string>
     <string name="error_getting_trainings">Error al obtener los entrenamientos.</string>
+    <string name="no_changes">Sin cambios.</string>
     <string name="unknown_error">Error desconocido.</string>
 </resources>

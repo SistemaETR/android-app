@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import java.text.DateFormat;
 import java.util.Date;
 
 import dev.abzikel.sistemaetr.MyTrainingsActivity;
+import dev.abzikel.sistemaetr.ProfileActivity;
 import dev.abzikel.sistemaetr.R;
 import dev.abzikel.sistemaetr.SignInActivity;
 import dev.abzikel.sistemaetr.pojos.User;
@@ -49,6 +51,7 @@ public class ProfileFragment extends Fragment {
         TextView tvReactionTime = view.findViewById(R.id.tvReactionTime);
         TextView tvTotalTrainings = view.findViewById(R.id.tvTotalTrainings);
         TextView tvMyTrainings = view.findViewById(R.id.tvMyTrainings);
+        ImageButton btnEditProfile = view.findViewById(R.id.btnEditProfile);
         Button btnSignOut = view.findViewById(R.id.btnSignOut);
 
         // Get user data from Firebase
@@ -67,6 +70,7 @@ public class ProfileFragment extends Fragment {
         tvTotalTrainings.setText(getString(R.string.total_trainings_value, currentUser.getTotalTrainings()));
 
         // Add listeners
+        btnEditProfile.setOnClickListener(v -> startActivity(new Intent(requireContext(), ProfileActivity.class)));
         tvMyTrainings.setOnClickListener(v -> startActivity(new Intent(requireContext(), MyTrainingsActivity.class)));
         btnSignOut.setOnClickListener(v -> signOut());
     }
