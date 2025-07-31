@@ -170,7 +170,9 @@ public class SettingsActivity extends AppCompatActivity {
 
                 // Update user interface
                 Drawable drawable;
-                if (percentage <= 5)
+                if (percentage == -1)
+                    drawable = ContextCompat.getDrawable(this, R.drawable.ic_disconnected);
+                else if (percentage <= 5)
                     drawable = ContextCompat.getDrawable(this, R.drawable.ic_battery_empty);
                 else if (percentage <= 20)
                     drawable = ContextCompat.getDrawable(this, R.drawable.ic_battery_20);
@@ -187,8 +189,13 @@ public class SettingsActivity extends AppCompatActivity {
                 else
                     drawable = ContextCompat.getDrawable(this, R.drawable.ic_battery_full);
 
-                String textPercentage = percentage + "%";
-                tvBatteries[counter].setText(textPercentage);
+                // Get text battery
+                String textBattery;
+                if (percentage == -1) textBattery = getString(R.string.disconnected);
+                else textBattery = percentage + "%";
+
+                // Update text
+                tvBatteries[counter].setText(textBattery);
                 tvBatteries[counter].setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
             }
         }

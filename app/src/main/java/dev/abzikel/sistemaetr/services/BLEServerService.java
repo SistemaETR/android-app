@@ -74,7 +74,7 @@ public class BLEServerService extends Service {
 
     // Important variables to control game and configuration
     private String mode;
-    private final byte[] batteries = {0, 0, 0, 0, 0, 0};
+    private final byte[] batteries = {-1, -1, -1, -1, -1, -1};
     private int hits = 0;
     private int failures = 0;
     private byte randomNumber = 5;
