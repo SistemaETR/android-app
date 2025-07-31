@@ -17,8 +17,9 @@
         <!-- Status bar colors. -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
-        <!-- Font. -->
+        <!-- Font and text size. -->
         <item name="android:fontFamily">@font/dotgothic16</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="CustomAlertDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">

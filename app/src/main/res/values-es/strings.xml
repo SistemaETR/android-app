@@ -45,13 +45,18 @@
     <string name="ic_reaction">Icono de modo reacción</string>
     <string name="ic_advanced_reaction">Icono de modo reacción avanzado</string>
     <string name="ic_infinite">Icono de modo infinito</string>
-    <!-- Profile screen strings -->
+    <!-- Profile fragment screen strings -->
     <string name="member_since">Miembro desde: %1$s</string>
     <string name="statistics">Estadísticas</string>
     <string name="total_trainings_value">Entrenamientos totales: %d</string>
     <string name="my_trainings">Mis Entrenamientos</string>
     <string name="change_password">Cambiar Contraseña</string>
     <string name="ic_edit_profile">Icono de edición de perfil</string>
+    <!-- Profile screen strings -->
+    <string name="change_photo">Cambiar foto</string>
+    <string name="save_changes">Guardar cambios</string>
+    <string name="delete_account">Eliminar cuenta</string>
+    <string name="ic_profile">Icono de perfil</string>
     <!-- My trainings screen strings -->
     <string name="since">Desde</string>
     <string name="to">Hasta</string>
