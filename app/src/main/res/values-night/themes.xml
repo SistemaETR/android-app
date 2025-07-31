@@ -19,7 +19,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
         <!-- Font and text size. -->
-        <item name="android:fontFamily">@font/dotgothic16</item>
+        <item name="android:fontFamily">@font/zen_dots</item>
         <item name="android:textSize">16sp</item>
     </style>
 
