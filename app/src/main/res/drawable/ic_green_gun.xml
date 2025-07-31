@@ -21,35 +21,35 @@
         android:pathData="M325.3,424.9l-64.4,64.4l-88.1,-121.6l64.4,-64.4z" />
 
     <path
-        android:fillColor="@color/black"
+        android:fillColor="?attr/colorOnSurface"
         android:pathData="M249.1,403.8c2,0 3.9,-0.8 5.3,-2.2c1.4,-1.4 2.2,-3.3 2.2,-5.3c0,-2 -0.8,-3.9 -2.2,-5.3c-1.4,-1.4 -3.3,-2.2 -5.3,-2.2c-2,0 -3.9,0.8 -5.3,2.2c-1.4,1.4 -2.2,3.3 -2.2,5.3c0,2 0.8,3.9 2.2,5.3C245.2,403 247.1,403.8 249.1,403.8z" />
 
     <path
-        android:fillColor="@color/black"
+        android:fillColor="?attr/colorOnSurface"
         android:pathData="M191.9,368.4l70.9,97.8l42.9,-42.9l-70.9,-97.8L191.9,368.4zM264.6,443.2l-53,-73.2l21.4,-21.4l53,73.2L264.6,443.2z" />
 
     <path
-        android:fillColor="@color/black"
+        android:fillColor="?attr/colorOnSurface"
         android:pathData="M389.42,203l47.59,-47.59l10.61,10.61l-47.59,47.59z" />
 
     <path
-        android:fillColor="@color/black"
+        android:fillColor="?attr/colorOnSurface"
         android:pathData="M368.23,224.32l10.61,-10.61l10.61,10.61l-10.61,10.61z" />
 
     <path
-        android:fillColor="@color/black"
+        android:fillColor="?attr/colorOnSurface"
         android:pathData="M283.39,170.31l10.61,-10.61l10.61,10.61l-10.61,10.61z" />
 
     <path
-        android:fillColor="@color/black"
+        android:fillColor="?attr/colorOnSurface"
         android:pathData="M161.48,134.4l47.59,-47.59l10.61,10.61l-47.59,47.59z" />
 
     <path
-        android:fillColor="@color/black"
+        android:fillColor="?attr/colorOnSurface"
         android:pathData="M140.29,155.57l10.61,-10.61l10.61,10.61l-10.61,10.61z" />
 
     <path
-        android:fillColor="@color/black"
+        android:fillColor="?attr/colorOnSurface"
         android:pathData="M337.57,31.48l10.61,-10.61l10.61,10.61l-10.61,10.61z" />
 
     <path
@@ -57,7 +57,7 @@
         android:pathData="M227.45,162.83l51.48,-51.47l10.61,10.61l-51.48,51.47z" />
 
     <path
-        android:fillColor="@color/black"
+        android:fillColor="?attr/colorOnSurface"
         android:pathData="M369.4,-0.3l-10.6,10.6L373,24.5v0l28.1,28.1l-96.5,96.5l10.6,10.6L382,92.9l22.2,22.2L161.3,358l-30.9,-13.4l153,-153l-10.6,-10.6l-61.9,61.9L194.3,196l22.5,-22.5l21.2,21.2l72.7,-72.7l-21.2,-21.2l48,-48l-10.6,-10.6L64.3,304.7l48.6,48.6l45.1,19.6l101,139.3l85.9,-85.9L278.7,335l54.2,-54.2l-22.8,-50.4l115.3,-115.3l-32.8,-32.8l29.7,-29.7L369.4,-0.3zM278.9,111.4l10.6,10.6L238,173.4l-10.6,-10.6L278.9,111.4zM182.6,207.7l16.6,46.8l-14.8,14.8l-16.6,-46.8L182.6,207.7zM156,234.2l16.6,46.8l-14.8,14.8L141.2,249L156,234.2zM117.3,336.4l-31.7,-31.7l43.9,-43.9l16.6,46.8L117.3,336.4zM325.3,424.9l-64.4,64.4l-88.1,-121.6l64.4,-64.4L325.3,424.9zM314.9,277.5l-45.1,45.1L248,292.5l7,-7c13,9.7 27.1,9.5 41.1,-0.4l-10.8,-10.8c-8.1,5 -14.3,4 -19.6,0.5l33.1,-33.1L314.9,277.5z" />
 
 </vector>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -92,8 +93,9 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:contentDescription="@string/ic_gun_target"
-            android:src="@drawable/ic_gun_target" />
+            android:contentDescription="@string/ic_trophy"
+            android:src="@drawable/ic_trophy"
+            app:tint="@color/yellow" />
 
         <TextView
             android:id="@+id/tvScore"
@@ -117,8 +119,9 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:contentDescription="@string/ic_arrow_target"
-            android:src="@drawable/ic_arrow_target" />
+            android:contentDescription="@string/ic_gun_target"
+            android:src="@drawable/ic_gun_target"
+            app:tint="@color/red" />
 
         <TextView
             android:id="@+id/tvPrecision"
@@ -143,7 +146,8 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:contentDescription="@string/ic_chronometer"
-            android:src="@drawable/ic_chronometer" />
+            android:src="@drawable/ic_chronometer"
+            app:tint="@color/blue" />
 
         <TextView
             android:id="@+id/tvReactionTime"

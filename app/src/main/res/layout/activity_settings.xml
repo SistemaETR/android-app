@@ -315,7 +315,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:contentDescription="@string/ic_led"
-        android:src="@drawable/ic_led_red" />
+        android:src="@drawable/ic_led"
+        app:tint="@color/red" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switchChangeLedColor"
@@ -348,7 +349,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/black"
         android:text="@string/save_configuration"
         android:textStyle="bold" />
 

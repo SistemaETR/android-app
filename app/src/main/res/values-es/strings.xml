@@ -86,8 +86,8 @@
     <string name="restart">Reiniciar</string>
     <string name="ic_green_gun">Icono de arma corta verde</string>
     <string name="ic_red_gun">Icono de arma corta roja</string>
+    <string name="ic_trophy">Icono de trofeo</string>
     <string name="ic_gun_target">Icono de blanco para arma</string>
-    <string name="ic_arrow_target">Icono de blanco para arco</string>
     <string name="ic_chronometer">Icono de cronometro</string>
     <string name="ic_play_button">Icono del botón de jugar</string>
     <!-- Settings screen strings -->

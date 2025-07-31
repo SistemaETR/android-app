@@ -19,7 +19,7 @@
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/red"
         android:minWidth="230dp"
-        android:textColor="@color/white"
+        android:textColor="@color/etr_white"
         android:textStyle="bold" />
 
     <Button
@@ -31,7 +31,7 @@
         android:backgroundTint="@color/green"
         android:minWidth="230dp"
         android:text="@string/cancel"
-        android:textColor="@color/white"
+        android:textColor="@color/etr_white"
         android:textStyle="bold" />
 
 </LinearLayout>

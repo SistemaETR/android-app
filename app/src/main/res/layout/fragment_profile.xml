@@ -83,7 +83,8 @@
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:textSize="16sp"
-                    app:drawableStartCompat="@drawable/ic_arrow_target" />
+                    app:drawableStartCompat="@drawable/ic_gun_target"
+                    app:drawableTint="@color/red" />
 
                 <TextView
                     android:id="@+id/tvReactionTime"
@@ -93,7 +94,8 @@
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:textSize="16sp"
-                    app:drawableStartCompat="@drawable/ic_chronometer" />
+                    app:drawableStartCompat="@drawable/ic_chronometer"
+                    app:drawableTint="@color/blue" />
 
                 <TextView
                     android:id="@+id/tvTotalTrainings"
@@ -103,7 +105,7 @@
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:textSize="16sp"
-                    app:drawableStartCompat="@drawable/ic_gun_target" />
+                    app:drawableStartCompat="@drawable/ic_shooting_target" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -144,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/sign_out"
-            android:textColor="@color/white"
+            android:textColor="@color/etr_white"
             android:textSize="24sp"
             app:backgroundTint="@color/red"
             app:layout_constraintBottom_toBottomOf="parent"

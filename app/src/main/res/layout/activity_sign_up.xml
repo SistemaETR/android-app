@@ -42,8 +42,7 @@
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        android:padding="8dp"
-        android:textColorHint="@color/hintText" />
+        android:padding="8dp" />
 
     <EditText
         android:id="@+id/etvUsername"
@@ -55,8 +54,7 @@
         android:hint="@string/username"
         android:inputType="text"
         android:minHeight="48dp"
-        android:padding="8dp"
-        android:textColorHint="@color/hintText" />
+        android:padding="8dp" />
 
     <EditText
         android:id="@+id/etvPassword"
@@ -68,8 +66,7 @@
         android:hint="@string/password"
         android:inputType="textPassword"
         android:minHeight="48dp"
-        android:padding="8dp"
-        android:textColorHint="@color/hintText" />
+        android:padding="8dp" />
 
     <EditText
         android:id="@+id/etvConfirmPassword"
@@ -81,8 +78,7 @@
         android:hint="@string/confirm_password"
         android:inputType="textPassword"
         android:minHeight="48dp"
-        android:padding="8dp"
-        android:textColorHint="@color/hintText" />
+        android:padding="8dp" />
 
     <Button
         android:id="@+id/btnCreateAccount"

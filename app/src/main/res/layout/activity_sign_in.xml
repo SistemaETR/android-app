@@ -43,8 +43,7 @@
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        android:padding="8dp"
-        android:textColorHint="@color/hintText" />
+        android:padding="8dp" />
 
     <EditText
         android:id="@+id/etvPassword"
@@ -56,8 +55,7 @@
         android:hint="@string/password"
         android:inputType="textPassword"
         android:minHeight="48dp"
-        android:padding="8dp"
-        android:textColorHint="@color/hintText" />
+        android:padding="8dp" />
 
     <TextView
         android:id="@+id/tvForgotPassword"
@@ -83,11 +81,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/gray"
+        android:backgroundTint="#E0E0E0"
         android:drawableLeft="@drawable/ic_google"
         android:text="@string/continue_with_google"
         android:textAllCaps="false"
-        android:textColor="@color/black"
+        android:textColor="@color/etr_black"
         android:textSize="22sp"
         tools:ignore="RtlHardcoded" />
 

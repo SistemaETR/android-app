@@ -2,7 +2,7 @@
     android:width="40dp"
     android:height="40dp"
     android:autoMirrored="true"
-    android:tint="@color/blue"
+    android:tint="?attr/colorOnSurface"
     android:viewportWidth="24"
     android:viewportHeight="24">
 

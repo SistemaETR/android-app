@@ -117,15 +117,13 @@ public class SettingsActivity extends AppCompatActivity {
 
         // Add listeners
         switchChangeLedColor.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                // Change to blue LED intensity
-                ivLED.setImageResource(R.drawable.ic_led_blue);
-                seekBarIntensity.setProgress(Integer.parseInt(sharedPreferencesManager.getLedBlueIntensity()) - 1);
-            } else {
-                // Change to red LED intensity
-                ivLED.setImageResource(R.drawable.ic_led_red);
-                seekBarIntensity.setProgress(Integer.parseInt(sharedPreferencesManager.getLedRedIntensity()) - 1);
-            }
+            // Get color resource based on switch state
+            int colorRes;
+            if (isChecked) colorRes = R.color.blue;
+            else colorRes = R.color.red;
+
+            // Change LED color
+            ivLED.setColorFilter(ContextCompat.getColor(this, colorRes));
 
             // Change LED intensity
             blue = isChecked;

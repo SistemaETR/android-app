@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
@@ -54,6 +53,7 @@
             android:gravity="center_vertical"
             android:textSize="16sp"
             app:drawableStartCompat="@drawable/ic_trophy"
+            app:drawableTint="@color/yellow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider" />
 
@@ -65,7 +65,8 @@
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_arrow_target"
+            app:drawableTint="@color/red"
+            app:drawableStartCompat="@drawable/ic_gun_target"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvScore" />
 
@@ -77,6 +78,7 @@
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:textSize="16sp"
+            app:drawableTint="@color/blue"
             app:drawableStartCompat="@drawable/ic_chronometer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvAccuracy" />
@@ -90,7 +92,8 @@
             android:gravity="center_vertical"
             android:textColor="@color/green"
             android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_green_dot"
+            app:drawableStartCompat="@drawable/ic_dot"
+            app:drawableTint="@color/green"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvReactionTime" />
 
@@ -102,7 +105,8 @@
             android:gravity="center_vertical"
             android:textColor="@color/red"
             android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_red_dot"
+            app:drawableStartCompat="@drawable/ic_dot"
+            app:drawableTint="@color/red"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvHits" />
 
