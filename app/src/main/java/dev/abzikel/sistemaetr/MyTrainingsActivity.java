@@ -9,7 +9,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,9 +25,10 @@ import java.util.TimeZone;
 
 import dev.abzikel.sistemaetr.adapters.TrainingAdapter;
 import dev.abzikel.sistemaetr.pojos.Training;
+import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
-public class MyTrainingsActivity extends AppCompatActivity {
+public class MyTrainingsActivity extends BaseActivity {
     // Views and adapter
     private RecyclerView rvTrainings;
     private TrainingAdapter adapter;
@@ -57,6 +57,9 @@ public class MyTrainingsActivity extends AppCompatActivity {
         etDateFrom = findViewById(R.id.etDateFrom);
         etDateTo = findViewById(R.id.etDateTo);
         actvModality = findViewById(R.id.actvModality);
+
+        // Initialize toolbar
+        setupToolbar(getString(R.string.my_trainings), true);
 
         setupRecyclerView();
         setupPagination();

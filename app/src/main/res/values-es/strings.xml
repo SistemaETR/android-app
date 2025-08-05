@@ -2,6 +2,10 @@
 <resources>
     <!-- General app strings -->
     <string name="app_name">Sistema ETR</string>
+    <!-- Title app strings -->
+    <string name="settings">Configuración</string>
+    <string name="training">Entrenamiento</string>
+    <string name="edit_profile">Editar perfil</string>
     <!-- Service strings -->
     <string name="target_system_active">Sistema de Tiro Activo</string>
     <string name="ble_server_working">El servidor BLE está funcionando.</string>

@@ -5,15 +5,15 @@ import android.text.Editable;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import dev.abzikel.sistemaetr.pojos.User;
+import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends BaseActivity {
     private User currentUser;
     private TextInputEditText etvUsername;
 
@@ -28,6 +28,9 @@ public class ProfileActivity extends AppCompatActivity {
         // Link XML to Java
         etvUsername = findViewById(R.id.etvUsername);
         MaterialButton btnSaveChanges = findViewById(R.id.btnSaveChanges);
+
+        // Initialize toolbar
+        setupToolbar(getString(R.string.edit_profile), true);
 
         // Get user data from Firebase
         currentUser = FirebaseManager.getInstance().getCurrentUserData();

@@ -15,7 +15,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import java.util.Date;
@@ -24,9 +23,10 @@ import java.util.UUID;
 
 import dev.abzikel.sistemaetr.pojos.Training;
 import dev.abzikel.sistemaetr.services.BLEServerService;
+import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends BaseActivity {
     private BLEServerService mService;
     private Handler handler;
     private TextView tvHits, tvMisses, tvScore, tvPrecision, tvReactionTime, tvTimer;
@@ -71,6 +71,9 @@ public class GameActivity extends AppCompatActivity {
         tvReactionTime = findViewById(R.id.tvReactionTime);
         tvTimer = findViewById(R.id.tvTimer);
         btnStartStop = findViewById(R.id.btnStartStop);
+
+        // Initialize toolbar
+        setupToolbar(getString(R.string.training), true);
 
         // Get game mode, max shots and time interval
         String mode = getIntent().getStringExtra("mode");

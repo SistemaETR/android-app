@@ -16,7 +16,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
@@ -24,9 +23,10 @@ import androidx.core.content.ContextCompat;
 import java.util.Locale;
 
 import dev.abzikel.sistemaetr.services.BLEServerService;
+import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.SharedPreferencesManager;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends BaseActivity {
     private BLEServerService mService;
     private SharedPreferencesManager sharedPreferencesManager;
     private final Handler batteryUpdateHandler = new Handler();
@@ -88,6 +88,9 @@ public class SettingsActivity extends AppCompatActivity {
         AppCompatSeekBar seekBarIntensity = findViewById(R.id.seekBarIntensity);
         TextView tvIntensity = findViewById(R.id.tvIntensity);
         Button btnSaveConfiguration = findViewById(R.id.btnSaveConfiguration);
+
+        // Initialize toolbar
+        setupToolbar(getString(R.string.settings), true);
 
         // Initialize variables
         sharedPreferencesManager = SharedPreferencesManager.getInstance(this);

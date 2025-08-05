@@ -6,8 +6,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -15,14 +13,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import dev.abzikel.sistemaetr.fragments.HomeFragment;
 import dev.abzikel.sistemaetr.fragments.ProfileFragment;
 import dev.abzikel.sistemaetr.pojos.User;
+import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private final HomeFragment homeFragment = new HomeFragment();
     private final ProfileFragment profileFragment = new ProfileFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Set layout and initialize activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -30,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
         startListeningForUserChanges();
 
         // Initialize toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setupToolbar(getString(R.string.app_name), false);
 
         // Initialize BottomNavigationView
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
