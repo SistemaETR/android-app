@@ -135,6 +135,7 @@
             android:padding="16dp"
             android:text="@string/change_password"
             android:textSize="18sp"
+            android:visibility="gone"
             app:drawableEndCompat="@drawable/ic_chevron_right"
             app:drawableStartCompat="@drawable/ic_change_password"
             app:layout_constraintTop_toBottomOf="@id/tvMyTrainings" />

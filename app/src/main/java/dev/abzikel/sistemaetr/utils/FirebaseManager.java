@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -98,6 +99,7 @@ public class FirebaseManager {
 
     public interface OnUserUpdateListener {
         void onSuccess();
+
         void onFailure(Exception e);
     }
 
@@ -195,6 +197,17 @@ public class FirebaseManager {
             Log.e("FirebaseManager", context.getString(R.string.error_getting_trainings), e);
             listener.onFailure(e);
         });
+    }
+
+    public boolean isPasswordProviderEnabled() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            for (UserInfo profile : user.getProviderData()) {
+                // Verify that the provider is password
+                if (profile.getProviderId().equals("password")) return true;
+            }
+        }
+        return false;
     }
 
 }

@@ -52,6 +52,7 @@ public class ProfileFragment extends Fragment {
         TextView tvReactionTime = view.findViewById(R.id.tvReactionTime);
         TextView tvTotalTrainings = view.findViewById(R.id.tvTotalTrainings);
         TextView tvMyTrainings = view.findViewById(R.id.tvMyTrainings);
+        TextView tvChangePassword = view.findViewById(R.id.tvChangePassword);
         ImageButton btnEditProfile = view.findViewById(R.id.btnEditProfile);
         Button btnSignOut = view.findViewById(R.id.btnSignOut);
 
@@ -68,6 +69,8 @@ public class ProfileFragment extends Fragment {
         tvPrecision.setText(getString(R.string.accuracy_value, currentUser.getAccuracy()));
         tvReactionTime.setText(getString(R.string.reaction_time_value, currentUser.getAverageShotTime()));
         tvTotalTrainings.setText(getString(R.string.total_trainings_value, currentUser.getTotalTrainings()));
+        if (FirebaseManager.getInstance().isPasswordProviderEnabled())
+            tvChangePassword.setVisibility(View.VISIBLE);
 
         // Add listeners
         btnEditProfile.setOnClickListener(v -> startActivity(new Intent(requireContext(), ProfileActivity.class)));
