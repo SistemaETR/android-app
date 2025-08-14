@@ -30,4 +30,12 @@
         <item name="colorPrimary">@color/etr_black</item>
         <item name="colorOnSurface">@color/etr_black</item>
     </style>
+
+    <style name="UCrop" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Font. -->
+        <item name="android:fontFamily">@font/zen_dots</item>
+        <!-- System bar. -->
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
 </resources>

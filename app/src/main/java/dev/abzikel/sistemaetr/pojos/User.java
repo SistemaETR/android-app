@@ -5,6 +5,7 @@ import java.util.Date;
 public class User {
     private String userId;
     private String email;
+    private String photoUrl;
     private String username;
     private int totalTrainings;
     private double averageShotTime;
@@ -23,6 +24,22 @@ public class User {
         this.userId = userId;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -37,14 +54,6 @@ public class User {
 
     public void setTotalTrainings(int totalTrainings) {
         this.totalTrainings = totalTrainings;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public double getAverageShotTime() {

@@ -35,7 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/change_photo" />
+                android:text="@string/change_photo"
+                android:textColor="@color/blue" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilUsername"
@@ -62,8 +63,8 @@
                 android:text="@string/save_changes"
                 android:textColor="@color/etr_white"
                 android:textSize="24sp"
-                app:backgroundTint="@color/etr_black"
-                app:strokeColor="@color/etr_black" />
+                app:backgroundTint="@color/dark_green"
+                app:strokeColor="@color/dark_green" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDeleteAccount"

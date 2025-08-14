@@ -1,6 +1,7 @@
 package dev.abzikel.sistemaetr.utils;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -12,10 +13,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import dev.abzikel.sistemaetr.R;
 import dev.abzikel.sistemaetr.pojos.Training;
@@ -26,6 +30,7 @@ public class FirebaseManager {
     private static FirebaseManager instance;
     private final FirebaseAuth mAuth;
     private final FirebaseFirestore mDb;
+    private final FirebaseStorage mStorage;
 
     // Firebase listeners and data
     private ListenerRegistration userListenerRegistration;
@@ -35,6 +40,7 @@ public class FirebaseManager {
         // Initialize Firebase Auth and Firestore
         mAuth = FirebaseAuth.getInstance();
         mDb = FirebaseFirestore.getInstance();
+        mStorage = FirebaseStorage.getInstance();
     }
 
     public static synchronized FirebaseManager getInstance() {
@@ -208,6 +214,77 @@ public class FirebaseManager {
             }
         }
         return false;
+    }
+
+    public interface OnImageUploadListener {
+        void onSuccess(Uri downloadUri);
+
+        void onFailure(Exception e);
+    }
+
+    public void uploadProfileImage(Context context, Uri imageUri, OnImageUploadListener listener) {
+        // Get current user
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        // Check if user is authenticated
+        if (currentUser == null) {
+            listener.onFailure(new Exception(context.getString(R.string.no_authenticated_user)));
+            return;
+        }
+
+        // Path will be profile_images/<user_id>.jpg
+        StorageReference profileImageRef = mStorage.getReference()
+                .child("profile_images/" + currentUser.getUid() + ".jpg");
+
+        // Upload the image
+        profileImageRef.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> profileImageRef.getDownloadUrl()
+                        .addOnSuccessListener(listener::onSuccess)
+                        .addOnFailureListener(listener::onFailure))
+                .addOnFailureListener(listener::onFailure);
+    }
+
+    public void deleteProfileImage(Context context, OnSimpleListener listener) {
+        // Get current user
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        // Check if user is authenticated
+        if (currentUser == null) {
+            listener.onFailure(new Exception(context.getString(R.string.no_authenticated_user)));
+            return;
+        }
+
+        // Path will be profile_images/<user_id>.jpg
+        StorageReference profileImageRef = mStorage.getReference()
+                .child("profile_images/" + currentUser.getUid() + ".jpg");
+
+        // Delete the image from Firebase Storage
+        profileImageRef.delete()
+                .addOnSuccessListener(aVoid -> listener.onSuccess())
+                .addOnFailureListener(listener::onFailure);
+    }
+
+    public void updateUserProfile(Context context, Map<String, Object> updates, OnSimpleListener listener) {
+        // Get current user
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        // Check if user is authenticated
+        if (currentUser == null) {
+            listener.onFailure(new Exception(context.getString(R.string.no_authenticated_user)));
+            return;
+        }
+
+        // Update user data in Firestore
+        mDb.collection("users").document(currentUser.getUid())
+                .update(updates)
+                .addOnSuccessListener(aVoid -> listener.onSuccess())
+                .addOnFailureListener(listener::onFailure);
+    }
+
+    public interface OnSimpleListener {
+        void onSuccess();
+
+        void onFailure(Exception e);
     }
 
 }

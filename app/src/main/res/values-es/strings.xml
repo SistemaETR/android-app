@@ -119,6 +119,9 @@
     <string name="save_configuration">Guardar configuración</string>
     <string name="intensity">Intensidad:</string>
     <string name="ic_led">Icono del LED</string>
+    <!-- Profile image picker menu -->
+    <string name="select_image">Seleccionar imagen</string>
+    <string name="remove_image">Quitar imagen</string>
     <!-- Content dialog messages -->
     <string name="sign_out_confirmation">¿Estás seguro que deseas cerrar sesión?</string>
     <string name="sign_out">Cerrar Sesión</string>
@@ -148,6 +151,8 @@
     <string name="error_listening_changes">Error al escuchar cambios.</string>
     <string name="user_document_not_found">No se encontró el documento del usuario.</string>
     <string name="error_getting_trainings">Error al obtener los entrenamientos.</string>
+    <string name="error_image_permission">Error Imagen: Permiso denegado</string>
     <string name="no_changes">Sin cambios.</string>
     <string name="unknown_error">Error desconocido.</string>
+    <string name="error">Error:</string>
 </resources>
