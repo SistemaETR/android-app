@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.text.DateFormat;
 import java.util.Date;
 
+import dev.abzikel.sistemaetr.ChangePasswordActivity;
 import dev.abzikel.sistemaetr.MyTrainingsActivity;
 import dev.abzikel.sistemaetr.ProfileActivity;
 import dev.abzikel.sistemaetr.R;
@@ -88,6 +89,7 @@ public class ProfileFragment extends Fragment {
         // Add listeners
         btnEditProfile.setOnClickListener(v -> startActivity(new Intent(requireContext(), ProfileActivity.class)));
         tvMyTrainings.setOnClickListener(v -> startActivity(new Intent(requireContext(), MyTrainingsActivity.class)));
+        tvChangePassword.setOnClickListener(v -> startActivity(new Intent(requireContext(), ChangePasswordActivity.class)));
         btnSignOut.setOnClickListener(v -> signOut());
     }
 

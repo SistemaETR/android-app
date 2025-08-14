@@ -6,6 +6,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -103,12 +105,6 @@ public class FirebaseManager {
         return currentUserData;
     }
 
-    public interface OnUserUpdateListener {
-        void onSuccess();
-
-        void onFailure(Exception e);
-    }
-
     public interface OnSaveTrainingListener {
         // Callback methods for saving training
         void onSuccess();
@@ -196,6 +192,30 @@ public class FirebaseManager {
             }
         }
         return false;
+    }
+
+    public void changeUserPassword(Context context, String currentPassword, String newPassword, OnSimpleListener listener) {
+        // Get current user
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        // Check if user is authenticated
+        if (currentUser == null || !isPasswordProviderEnabled() || currentUser.getEmail() == null) {
+            listener.onFailure(new Exception(context.getString(R.string.no_authenticated_user)));
+            return;
+        }
+
+        // Create credentials for re-authentication
+        AuthCredential credential = EmailAuthProvider.getCredential(currentUser.getEmail(), currentPassword);
+
+        // Re-authenticate the user
+        currentUser.reauthenticate(credential)
+                .addOnSuccessListener(aVoid -> {
+                    // If the re-authentication is successful, update the password
+                    currentUser.updatePassword(newPassword)
+                            .addOnSuccessListener(aVoid1 -> listener.onSuccess())
+                            .addOnFailureListener(listener::onFailure);
+                })
+                .addOnFailureListener(listener::onFailure);
     }
 
     public interface OnImageUploadListener {

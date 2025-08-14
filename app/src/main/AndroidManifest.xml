@@ -63,6 +63,7 @@
         <activity android:name=".GameActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".MyTrainingsActivity" />
+        <activity android:name=".ChangePasswordActivity" />
         <activity android:name=".SettingsActivity" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
