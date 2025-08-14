@@ -124,6 +124,7 @@
     <string name="new_password">Nueva contraseña</string>
     <string name="confirm_new_password">Confirmar nueva contraseña</string>
     <string name="change_password_instructions">Favor de ingresar su contraseña actual y una nueva contraseña para establecer una contraseña nueva.</string>
+    <string name="ic_change_password">Icono de cambio de contraseña</string>
     <!-- Profile image picker menu -->
     <string name="select_image">Seleccionar imagen</string>
     <string name="remove_image">Quitar imagen</string>
