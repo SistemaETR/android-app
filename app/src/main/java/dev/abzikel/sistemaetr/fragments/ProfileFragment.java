@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.DateFormat;
@@ -46,6 +48,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Link XML to Java
+        ImageView ivProfile = view.findViewById(R.id.ivProfile);
         tvUsername = view.findViewById(R.id.tvUsername);
         TextView tvRegistrationDate = view.findViewById(R.id.tvRegistrationDate);
         TextView tvPrecision = view.findViewById(R.id.tvPrecision);
@@ -71,6 +74,16 @@ public class ProfileFragment extends Fragment {
         tvTotalTrainings.setText(getString(R.string.total_trainings_value, currentUser.getTotalTrainings()));
         if (FirebaseManager.getInstance().isPasswordProviderEnabled())
             tvChangePassword.setVisibility(View.VISIBLE);
+
+        // Load profile image using Glide
+        if (currentUser.getPhotoUrl() != null && !currentUser.getPhotoUrl().isEmpty()) {
+            Glide.with(this)
+                    .load(currentUser.getPhotoUrl())
+                    .circleCrop()
+                    .placeholder(R.drawable.ic_loading)
+                    .error(R.drawable.ic_profile)
+                    .into(ivProfile);
+        }
 
         // Add listeners
         btnEditProfile.setOnClickListener(v -> startActivity(new Intent(requireContext(), ProfileActivity.class)));
