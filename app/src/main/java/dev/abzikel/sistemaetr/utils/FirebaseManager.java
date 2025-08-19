@@ -58,6 +58,18 @@ public class FirebaseManager {
         void onError(Exception e);
     }
 
+    public void createUserDocument(Context context, User user, OnSimpleListener listener) {
+        if (user == null || user.getUserId() == null) {
+            listener.onFailure(new Exception("Invalid user data"));
+            return;
+        }
+
+        // Create document in Firestore
+        mDb.collection("users").document(user.getUserId()).set(user)
+                .addOnSuccessListener(aVoid -> listener.onSuccess())
+                .addOnFailureListener(listener::onFailure);
+    }
+
     public void startListeningForUserChanges(Context context, OnUserDataChangedListener listener) {
         // Get current user
         FirebaseUser currentUser = mAuth.getCurrentUser();

@@ -25,12 +25,17 @@ import androidx.credentials.exceptions.GetCredentialException;
 
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
+import com.google.firebase.auth.AdditionalUserInfo;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Objects;
+
+import dev.abzikel.sistemaetr.pojos.User;
+import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
 public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -175,16 +180,56 @@ public class SignInActivity extends AppCompatActivity {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Toast.makeText(SignInActivity.this,
-                                getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SignInActivity.this, BluetoothActivity.class));
-                        finish();
+                        // Get the result of the sign in and the user information
+                        AuthResult authResult = task.getResult();
+                        FirebaseUser firebaseUser = authResult.getUser();
+                        AdditionalUserInfo additionalUserInfo = authResult.getAdditionalUserInfo();
+
+                        // Verify if the user is new and has the necessary information
+                        if (additionalUserInfo != null && additionalUserInfo.isNewUser() && firebaseUser != null) {
+                            // New user, create a new profile
+                            User newUser = new User();
+                            newUser.setUserId(firebaseUser.getUid());
+                            newUser.setEmail(firebaseUser.getEmail());
+
+                            // Generate a unique username and set photo url to empty
+                            String tempUsername = "user" + firebaseUser.getUid().substring(0, 8);
+                            newUser.setUsername(tempUsername);
+                            newUser.setPhotoUrl("");
+
+                            // Initialize statistics
+                            newUser.setTotalTrainings(0);
+                            newUser.setAverageShotTime(0.0);
+                            newUser.setAccuracy(0.0);
+
+                            FirebaseManager.getInstance().createUserDocument(this, newUser, new FirebaseManager.OnSimpleListener() {
+                                @Override
+                                public void onSuccess() {
+                                    // Document created successfully, navigate to Bluetooth activity
+                                    Toast.makeText(SignInActivity.this,
+                                            getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(SignInActivity.this, BluetoothActivity.class));
+                                    finish();
+                                }
+
+                                @Override
+                                public void onFailure(Exception e) {
+                                    // Handle error
+                                    FirebaseAuth.getInstance().signOut();
+                                    Toast.makeText(SignInActivity.this, getString(R.string.error_creating_account), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            // Login successful, navigate to Bluetooth activity
+                            Toast.makeText(SignInActivity.this,
+                                    getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(SignInActivity.this, BluetoothActivity.class));
+                            finish();
+                        }
                     } else {
-                        // If sign in fails, display a message to the user
+                        // Login failed, display a message to the user
                         Toast.makeText(SignInActivity.this,
-                                getString(R.string.error_signing_in) + " "
-                                        + Objects.requireNonNull(task.getException()).getMessage(),
+                                getString(R.string.error_signing_in) + " " + Objects.requireNonNull(task.getException()).getMessage(),
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
