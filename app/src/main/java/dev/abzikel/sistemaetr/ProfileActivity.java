@@ -1,10 +1,15 @@
 package dev.abzikel.sistemaetr;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
+import android.view.MotionEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +25,7 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
@@ -31,10 +37,14 @@ import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
 public class ProfileActivity extends BaseActivity {
+    private final Handler holdHandler = new Handler(Looper.getMainLooper());
     private ActivityResultLauncher<Intent> imagePickerLauncher;
+    private Runnable deleteRunnable;
+    private CountDownTimer countDownTimer;
     private User currentUser;
     private ImageView ivProfile;
     private TextInputEditText etvUsername;
+    private MaterialButton btnDeleteAccount;
     private Uri selectedImageUri;
     private boolean imageRemoved = false;
 
@@ -74,6 +84,7 @@ public class ProfileActivity extends BaseActivity {
         TextView tvChangePhoto = findViewById(R.id.tvChangePhoto);
         etvUsername = findViewById(R.id.etvUsername);
         MaterialButton btnSaveChanges = findViewById(R.id.btnSaveChanges);
+        btnDeleteAccount = findViewById(R.id.btnDeleteAccount);
 
         // Initialize toolbar
         setupToolbar(getString(R.string.edit_profile), true);
@@ -101,6 +112,7 @@ public class ProfileActivity extends BaseActivity {
         // Add listeners
         tvChangePhoto.setOnClickListener(v -> displayMenu());
         btnSaveChanges.setOnClickListener(v -> saveChanges());
+        setupDeleteButtonListener();
     }
 
     private void saveChanges() {
@@ -126,7 +138,7 @@ public class ProfileActivity extends BaseActivity {
 
                 @Override
                 public void onFailure(Exception e) {
-                    Toast.makeText(ProfileActivity.this, "Error al borrar la imagen.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, getString(R.string.error_deleting_image), Toast.LENGTH_SHORT).show();
                 }
             });
         } else if (selectedImageUri != null) {
@@ -139,7 +151,7 @@ public class ProfileActivity extends BaseActivity {
 
                 @Override
                 public void onFailure(Exception e) {
-                    Toast.makeText(ProfileActivity.this, "Error al subir la imagen.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, getString(R.string.error_uploading_image), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -159,13 +171,13 @@ public class ProfileActivity extends BaseActivity {
         FirebaseManager.getInstance().updateUserProfile(this, updates, new FirebaseManager.OnSimpleListener() {
             @Override
             public void onSuccess() {
-                Toast.makeText(ProfileActivity.this, "Perfil actualizado.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, getString(R.string.user_data_updated), Toast.LENGTH_SHORT).show();
                 finish();
             }
 
             @Override
             public void onFailure(Exception e) {
-                Toast.makeText(ProfileActivity.this, "Error al guardar los datos.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, getString(R.string.error_saving_user), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -215,6 +227,93 @@ public class ProfileActivity extends BaseActivity {
             }
         });
         builder.show();
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupDeleteButtonListener() {
+        // Runnable to be executed after the hold delay
+        deleteRunnable = this::performAccountDeletion;
+
+        // Set a touch listener to detect press and release events
+        btnDeleteAccount.setOnTouchListener((view, motionEvent) -> {
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    // Schedule the deletion to run after a 5-second delay
+                    holdHandler.postDelayed(deleteRunnable, 5000);
+
+                    // Start a countdown timer to update the button's text
+                    countDownTimer = new CountDownTimer(5000, 1000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            // Update text every second to show the remaining time
+                            long secondsLeft = millisUntilFinished / 1000 + 1;
+                            btnDeleteAccount.setText(getString(R.string.hold_to_confirm_countdown, secondsLeft));
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            // Change text to "Deleting account..." when the countdown finishes
+                            btnDeleteAccount.setText(getString(R.string.deleting_account));
+                        }
+                    }.start();
+
+                    // Animate the button press for visual feedback.
+                    view.animate().scaleX(0.95f).scaleY(0.95f).setDuration(150).start();
+                    return true;
+
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    // Cancel the scheduled deletion.
+                    holdHandler.removeCallbacks(deleteRunnable);
+
+                    // Cancel the text update countdown.
+                    if (countDownTimer != null) countDownTimer.cancel();
+
+                    // Restore the button to its original state.
+                    view.animate().scaleX(1f).scaleY(1f).setDuration(150).start();
+                    btnDeleteAccount.setText(getString(R.string.delete_account));
+                    Toast.makeText(this, getString(R.string.deletion_canceled), Toast.LENGTH_SHORT).show();
+                    return true;
+            }
+            return false;
+        });
+    }
+
+    private void performAccountDeletion() {
+        // Call the FirebaseManager to delete the user's Firestore document
+        FirebaseManager.getInstance().deleteUserDocument(this, new FirebaseManager.OnSimpleListener() {
+            @Override
+            public void onSuccess() {
+                // The Cloud Function will handle the rest (deleting auth, storage, etc.)
+                Toast.makeText(ProfileActivity.this, getString(R.string.account_deleted), Toast.LENGTH_LONG).show();
+
+                // Get the Firebase Auth instance
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+
+                // Stop any active Firestore listeners to prevent memory leaks
+                FirebaseManager.getInstance().stopListening();
+
+                // Sign the user out locally
+                auth.signOut();
+
+                // Prepare to navigate the user away from the app's secure content
+                Intent intent = new Intent(ProfileActivity.this, SignInActivity.class);
+
+                // Add flags to clear the activity stack, preventing the user from navigating back.
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                // Callback for when the deletion fails
+                Toast.makeText(ProfileActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+
+                // Restore the button's text so the user can try again
+                btnDeleteAccount.setText(getString(R.string.delete_account));
+            }
+        });
     }
 
     @Override

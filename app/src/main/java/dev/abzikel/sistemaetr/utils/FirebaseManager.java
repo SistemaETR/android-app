@@ -289,4 +289,21 @@ public class FirebaseManager {
         void onFailure(Exception e);
     }
 
+    public void deleteUserDocument(Context context, OnSimpleListener listener) {
+        // Get current user
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        // Check if user is authenticated
+        if (currentUser == null) {
+            listener.onFailure(new Exception(context.getString(R.string.no_authenticated_user)));
+            return;
+        }
+
+        // Delete the user from Firestore
+        String uid = currentUser.getUid();
+        mDb.collection("users").document(uid).delete()
+                .addOnSuccessListener(aVoid -> listener.onSuccess())
+                .addOnFailureListener(listener::onFailure);
+    }
+
 }

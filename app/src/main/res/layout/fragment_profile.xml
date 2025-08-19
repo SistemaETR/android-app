@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivProfile"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -121,7 +121,7 @@
             android:text="@string/my_trainings"
             android:textSize="18sp"
             app:drawableEndCompat="@drawable/ic_chevron_right"
-            app:drawableStartCompat="@drawable/ic_shooting_target"
+            app:drawableStartCompat="@drawable/ic_clipboard"
             app:layout_constraintTop_toBottomOf="@id/cvStats" />
 
         <TextView
