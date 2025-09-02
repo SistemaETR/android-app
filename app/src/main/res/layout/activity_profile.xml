@@ -63,8 +63,8 @@
                 android:text="@string/save_changes"
                 android:textColor="@color/etr_white"
                 android:textSize="24sp"
-                app:backgroundTint="@color/dark_green"
-                app:strokeColor="@color/dark_green" />
+                app:backgroundTint="@color/blue"
+                app:strokeColor="@color/blue" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDeleteAccount"
