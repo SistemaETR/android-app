@@ -1,7 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
+
     // Add the Google services Gradle plugin
     id("com.google.gms.google-services")
+
+    // Add the Crashlytics Gradle plugin
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -45,6 +49,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.storage)
+    implementation(libs.firebase.crashlytics.ndk)
     // Credential manager
     implementation(libs.credentials)
     implementation(libs.credentials.play.services.auth)
