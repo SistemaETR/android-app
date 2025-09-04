@@ -63,27 +63,34 @@ public class ProfileFragment extends Fragment {
         // Get user data from Firebase
         User currentUser = FirebaseManager.getInstance().getCurrentUserData();
 
-        // Format registration date
-        Date registrationDate = currentUser.getCreatedAt();
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
-        String formattedDate = dateFormat.format(registrationDate);
+        // Verify if the current user is not null
+        String formattedDate = getString(R.string.loading);
+        if (currentUser != null) {
+            // Verify if the creation date is already updated
+            if (currentUser.getCreatedAt() != null) {
+                // Format registration date
+                Date registrationDate = currentUser.getCreatedAt();
+                DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+                formattedDate = dateFormat.format(registrationDate);
+            }
 
-        // Initialize views
-        tvRegistrationDate.setText(getString(R.string.member_since, formattedDate));
-        tvPrecision.setText(getString(R.string.accuracy_value, currentUser.getAccuracy()));
-        tvReactionTime.setText(getString(R.string.reaction_time_value, currentUser.getAverageShotTime()));
-        tvTotalTrainings.setText(getString(R.string.total_trainings_value, currentUser.getTotalTrainings()));
-        if (FirebaseManager.getInstance().isPasswordProviderEnabled())
-            tvChangePassword.setVisibility(View.VISIBLE);
+            // Initialize views
+            tvRegistrationDate.setText(getString(R.string.member_since, formattedDate));
+            tvPrecision.setText(getString(R.string.accuracy_value, currentUser.getAccuracy()));
+            tvReactionTime.setText(getString(R.string.reaction_time_value, currentUser.getAverageShotTime()));
+            tvTotalTrainings.setText(getString(R.string.total_trainings_value, currentUser.getTotalTrainings()));
+            if (FirebaseManager.getInstance().isPasswordProviderEnabled())
+                tvChangePassword.setVisibility(View.VISIBLE);
 
-        // Load profile image using Glide
-        if (currentUser.getPhotoUrl() != null && !currentUser.getPhotoUrl().isEmpty()) {
-            Glide.with(this)
-                    .load(currentUser.getPhotoUrl())
-                    .circleCrop()
-                    .placeholder(R.drawable.ic_loading)
-                    .error(R.drawable.ic_profile)
-                    .into(ivProfile);
+            // Load profile image using Glide
+            if (currentUser.getPhotoUrl() != null && !currentUser.getPhotoUrl().isEmpty()) {
+                Glide.with(this)
+                        .load(currentUser.getPhotoUrl())
+                        .circleCrop()
+                        .placeholder(R.drawable.ic_loading)
+                        .error(R.drawable.ic_profile)
+                        .into(ivProfile);
+            }
         }
 
         // Add listeners
