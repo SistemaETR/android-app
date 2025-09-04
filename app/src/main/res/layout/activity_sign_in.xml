@@ -14,11 +14,11 @@
         android:padding="16dp">
 
         <ImageView
+            android:id="@+id/ivLogo"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
-            android:contentDescription="@string/ic_logo"
-            android:src="@drawable/logo" />
+            android:contentDescription="@string/ic_logo" />
 
         <TextView
             android:layout_width="wrap_content"

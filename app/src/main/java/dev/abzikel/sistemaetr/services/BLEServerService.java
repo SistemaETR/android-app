@@ -140,7 +140,7 @@ public class BLEServerService extends Service {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(getString(R.string.target_system_active))
                 .setContentText(getString(R.string.ble_server_working))
-                .setSmallIcon(R.drawable.logo)
+                .setSmallIcon(R.drawable.icon)
                 .setContentIntent(pendingIntent)
                 .build();
 

@@ -8,6 +8,7 @@ import android.os.CancellationSignal;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import androidx.credentials.GetCredentialRequest;
 import androidx.credentials.GetCredentialResponse;
 import androidx.credentials.exceptions.GetCredentialException;
 
+import com.bumptech.glide.Glide;
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
 import com.google.firebase.auth.AdditionalUserInfo;
@@ -62,12 +64,19 @@ public class SignInActivity extends AppCompatActivity {
 
     private void setup() {
         // Link XML to Java
+        ImageView ivLogo = findViewById(R.id.ivLogo);
         TextView tvForgotPassword = findViewById(R.id.tvForgotPassword);
         TextView tvCreateAccount = findViewById(R.id.tvCreateAccount);
         EditText etvEmail = findViewById(R.id.etvEmail);
         EditText etvPassword = findViewById(R.id.etvPassword);
         Button btnSignIn = findViewById(R.id.btnSignIn);
         Button btnGoogleSignIn = findViewById(R.id.btnGoogleSignIn);
+
+        // Initialize view
+        Glide.with(this)
+                .load(R.drawable.logo)
+                .circleCrop()
+                .into(ivLogo);
 
         // Initialize Firebase Authentication and Credential Manager
         mAuth = FirebaseAuth.getInstance();
