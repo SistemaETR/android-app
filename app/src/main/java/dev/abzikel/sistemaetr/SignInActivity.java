@@ -22,7 +22,9 @@ import androidx.credentials.CredentialManagerCallback;
 import androidx.credentials.CustomCredential;
 import androidx.credentials.GetCredentialRequest;
 import androidx.credentials.GetCredentialResponse;
+import androidx.credentials.exceptions.GetCredentialCancellationException;
 import androidx.credentials.exceptions.GetCredentialException;
+import androidx.credentials.exceptions.NoCredentialException;
 
 import com.bumptech.glide.Glide;
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
@@ -33,6 +35,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Objects;
 
@@ -153,10 +156,21 @@ public class SignInActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(@NonNull GetCredentialException e) {
-                        // Handle error
-                        Toast.makeText(SignInActivity.this,
-                                getString(R.string.error_signing_in) + " " + e.getMessage(),
-                                Toast.LENGTH_SHORT).show();
+                        if (e instanceof GetCredentialCancellationException) {
+                            // The user canceled the sign-in flow
+                            Log.d("SignInGoogle", getString(R.string.user_canceled_dialog));
+                        } else if (e instanceof NoCredentialException) {
+                            // No credentials were returned
+                            String message = getString(R.string.no_google_account_credentials);
+                            Log.d("SignInGoogle", message);
+                            Toast.makeText(SignInActivity.this, message, Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Handle other errors
+                            Toast.makeText(SignInActivity.this,
+                                    getString(R.string.error_signing_in) + " " + e.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                            FirebaseCrashlytics.getInstance().recordException(e);
+                        }
                     }
                 }
         );
