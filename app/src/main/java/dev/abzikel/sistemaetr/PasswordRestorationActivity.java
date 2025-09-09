@@ -2,16 +2,23 @@ package dev.abzikel.sistemaetr;
 
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
+
+import dev.abzikel.sistemaetr.utils.ErrorClearingTextWatcher;
 
 public class PasswordRestorationActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
+    private TextInputLayout tilEmail;
+    private TextInputEditText etvEmail;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,27 +29,36 @@ public class PasswordRestorationActivity extends AppCompatActivity {
 
     private void setup() {
         // Link XML to Java
-        EditText etvEmail = findViewById(R.id.etvEmail);
+        tilEmail = findViewById(R.id.tilEmail);
+        etvEmail = findViewById(R.id.etvEmail);
         Button btnSendEmail = findViewById(R.id.btnSendEmail);
 
         // Initialize Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
 
-        // Add click listener to send email button
-        btnSendEmail.setOnClickListener(v -> {
-            // Get text from EditText Views
-            String email = etvEmail.getText().toString().trim();
+        // Add text watchers
+        etvEmail.addTextChangedListener(new ErrorClearingTextWatcher(tilEmail));
 
-            // Verifications
-            if (email.isEmpty())
-                Toast.makeText(this, getString(R.string.unfilled_fields), Toast.LENGTH_SHORT).show();
-            else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
-                Toast.makeText(this, getString(R.string.invalid_email), Toast.LENGTH_SHORT).show();
-            else restorePassword(email);
-        });
+        // Add click listener to send email button
+        btnSendEmail.setOnClickListener(v -> restorePassword());
     }
 
-    private void restorePassword(String email) {
+    private void restorePassword() {
+        // Clear errors
+        tilEmail.setError(null);
+
+        // Get email
+        String email = Objects.requireNonNull(etvEmail.getText()).toString().trim();
+
+        // Make validations
+        if (email.isEmpty()) {
+            tilEmail.setError(getString(R.string.unfilled_fields));
+            return;
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            tilEmail.setError(getString(R.string.invalid_email));
+            return;
+        }
+
         // Use Firebase Authentication to send password reset email
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(task -> {

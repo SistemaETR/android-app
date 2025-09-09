@@ -25,6 +25,7 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.yalantis.ucrop.UCrop;
 
@@ -34,6 +35,7 @@ import java.util.Map;
 
 import dev.abzikel.sistemaetr.pojos.User;
 import dev.abzikel.sistemaetr.utils.BaseActivity;
+import dev.abzikel.sistemaetr.utils.ErrorClearingTextWatcher;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
 public class ProfileActivity extends BaseActivity {
@@ -43,6 +45,7 @@ public class ProfileActivity extends BaseActivity {
     private CountDownTimer countDownTimer;
     private User currentUser;
     private ImageView ivProfile;
+    private TextInputLayout tilUsername;
     private TextInputEditText etvUsername;
     private MaterialButton btnDeleteAccount;
     private Uri selectedImageUri;
@@ -82,6 +85,7 @@ public class ProfileActivity extends BaseActivity {
         // Link XML to Java
         ivProfile = findViewById(R.id.ivProfile);
         TextView tvChangePhoto = findViewById(R.id.tvChangePhoto);
+        tilUsername = findViewById(R.id.tilUsername);
         etvUsername = findViewById(R.id.etvUsername);
         MaterialButton btnSaveChanges = findViewById(R.id.btnSaveChanges);
         btnDeleteAccount = findViewById(R.id.btnDeleteAccount);
@@ -106,6 +110,9 @@ public class ProfileActivity extends BaseActivity {
             }
         }
 
+        // Add text watchers
+        etvUsername.addTextChangedListener(new ErrorClearingTextWatcher(tilUsername));
+
         // Add listeners
         tvChangePhoto.setOnClickListener(v -> displayMenu());
         btnSaveChanges.setOnClickListener(v -> saveChanges());
@@ -113,16 +120,22 @@ public class ProfileActivity extends BaseActivity {
     }
 
     private void saveChanges() {
-        // Get new username from EditText
+        // Clear errors
+        tilUsername.setError(null);
+
+        // Get new username
         Editable text = etvUsername.getText();
         String newUsername = (text != null) ? text.toString().trim() : "";
 
-        // Check if there is nothing to change
-        boolean usernameChanged = !newUsername.isEmpty() &&
-                (currentUser == null || currentUser.getUsername() == null || !newUsername.equals(currentUser.getUsername()));
-        if (!usernameChanged && selectedImageUri == null && !imageRemoved) {
-            Toast.makeText(this, getString(R.string.no_changes), Toast.LENGTH_SHORT).show();
+        // Make validations
+        if (newUsername.isEmpty()) {
+            tilUsername.setError(getString(R.string.unfilled_fields));
             return;
+        } else if (newUsername.length() < 4) {
+            tilUsername.setError(getString(R.string.username_length));
+            return;
+        } else if (currentUser != null && currentUser.getUsername() != null && newUsername.equals(currentUser.getUsername()) && !imageRemoved && selectedImageUri == null) {
+            tilUsername.setError(getString(R.string.no_changes));
         }
 
         // Verify if the image was removed
@@ -131,7 +144,7 @@ public class ProfileActivity extends BaseActivity {
             FirebaseManager.getInstance().deleteProfileImage(this, new FirebaseManager.OnSimpleListener() {
                 @Override
                 public void onSuccess() {
-                    updateFirestoreData(usernameChanged, newUsername, "");
+                    updateFirestoreData(newUsername, "");
                 }
 
                 @Override
@@ -144,7 +157,7 @@ public class ProfileActivity extends BaseActivity {
             FirebaseManager.getInstance().uploadProfileImage(this, selectedImageUri, new FirebaseManager.OnImageUploadListener() {
                 @Override
                 public void onSuccess(Uri downloadUri) {
-                    updateFirestoreData(usernameChanged, newUsername, downloadUri.toString());
+                    updateFirestoreData(newUsername, downloadUri.toString());
                 }
 
                 @Override
@@ -153,17 +166,17 @@ public class ProfileActivity extends BaseActivity {
                 }
             });
         } else {
-            // The user has changed its username
-            updateFirestoreData(usernameChanged, newUsername, null);
+            // Verify if the username has changed
+            if (currentUser == null || currentUser.getUsername() == null || !newUsername.equals(currentUser.getUsername())) {
+                updateFirestoreData(newUsername, null);
+            }
         }
     }
 
-    private void updateFirestoreData(boolean usernameChanged, String newUsername, String photoUrl) {
-        // There is nothing to change
-        if (!usernameChanged && photoUrl == null) return;
-
+    private void updateFirestoreData(String newUsername, String photoUrl) {
+        // Create map for changes
         Map<String, Object> updates = new HashMap<>();
-        if (usernameChanged) updates.put("username", newUsername);
+        if (newUsername != null) updates.put("username", newUsername);
         if (photoUrl != null) updates.put("photoUrl", photoUrl);
 
         FirebaseManager.getInstance().updateUserProfile(this, updates, new FirebaseManager.OnSimpleListener() {

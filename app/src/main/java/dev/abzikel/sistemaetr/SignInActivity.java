@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +28,8 @@ import androidx.credentials.exceptions.NoCredentialException;
 import com.bumptech.glide.Glide;
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AdditionalUserInfo;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -40,11 +41,14 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import java.util.Objects;
 
 import dev.abzikel.sistemaetr.pojos.User;
+import dev.abzikel.sistemaetr.utils.ErrorClearingTextWatcher;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
 public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private CredentialManager credentialManager;
+    private TextInputLayout tilEmail, tilPassword;
+    private TextInputEditText etvEmail, etvPassword;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,8 +74,10 @@ public class SignInActivity extends AppCompatActivity {
         ImageView ivLogo = findViewById(R.id.ivLogo);
         TextView tvForgotPassword = findViewById(R.id.tvForgotPassword);
         TextView tvCreateAccount = findViewById(R.id.tvCreateAccount);
-        EditText etvEmail = findViewById(R.id.etvEmail);
-        EditText etvPassword = findViewById(R.id.etvPassword);
+        tilEmail = findViewById(R.id.tilEmail);
+        tilPassword = findViewById(R.id.tilPassword);
+        etvEmail = findViewById(R.id.etvEmail);
+        etvPassword = findViewById(R.id.etvPassword);
         Button btnSignIn = findViewById(R.id.btnSignIn);
         Button btnGoogleSignIn = findViewById(R.id.btnGoogleSignIn);
 
@@ -85,19 +91,12 @@ public class SignInActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         credentialManager = CredentialManager.create(this);
 
-        // Add click listener to sign in button
-        btnSignIn.setOnClickListener(v -> {
-            // Get text from EditText Views
-            String email = etvEmail.getText().toString().trim();
-            String password = etvPassword.getText().toString().trim();
+        // Add text watchers
+        etvEmail.addTextChangedListener(new ErrorClearingTextWatcher(tilEmail));
+        etvPassword.addTextChangedListener(new ErrorClearingTextWatcher(tilPassword));
 
-            // Verifications
-            if (email.isEmpty() || password.isEmpty())
-                Toast.makeText(this, getString(R.string.unfilled_fields), Toast.LENGTH_SHORT).show();
-            else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
-                Toast.makeText(this, getString(R.string.invalid_email), Toast.LENGTH_SHORT).show();
-            else signIn(email, password);
-        });
+        // Add click listener to sign in button
+        btnSignIn.setOnClickListener(v -> signIn());
 
         // Add click listener to google sign in button
         btnGoogleSignIn.setOnClickListener(v -> signInWithGoogle());
@@ -111,7 +110,27 @@ public class SignInActivity extends AppCompatActivity {
                 startActivity(new Intent(SignInActivity.this, SignUpActivity.class)));
     }
 
-    private void signIn(String email, String password) {
+    private void signIn() {
+        // Clear errors
+        tilEmail.setError(null);
+        tilPassword.setError(null);
+
+        // Get email and password
+        String email = Objects.requireNonNull(etvEmail.getText()).toString().trim();
+        String password = Objects.requireNonNull(etvPassword.getText()).toString().trim();
+
+        // Make validations
+        if (email.isEmpty()) {
+            tilEmail.setError(getString(R.string.unfilled_fields));
+            return;
+        } else if (password.isEmpty()) {
+            tilPassword.setError(getString(R.string.unfilled_fields));
+            return;
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            tilEmail.setError(getString(R.string.invalid_email));
+            return;
+        }
+
         // Use Firebase Authentication to sign in
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {

@@ -1,8 +1,6 @@
 package dev.abzikel.sistemaetr;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -12,6 +10,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import dev.abzikel.sistemaetr.utils.BaseActivity;
+import dev.abzikel.sistemaetr.utils.ErrorClearingTextWatcher;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
 public class ChangePasswordActivity extends BaseActivity {
@@ -26,9 +25,6 @@ public class ChangePasswordActivity extends BaseActivity {
     }
 
     private void setup() {
-        // Initialize toolbar
-        setupToolbar(getString(R.string.change_password), true);
-
         // Link XML to Java
         tilCurrentPassword = findViewById(R.id.tilCurrentPassword);
         tilNewPassword = findViewById(R.id.tilNewPassword);
@@ -38,51 +34,13 @@ public class ChangePasswordActivity extends BaseActivity {
         etvConfirmPassword = findViewById(R.id.etvConfirmPassword);
         MaterialButton btnChangePassword = findViewById(R.id.btnChangePassword);
 
+        // Initialize toolbar
+        setupToolbar(getString(R.string.change_password), true);
+
         // Add text watchers
-        etvCurrentPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tilCurrentPassword.setError(null);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-
-        etvNewPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tilNewPassword.setError(null);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-
-        etvConfirmPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tilConfirmPassword.setError(null);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
+        etvCurrentPassword.addTextChangedListener(new ErrorClearingTextWatcher(tilCurrentPassword));
+        etvNewPassword.addTextChangedListener(new ErrorClearingTextWatcher(tilNewPassword));
+        etvConfirmPassword.addTextChangedListener(new ErrorClearingTextWatcher(tilConfirmPassword));
 
         // Add listeners
         btnChangePassword.setOnClickListener(v -> changePassword());

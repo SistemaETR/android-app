@@ -2,20 +2,26 @@ package dev.abzikel.sistemaetr;
 
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Objects;
+
 import dev.abzikel.sistemaetr.pojos.User;
+import dev.abzikel.sistemaetr.utils.ErrorClearingTextWatcher;
 
 public class SignUpActivity extends AppCompatActivity {
+    private TextInputLayout tilEmail, tilUsername, tilPassword, tilConfirmPassword;
+    private TextInputEditText etvEmail, etvUsername, etvPassword, etvConfirmPassword;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,36 +33,63 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void setup() {
         // Link XML to Java
-        EditText etvEmail = findViewById(R.id.etvEmail);
-        EditText etvUsername = findViewById(R.id.etvUsername);
-        EditText etvPassword = findViewById(R.id.etvPassword);
-        EditText etvConfirmPassword = findViewById(R.id.etvConfirmPassword);
+        tilEmail = findViewById(R.id.tilEmail);
+        tilUsername = findViewById(R.id.tilUsername);
+        tilPassword = findViewById(R.id.tilPassword);
+        tilConfirmPassword = findViewById(R.id.tilConfirmPassword);
+        etvEmail = findViewById(R.id.etvEmail);
+        etvUsername = findViewById(R.id.etvUsername);
+        etvPassword = findViewById(R.id.etvPassword);
+        etvConfirmPassword = findViewById(R.id.etvConfirmPassword);
         Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
 
-        // Add click listener to button
-        btnCreateAccount.setOnClickListener(v -> {
-            // Get text from EditText Views
-            String email = etvEmail.getText().toString().trim();
-            String username = etvUsername.getText().toString().trim();
-            String password = etvPassword.getText().toString().trim();
-            String confirmPassword = etvConfirmPassword.getText().toString().trim();
+        // Add text watchers
+        etvEmail.addTextChangedListener(new ErrorClearingTextWatcher(tilEmail));
+        etvUsername.addTextChangedListener(new ErrorClearingTextWatcher(tilUsername));
+        etvPassword.addTextChangedListener(new ErrorClearingTextWatcher(tilPassword));
+        etvConfirmPassword.addTextChangedListener(new ErrorClearingTextWatcher(tilConfirmPassword));
 
-            // Verifications
-            if (email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty())
-                Toast.makeText(this, getString(R.string.unfilled_fields), Toast.LENGTH_SHORT).show();
-            else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
-                Toast.makeText(this, getString(R.string.invalid_email), Toast.LENGTH_SHORT).show();
-            else if (username.length() < 4)
-                Toast.makeText(this, getString(R.string.username_length), Toast.LENGTH_SHORT).show();
-            else if (password.length() < 6)
-                Toast.makeText(this, getString(R.string.password_length), Toast.LENGTH_SHORT).show();
-            else if (!password.equals(confirmPassword))
-                Toast.makeText(this, getString(R.string.unmatched_passwords), Toast.LENGTH_SHORT).show();
-            else createAccount(email, username, password);
-        });
+        // Add click listener to button
+        btnCreateAccount.setOnClickListener(v -> createAccount());
     }
 
-    private void createAccount(String email, String username, String password) {
+    private void createAccount() {
+        // Clear errors
+        tilEmail.setError(null);
+        tilUsername.setError(null);
+        tilPassword.setError(null);
+        tilConfirmPassword.setError(null);
+
+        // Get email, username and passwords
+        String email = Objects.requireNonNull(etvEmail.getText()).toString().trim();
+        String username = Objects.requireNonNull(etvUsername.getText()).toString().trim();
+        String password = Objects.requireNonNull(etvPassword.getText()).toString().trim();
+        String confirmPassword = Objects.requireNonNull(etvConfirmPassword.getText()).toString().trim();
+
+        // Make validations
+        if (email.isEmpty()) {
+            tilEmail.setError(getString(R.string.unfilled_fields));
+            return;
+        } else if (username.isEmpty()) {
+            tilUsername.setError(getString(R.string.unfilled_fields));
+            return;
+        } else if (password.isEmpty()) {
+            tilPassword.setError(getString(R.string.unfilled_fields));
+            return;
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            tilEmail.setError(getString(R.string.invalid_email));
+            return;
+        } else if (username.length() < 4) {
+            tilUsername.setError(getString(R.string.username_length));
+            return;
+        } else if (password.length() < 6) {
+            tilPassword.setError(getString(R.string.password_length));
+            return;
+        } else if (!password.equals(confirmPassword)) {
+            tilConfirmPassword.setError(getString(R.string.unmatched_passwords));
+            return;
+        }
+
         // Initialize Firebase Authentication and Firebase Firestore
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
