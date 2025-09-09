@@ -152,7 +152,10 @@ public class ProfileFragment extends Fragment {
 
         // Get user data from Firebase and update view
         User currentUser = FirebaseManager.getInstance().getCurrentUserData();
-        tvUsername.setText(currentUser.getUsername());
+        String username = (currentUser != null && currentUser.getUsername() != null)
+                ? currentUser.getUsername()
+                : getString(R.string.loading);
+        tvUsername.setText(username);
     }
 
 }

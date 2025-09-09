@@ -92,9 +92,6 @@ public class ProfileActivity extends BaseActivity {
         // Get user data from Firebase
         currentUser = FirebaseManager.getInstance().getCurrentUserData();
 
-        // Initialize views
-        etvUsername.setText(currentUser.getUsername());
-
         // Verify if there is a user and try to load data
         if (currentUser != null) {
             etvUsername.setText(currentUser.getUsername());
@@ -121,7 +118,8 @@ public class ProfileActivity extends BaseActivity {
         String newUsername = (text != null) ? text.toString().trim() : "";
 
         // Check if there is nothing to change
-        boolean usernameChanged = !newUsername.isEmpty() && !newUsername.equals(currentUser.getUsername());
+        boolean usernameChanged = !newUsername.isEmpty() &&
+                (currentUser == null || currentUser.getUsername() == null || !newUsername.equals(currentUser.getUsername()));
         if (!usernameChanged && selectedImageUri == null && !imageRemoved) {
             Toast.makeText(this, getString(R.string.no_changes), Toast.LENGTH_SHORT).show();
             return;

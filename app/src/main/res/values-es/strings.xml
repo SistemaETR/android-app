@@ -151,6 +151,8 @@
     <!-- Error messages -->
     <string name="unfilled_fields">Por favor, completa todos los campos.</string>
     <string name="invalid_email">El correo electrónico no es válido.</string>
+    <string name="user_canceled_dialog">El usuario canceló el diálogo.</string>
+    <string name="no_google_account_credentials">No se encontraron credenciales de Google.</string>
     <string name="username_length">El nombre de usuario debe tener al menos 4 caracteres.</string>
     <string name="incorrect_password">Contraseña incorrecta.</string>
     <string name="password_length">La contraseña debe tener al menos 6 caracteres.</string>
