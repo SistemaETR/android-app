@@ -21,6 +21,8 @@
         <!-- Font and text size. -->
         <item name="android:fontFamily">@font/zen_dots</item>
         <item name="android:textSize">16sp</item>
+        <!-- Colors for radio buttons and switches. -->
+        <item name="colorControlActivated">?attr/colorSecondary</item>
     </style>
 
     <style name="CustomAlertDialogStyle" parent="Theme.Material3.DayNight.Dialog.Alert">

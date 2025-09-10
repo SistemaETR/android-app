@@ -36,7 +36,8 @@
                     android:id="@+id/radioBtnLow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/low" />
+                    android:text="@string/low"
+                    app:buttonTint="@color/etr_red" />
 
                 <Space
                     android:layout_width="0dp"
@@ -47,7 +48,8 @@
                     android:id="@+id/radioBtnNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/normal" />
+                    android:text="@string/normal"
+                    app:buttonTint="@color/etr_red" />
 
                 <Space
                     android:layout_width="0dp"
@@ -58,7 +60,8 @@
                     android:id="@+id/radioBtnHigh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/high" />
+                    android:text="@string/high"
+                    app:buttonTint="@color/etr_red" />
 
                 <Space
                     android:layout_width="0dp"
@@ -69,7 +72,8 @@
                     android:id="@+id/radioBtnTest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/test" />
+                    android:text="@string/test"
+                    app:buttonTint="@color/etr_red" />
 
             </RadioGroup>
 
@@ -319,7 +323,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/change_led_color"
-                app:switchPadding="10dp" />
+                app:switchPadding="10dp"
+                app:thumbTint="@color/etr_red" />
 
             <androidx.appcompat.widget.AppCompatSeekBar
                 android:id="@+id/seekBarIntensity"
