@@ -10,8 +10,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -19,6 +17,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
+
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 import java.util.Locale;
 
@@ -72,11 +73,11 @@ public class SettingsActivity extends BaseActivity {
 
     private void setup() {
         // Link XML to Java
-        RadioGroup radioGroupSensibility = findViewById(R.id.radioGroupSensibility);
-        RadioButton radioBtnLow = findViewById(R.id.radioBtnLow);
-        RadioButton radioBtnNormal = findViewById(R.id.radioBtnNormal);
-        RadioButton radioBtnHigh = findViewById(R.id.radioBtnHigh);
-        RadioButton radioBtnTest = findViewById(R.id.radioBtnTest);
+        ChipGroup chipGroupSensibility = findViewById(R.id.chipGroupSensibility);
+        Chip chipLow = findViewById(R.id.chipLow);
+        Chip chipNormal = findViewById(R.id.chipNormal);
+        Chip chipHigh = findViewById(R.id.chipHigh);
+        Chip chipTest = findViewById(R.id.chipTest);
         tvBatteries[0] = findViewById(R.id.tvBattery1);
         tvBatteries[1] = findViewById(R.id.tvBattery2);
         tvBatteries[2] = findViewById(R.id.tvBattery3);
@@ -105,16 +106,16 @@ public class SettingsActivity extends BaseActivity {
 
         switch (sensibility) {
             case 5:
-                radioBtnTest.setChecked(true);
+                chipTest.setChecked(true);
                 break;
             case 10:
-                radioBtnHigh.setChecked(true);
+                chipHigh.setChecked(true);
                 break;
             case 20:
-                radioBtnLow.setChecked(true);
+                chipLow.setChecked(true);
                 break;
             default:
-                radioBtnNormal.setChecked(true);
+                chipNormal.setChecked(true);
                 break;
         }
 
@@ -160,7 +161,7 @@ public class SettingsActivity extends BaseActivity {
             }
         });
 
-        btnSaveConfiguration.setOnClickListener(v -> saveConfiguration(String.valueOf(seekBarIntensity.getProgress() + 1), radioGroupSensibility.getCheckedRadioButtonId()));
+        btnSaveConfiguration.setOnClickListener(v -> saveConfiguration(String.valueOf(seekBarIntensity.getProgress() + 1), chipGroupSensibility.getCheckedChipId()));
     }
 
     private void updateBatteryStatus() {
@@ -210,12 +211,12 @@ public class SettingsActivity extends BaseActivity {
         else sharedPreferencesManager.saveLedRedIntensity(percentage);
 
         // Save sensor sensibility configuration
-        if (radioBtnId == R.id.radioBtnLow) sharedPreferencesManager.saveSensorSensibility("20");
-        else if (radioBtnId == R.id.radioBtnNormal)
+        if (radioBtnId == R.id.chipLow) sharedPreferencesManager.saveSensorSensibility("20");
+        else if (radioBtnId == R.id.chipNormal)
             sharedPreferencesManager.saveSensorSensibility("15");
-        else if (radioBtnId == R.id.radioBtnHigh)
+        else if (radioBtnId == R.id.chipHigh)
             sharedPreferencesManager.saveSensorSensibility("10");
-        else if (radioBtnId == R.id.radioBtnTest)
+        else if (radioBtnId == R.id.chipTest)
             sharedPreferencesManager.saveSensorSensibility("05");
 
     }
