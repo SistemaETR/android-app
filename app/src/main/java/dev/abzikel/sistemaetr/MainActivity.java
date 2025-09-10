@@ -1,11 +1,16 @@
 package dev.abzikel.sistemaetr;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,6 +24,7 @@ import dev.abzikel.sistemaetr.utils.FirebaseManager;
 public class MainActivity extends BaseActivity {
     private final HomeFragment homeFragment = new HomeFragment();
     private final ProfileFragment profileFragment = new ProfileFragment();
+    private ActivityResultLauncher<String> requestPermissionLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +34,14 @@ public class MainActivity extends BaseActivity {
 
         // Start listening for user's documents changes
         startListeningForUserChanges();
+
+        // Request notification permission
+        requestPermissionLauncher =
+                registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                    if (isGranted) Log.d("Permissions", "Notification permission granted.");
+                    else Log.d("Permissions", "Notification permission denied.");
+                });
+        askForNotificationPermission();
 
         // Initialize toolbar
         setupToolbar(getString(R.string.app_name), false);
@@ -78,6 +92,18 @@ public class MainActivity extends BaseActivity {
                 Log.e("MainActivity", getString(R.string.error_listening_changes), e);
             }
         });
+    }
+
+    private void askForNotificationPermission() {
+        // Only ask for permission if the device is running Android 13 (API 33) or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Verify if the notification permission has been granted
+            String permission = "android.permission.POST_NOTIFICATIONS";
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                // If the permission has not been granted, request it
+                requestPermissionLauncher.launch(permission);
+            }
+        }
     }
 
     @Override
