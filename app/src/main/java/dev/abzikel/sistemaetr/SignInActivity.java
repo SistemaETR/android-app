@@ -153,7 +153,7 @@ public class SignInActivity extends AppCompatActivity {
         // Instantiate a Google sign-in request
         GetGoogleIdOption googleIdOption = new GetGoogleIdOption.Builder()
                 .setFilterByAuthorizedAccounts(false)
-                .setServerClientId(getString(R.string.web_client_id))
+                .setServerClientId(BuildConfig.WEB_CLIENT_ID)
                 .build();
 
         // Create the Credential Manager request
