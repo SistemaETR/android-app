@@ -1,5 +1,6 @@
 package dev.abzikel.sistemaetr.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,11 +32,12 @@ import dev.abzikel.sistemaetr.R;
 import dev.abzikel.sistemaetr.SignInActivity;
 import dev.abzikel.sistemaetr.pojos.User;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
+import dev.abzikel.sistemaetr.utils.LocaleHelper;
 import dev.abzikel.sistemaetr.utils.SharedPreferencesManager;
 
 public class ProfileFragment extends Fragment {
     private SharedPreferencesManager sharedPreferencesManager;
-    private TextView tvUsername, tvThemeSwitcher;
+    private TextView tvUsername, tvThemeSwitcher, tvLanguageSwitcher;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -61,6 +63,7 @@ public class ProfileFragment extends Fragment {
         TextView tvMyTrainings = view.findViewById(R.id.tvMyTrainings);
         TextView tvChangePassword = view.findViewById(R.id.tvChangePassword);
         tvThemeSwitcher = view.findViewById(R.id.tvThemeSwitcher);
+        tvLanguageSwitcher = view.findViewById(R.id.tvLanguageSwitcher);
         ImageButton btnEditProfile = view.findViewById(R.id.btnEditProfile);
         Button btnSignOut = view.findViewById(R.id.btnSignOut);
 
@@ -105,6 +108,7 @@ public class ProfileFragment extends Fragment {
         tvMyTrainings.setOnClickListener(v -> startActivity(new Intent(requireContext(), MyTrainingsActivity.class)));
         tvChangePassword.setOnClickListener(v -> startActivity(new Intent(requireContext(), ChangePasswordActivity.class)));
         tvThemeSwitcher.setOnClickListener(v -> cycleTheme());
+        tvLanguageSwitcher.setOnClickListener(v -> switchLanguage());
         btnSignOut.setOnClickListener(v -> signOut());
     }
 
@@ -153,6 +157,7 @@ public class ProfileFragment extends Fragment {
             sharedPreferencesManager.removeLedBlueIntensity();
             sharedPreferencesManager.removeSensorSensibility();
             sharedPreferencesManager.removeTheme();
+            sharedPreferencesManager.removeSelectedLanguage();
 
             // Dismiss dialog
             if (dialog.isShowing()) dialog.dismiss();
@@ -210,6 +215,33 @@ public class ProfileFragment extends Fragment {
         AppCompatDelegate.setDefaultNightMode(nextNightMode);
     }
 
+    private void updateLanguageSwitcher() {
+        // Update the text of the language switcher
+        String currentLang = LocaleHelper.getLanguage();
+        if (currentLang.equals("es")) {
+            // Set the text to Spanish if the current language is Spanish
+            tvLanguageSwitcher.setText(getString(R.string.spanish));
+            tvLanguageSwitcher.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_flag_mexico, 0, R.drawable.ic_chevron_right, 0);
+        } else {
+            // Set the text to English if the current language is English
+            tvLanguageSwitcher.setText(getString(R.string.english));
+            tvLanguageSwitcher.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_flag_usa, 0, R.drawable.ic_chevron_right, 0);
+        }
+    }
+
+    private void switchLanguage() {
+        // Change the language between Spanish and English
+        String currentLang = LocaleHelper.getLanguage();
+        String nextLang = currentLang.equals("es") ? "en" : "es";
+
+        // Save the new language
+        LocaleHelper.setLocale(requireContext(), nextLang);
+
+        // Update the activity to reflect the new language
+        Activity activity = getActivity();
+        if (activity != null) activity.recreate();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -221,8 +253,9 @@ public class ProfileFragment extends Fragment {
                 : getString(R.string.loading);
         tvUsername.setText(username);
 
-        // Update theme switcher text
+        // Update theme switcher text and language switcher text
         updateThemeSwitcherText();
+        updateLanguageSwitcher();
     }
 
 }

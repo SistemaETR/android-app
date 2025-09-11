@@ -1,5 +1,6 @@
 package dev.abzikel.sistemaetr.utils;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         // Edge to edge support
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        // Apply the selected language before attaching the base context
+        super.attachBaseContext(LocaleHelper.onAttach(newBase));
     }
 
     protected void setupToolbar(String title, boolean showUpButton) {

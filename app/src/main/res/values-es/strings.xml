@@ -61,6 +61,8 @@
     <string name="system">Sistema</string>
     <string name="light">Claro</string>
     <string name="dark">Oscuro</string>
+    <string name="english">Idioma: Inglés</string>
+    <string name="spanish">Idioma: Español</string>
     <string name="ic_edit_profile">Icono de edición de perfil</string>
     <!-- Profile screen strings -->
     <string name="change_photo">Cambiar foto</string>

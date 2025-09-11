@@ -17,6 +17,7 @@ public class SharedPreferencesManager {
     private static final String LED_BLUE_INTENSITY = "ledBlueIntensity";
     private static final String SENSOR_SENSIBILITY = "sensorSensibility";
     private static final String THEME = "theme";
+    private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
     private static SharedPreferencesManager instance;
     private final SharedPreferences sharedPreferences;
 
@@ -130,6 +131,22 @@ public class SharedPreferencesManager {
     public void removeTheme() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(THEME);
+        editor.apply();
+    }
+
+    public String getSelectedLanguage() {
+        return sharedPreferences.getString(SELECTED_LANGUAGE, Locale.getDefault().getLanguage());
+    }
+
+    public void setSelectedLanguage(String language) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(SELECTED_LANGUAGE, language);
+        editor.apply();
+    }
+
+    public void removeSelectedLanguage() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(SELECTED_LANGUAGE);
         editor.apply();
     }
 
