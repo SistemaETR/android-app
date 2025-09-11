@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import dev.abzikel.sistemaetr.dialogs.BluetoothDialog;
 import dev.abzikel.sistemaetr.fragments.HomeFragment;
 import dev.abzikel.sistemaetr.fragments.ProfileFragment;
 import dev.abzikel.sistemaetr.pojos.User;
@@ -31,6 +32,12 @@ public class MainActivity extends BaseActivity {
         // Set layout and initialize activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Listen for the Bluetooth request
+        getSupportFragmentManager().setFragmentResultListener("bluetooth_request_settings", this, (requestKey, bundle) -> {
+            boolean isReady = bundle.getBoolean("isBluetoothReady");
+            if (isReady) startActivity(new Intent(this, SettingsActivity.class));
+        });
 
         // Start listening for user's documents changes
         startListeningForUserChanges();
@@ -117,9 +124,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.configuration) {
-            // Handle configuration item click (open SettingsActivity)
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
+            // Show dialog
+            BluetoothDialog dialog = BluetoothDialog.newInstance("bluetooth_request_settings");
+            dialog.show(getSupportFragmentManager(), "BluetoothCheckDialog");
 
             return true;
         }

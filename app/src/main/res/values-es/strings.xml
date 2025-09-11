@@ -31,12 +31,13 @@
     <string name="restore_password">Restablecer Contraseña</string>
     <string name="ic_lock">Icono de Candado</string>
     <!-- Bluetooth screen strings -->
+    <string name="connection_required">Conexión Requerida</string>
+    <string name="connection_required_instructions">Para iniciar un entrenamiento, es necesario activar el Bluetooth y conceder los permisos de dispositivos cercanos.</string>
     <string name="bluetooth_not_supported">Tu dispositivo no soporta Bluetooth</string>
-    <string name="bluetooth_disabled">El Bluetooth está desactivado, favor de activarlo para continuar</string>
-    <string name="bluetooth_enabled">El Bluetooth está habilitado, realizando ajustes para la conexión…</string>
-    <string name="permission_required">Permisos necesarios</string>
-    <string name="bluetooth_permission">El permiso de dispositivos cercanos sirve para encontrar los dispositivos Bluetooth necesarios para el funcionamiento de la aplicación. Si no se habilita, no podrá continuar.</string>
-    <string name="enable">Habilitar</string>
+    <string name="bluetooth_not_supported_instructions">Lo sentimos pero tu dispositivo no funciona con Bluetooth, favor de intentarlo con otro dispositivo.</string>
+    <string name="bluetooth_enabled">Bluetooth Habilitado</string>
+    <string name="nearby_devices_granted">Permiso de Dispositivos Cercanos</string>
+    <string name="continue_word">Continuar</string>
     <string name="ic_bluetooth_status">Icono del Estatus Bluetooth</string>
     <!-- Home screen strings -->
     <string name="short_weapon">Arma corta</string>
@@ -168,6 +169,8 @@
     <string name="error_listening_changes">Error al escuchar cambios.</string>
     <string name="user_document_not_found">No se encontró el documento del usuario.</string>
     <string name="error_getting_trainings">Error al obtener los entrenamientos.</string>
+    <string name="error_bluetooth_required">Bluetooth requerido.</string>
+    <string name="error_permission_required">Error: Permiso requerido.</string>
     <string name="error_image_permission">Error Imagen: Permiso denegado</string>
     <string name="no_changes">Sin cambios.</string>
     <string name="unknown_error">Error desconocido.</string>

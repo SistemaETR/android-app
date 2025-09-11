@@ -63,8 +63,8 @@ public class SignInActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            // User is already logged in, navigate to BluetoothActivity
-            startActivity(new Intent(SignInActivity.this, BluetoothActivity.class));
+            // User is already logged in, navigate to MainActivity
+            startActivity(new Intent(SignInActivity.this, MainActivity.class));
             finish();
         }
     }
@@ -135,10 +135,10 @@ public class SignInActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Login successful, navigate to Bluetooth activity
+                        // Login successful, navigate to main activity
                         Toast.makeText(SignInActivity.this,
                                 getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SignInActivity.this, BluetoothActivity.class));
+                        startActivity(new Intent(SignInActivity.this, MainActivity.class));
                         finish();
                     } else {
                         // Login failed, display a message to the user
@@ -247,10 +247,10 @@ public class SignInActivity extends AppCompatActivity {
                             FirebaseManager.getInstance().createUserDocument(this, newUser, new FirebaseManager.OnSimpleListener() {
                                 @Override
                                 public void onSuccess() {
-                                    // Document created successfully, navigate to Bluetooth activity
+                                    // Document created successfully, navigate to main activity
                                     Toast.makeText(SignInActivity.this,
                                             getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(SignInActivity.this, BluetoothActivity.class));
+                                    startActivity(new Intent(SignInActivity.this, MainActivity.class));
                                     finish();
                                 }
 
@@ -262,10 +262,10 @@ public class SignInActivity extends AppCompatActivity {
                                 }
                             });
                         } else {
-                            // Login successful, navigate to Bluetooth activity
+                            // Login successful, navigate to main activity
                             Toast.makeText(SignInActivity.this,
                                     getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(SignInActivity.this, BluetoothActivity.class));
+                            startActivity(new Intent(SignInActivity.this, MainActivity.class));
                             finish();
                         }
                     } else {

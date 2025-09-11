@@ -104,7 +104,7 @@ public class ProfileFragment extends Fragment {
         // Inflate custom content dialog
         Context context = requireContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View dialogView = inflater.inflate(R.layout.content_dialog_confirmation, null);
+        View dialogView = inflater.inflate(R.layout.dialog_confirmation, null);
 
         // Link XML to Java
         TextView tvMessage = dialogView.findViewById(R.id.tvMessage);
