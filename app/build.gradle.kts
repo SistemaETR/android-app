@@ -29,6 +29,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            firebaseCrashlytics {
+                nativeSymbolUploadEnabled = true
+            }
         }
     }
     compileOptions {
