@@ -57,6 +57,10 @@
     <string name="total_trainings_value">Total trainings: %d</string>
     <string name="my_trainings">My Trainings</string>
     <string name="change_password">Change Password</string>
+    <string name="theme">Theme:</string>
+    <string name="system">System</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
     <string name="ic_edit_profile">Edit profile icon</string>
     <!-- Profile screen strings -->
     <string name="change_photo">Change photo</string>

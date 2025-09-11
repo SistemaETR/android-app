@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -30,9 +31,11 @@ import dev.abzikel.sistemaetr.R;
 import dev.abzikel.sistemaetr.SignInActivity;
 import dev.abzikel.sistemaetr.pojos.User;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
+import dev.abzikel.sistemaetr.utils.SharedPreferencesManager;
 
 public class ProfileFragment extends Fragment {
-    private TextView tvUsername;
+    private SharedPreferencesManager sharedPreferencesManager;
+    private TextView tvUsername, tvThemeSwitcher;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -57,8 +60,12 @@ public class ProfileFragment extends Fragment {
         TextView tvTotalTrainings = view.findViewById(R.id.tvTotalTrainings);
         TextView tvMyTrainings = view.findViewById(R.id.tvMyTrainings);
         TextView tvChangePassword = view.findViewById(R.id.tvChangePassword);
+        tvThemeSwitcher = view.findViewById(R.id.tvThemeSwitcher);
         ImageButton btnEditProfile = view.findViewById(R.id.btnEditProfile);
         Button btnSignOut = view.findViewById(R.id.btnSignOut);
+
+        // Initialize SharedPreferencesManager
+        sharedPreferencesManager = SharedPreferencesManager.getInstance(requireContext());
 
         // Get user data from Firebase
         User currentUser = FirebaseManager.getInstance().getCurrentUserData();
@@ -97,6 +104,7 @@ public class ProfileFragment extends Fragment {
         btnEditProfile.setOnClickListener(v -> startActivity(new Intent(requireContext(), ProfileActivity.class)));
         tvMyTrainings.setOnClickListener(v -> startActivity(new Intent(requireContext(), MyTrainingsActivity.class)));
         tvChangePassword.setOnClickListener(v -> startActivity(new Intent(requireContext(), ChangePasswordActivity.class)));
+        tvThemeSwitcher.setOnClickListener(v -> cycleTheme());
         btnSignOut.setOnClickListener(v -> signOut());
     }
 
@@ -137,6 +145,15 @@ public class ProfileFragment extends Fragment {
             startActivity(intent);
             requireActivity().finish();
 
+            // Remove data from SharedPreferences
+            SharedPreferencesManager sharedPreferencesManager = SharedPreferencesManager.getInstance(context);
+            sharedPreferencesManager.removeServiceUUID();
+            sharedPreferencesManager.removeMacAddresses();
+            sharedPreferencesManager.removeLedRedIntensity();
+            sharedPreferencesManager.removeLedBlueIntensity();
+            sharedPreferencesManager.removeSensorSensibility();
+            sharedPreferencesManager.removeTheme();
+
             // Dismiss dialog
             if (dialog.isShowing()) dialog.dismiss();
         });
@@ -144,6 +161,53 @@ public class ProfileFragment extends Fragment {
 
         // Show Alert Dialog
         dialog.show();
+    }
+
+    private void updateThemeSwitcherText() {
+        // Read the current theme and update the text
+        int currentNightMode = sharedPreferencesManager.getTheme();
+        String themeText = getString(R.string.theme) + " ";
+        switch (currentNightMode) {
+            case AppCompatDelegate.MODE_NIGHT_NO:
+                themeText += getString(R.string.light);
+                break;
+            case AppCompatDelegate.MODE_NIGHT_YES:
+                themeText += getString(R.string.dark);
+                break;
+            default:
+                themeText += getString(R.string.system);
+                break;
+        }
+        tvThemeSwitcher.setText(themeText);
+    }
+
+    private void cycleTheme() {
+        // Get current theme
+        int currentNightMode = sharedPreferencesManager.getTheme();
+
+        // Cycle through the three themes
+        String nextThemeText = getString(R.string.theme) + " ";
+        int nextNightMode;
+        if (currentNightMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
+            // Change from system to light
+            nextNightMode = AppCompatDelegate.MODE_NIGHT_NO;
+            nextThemeText += getString(R.string.light);
+        } else if (currentNightMode == AppCompatDelegate.MODE_NIGHT_NO) {
+            // Change from light to dark
+            nextNightMode = AppCompatDelegate.MODE_NIGHT_YES;
+            nextThemeText += getString(R.string.dark);
+        } else {
+            // Change from dark to system
+            nextNightMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+            nextThemeText += getString(R.string.system);
+        }
+
+        // Update the text
+        tvThemeSwitcher.setText(nextThemeText);
+
+        // Save the new theme and apply it
+        sharedPreferencesManager.saveTheme(nextNightMode);
+        AppCompatDelegate.setDefaultNightMode(nextNightMode);
     }
 
     @Override
@@ -156,6 +220,9 @@ public class ProfileFragment extends Fragment {
                 ? currentUser.getUsername()
                 : getString(R.string.loading);
         tvUsername.setText(username);
+
+        // Update theme switcher text
+        updateThemeSwitcherText();
     }
 
 }

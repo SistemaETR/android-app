@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -14,6 +16,7 @@ public class SharedPreferencesManager {
     private static final String LED_RED_INTENSITY = "ledRedIntensity";
     private static final String LED_BLUE_INTENSITY = "ledBlueIntensity";
     private static final String SENSOR_SENSIBILITY = "sensorSensibility";
+    private static final String THEME = "theme";
     private static SharedPreferencesManager instance;
     private final SharedPreferences sharedPreferences;
 
@@ -111,6 +114,22 @@ public class SharedPreferencesManager {
     public void removeSensorSensibility() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(SENSOR_SENSIBILITY);
+        editor.apply();
+    }
+
+    public int getTheme() {
+        return sharedPreferences.getInt(THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+    }
+
+    public void saveTheme(int theme) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(THEME, theme);
+        editor.apply();
+    }
+
+    public void removeTheme() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(THEME);
         editor.apply();
     }
 

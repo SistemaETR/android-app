@@ -148,6 +148,19 @@
                 app:drawableStartCompat="@drawable/ic_change_password"
                 app:layout_constraintTop_toBottomOf="@id/tvMyTrainings" />
 
+            <TextView
+                android:id="@+id/tvThemeSwitcher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:textSize="18sp"
+                app:drawableEndCompat="@drawable/ic_chevron_right"
+                app:drawableStartCompat="@drawable/ic_theme"
+                app:layout_constraintTop_toBottomOf="@id/tvChangePassword" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Space
