@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- General app strings -->
+    <string name="app_name">ETR System</string>
+    <!-- Title app strings -->
+    <string name="settings">Settings</string>
+    <string name="training">Training</string>
+    <string name="edit_profile">Edit profile</string>
+    <!-- Service strings -->
+    <string name="target_system_active">Shooting System Active</string>
+    <string name="ble_server_working">BLE Server is working.</string>
+    <!-- Sign-up screen strings -->
+    <string name="user_registration">User Registration</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="create_account">Create Account</string>
+    <string name="ic_register">Register Icon</string>
+    <!-- Sign-in screen strings -->
+    <string name="system_etr">Reaction Shooting Training System</string>
+    <string name="forgotten_password">Did you forget your password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="create_one">Create one</string>
+    <string name="ic_logo">Logo Icon</string>
+    <!-- Password restoration screen strings -->
+    <string name="password_restoration">Password Restoration</string>
+    <string name="password_restoration_instructions">Insert your email to restore your password</string>
+    <string name="restore_password">Restore Password</string>
+    <string name="ic_lock">Lock Icon</string>
+    <!-- Bluetooth screen strings -->
+    <string name="connection_required">Connection Required</string>
+    <string name="connection_required_instructions">To start a training mode, you need to enable Bluetooth and grant permission for access to nearby devices.</string>
+    <string name="bluetooth_not_supported">Your device doesn\'t support Bluetooth</string>
+    <string name="bluetooth_not_supported_instructions">Sorry but your device doesn\'t work with Bluetooth, please try with other device.</string>
+    <string name="bluetooth_enabled">Bluetooth Enabled</string>
+    <string name="nearby_devices_granted">Nearby Devices Permission</string>
+    <string name="continue_word">Continue</string>
+    <string name="ic_bluetooth_status">Bluetooth Status Icon</string>
+    <!-- Home screen strings -->
+    <string name="short_weapon">Short weapon</string>
+    <string name="long_weapon">Long weapon</string>
+    <string name="reaction">Reaction</string>
+    <string name="advanced_reaction">Advanced reaction</string>
+    <string name="infinite">Infinite</string>
+    <string name="ic_short_weapon">Short weapon icon</string>
+    <string name="ic_long_weapon">Long weapon icon</string>
+    <string name="ic_reaction">Reaction mode icon</string>
+    <string name="ic_advanced_reaction">Advanced reaction mode icon</string>
+    <string name="ic_infinite">Infinite mode icon</string>
+    <!-- Profile fragment screen strings -->
+    <string name="loading">Loading…</string>
+    <string name="member_since">Member since: %1$s</string>
+    <string name="statistics">Statistics</string>
+    <string name="total_trainings_value">Total trainings: %d</string>
+    <string name="my_trainings">My Trainings</string>
+    <string name="change_password">Change Password</string>
+    <string name="ic_edit_profile">Edit profile icon</string>
+    <!-- Profile screen strings -->
+    <string name="change_photo">Change photo</string>
+    <string name="save_changes">Save changes</string>
+    <string name="delete_account">Delete account</string>
+    <string name="hold_to_confirm_countdown">Hold to confirm (%d)</string>
+    <string name="deleting_account">Deleting account…</string>
+    <string name="ic_profile">Profile icon</string>
+    <!-- My trainings screen strings -->
+    <string name="since">From</string>
+    <string name="to">To</string>
+    <string name="modality">Modality</string>
+    <string name="no_trainings">There are no trainings yet.</string>
+    <string name="ic_trainings">Trainings icon</string>
+    <string-array name="modality_array">
+        <item>All modalities</item>
+        <item>@string/short_weapon</item>
+        <item>@string/long_weapon</item>
+        <item>@string/reaction</item>
+        <item>@string/advanced_reaction</item>
+        <item>@string/infinite</item>
+    </string-array>
+    <!-- Training item screen strings -->
+    <string name="score_value">Score: %d pts.</string>
+    <string name="accuracy_value">Accuracy: %.2f%%</string>
+    <string name="reaction_time_value">Reaction time: %.3f s</string>
+    <string name="hits_value">%d hits</string>
+    <string name="misses_value">%d misses</string>
+    <string name="unknown_modality">Unknown</string>
+    <!-- Game screen strings -->
+    <string name="zero">0</string>
+    <string name="hits">Hits</string>
+    <string name="misses">Misses</string>
+    <string name="na">N/A</string>
+    <string name="training_time">Training time</string>
+    <string name="zero_time">00:00:000</string>
+    <string name="minute_time">01:00:000</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="restart">Restart</string>
+    <string name="ic_green_gun">Short weapon green icon</string>
+    <string name="ic_red_gun">Short weapon red icon</string>
+    <string name="ic_trophy">Trophy icon</string>
+    <string name="ic_gun_target">Gun target icon</string>
+    <string name="ic_chronometer">Chronometer icon</string>
+    <string name="ic_play_button">Play button icon</string>
+    <!-- Settings screen strings -->
+    <string name="sensibility">Sensibility</string>
+    <string name="low">Low</string>
+    <string name="normal">Normal</string>
+    <string name="high">High</string>
+    <string name="test">Test</string>
+    <string name="target_number">Target number</string>
+    <string name="battery_percentage">Battery percentage</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="target1">Target 1</string>
+    <string name="target2">Target 2</string>
+    <string name="target3">Target 3</string>
+    <string name="target4">Target 4</string>
+    <string name="target5">Target 5</string>
+    <string name="target6">Target 6</string>
+    <string name="change_led_color">Change LED color</string>
+    <string name="full_intensity">Intensity: 100%</string>
+    <string name="save_configuration">Save configuration</string>
+    <string name="intensity">Intensity:</string>
+    <string name="ic_led">LED icon</string>
+    <!-- Change password screen strings -->
+    <string name="current_password">Current password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="change_password_instructions">Please enter your current password and a new password to set a new password.</string>
+    <string name="ic_change_password">Change password icon</string>
+    <!-- Profile image picker menu -->
+    <string name="select_image">Select Image</string>
+    <string name="remove_image">Remove Image</string>
+    <!-- Content dialog messages -->
+    <string name="sign_out_confirmation">Are you sure you want to close the session?</string>
+    <string name="sign_out">Sign out</string>
+    <string name="cancel">Cancel</string>
+    <!-- Bottom navigation menu and toolbar-->
+    <string name="configuration">Settings</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <!-- Success messages -->
+    <string name="user_created">User created successfully.</string>
+    <string name="login_successful">Login successful.</string>
+    <string name="email_sent">Email sent.</string>
+    <string name="session_closed">Session closed.</string>
+    <string name="user_data_updated">User data updated.</string>
+    <string name="password_updated">Password updated.</string>
+    <string name="deletion_canceled">Deletion canceled.</string>
+    <string name="account_deleted">Account deleted successfully.</string>
+    <!-- Error messages -->
+    <string name="unfilled_fields">Please fill all fields.</string>
+    <string name="invalid_email">Invalid email.</string>
+    <string name="user_canceled_dialog">User canceled the dialog.</string>
+    <string name="no_google_account_credentials">No Google account credentials found.</string>
+    <string name="username_length">Username must have at least 4 characters.</string>
+    <string name="incorrect_password">Incorrect password.</string>
+    <string name="password_length">Password must have at least 6 characters.</string>
+    <string name="unmatched_passwords">Passwords don\'t match.</string>
+    <string name="error_creating_account">Error creating account:</string>
+    <string name="error_saving_user">Error saving user data.</string>
+    <string name="error_signing_in">Error signing in.</string>
+    <string name="error_sending_email">Error sending the email.</string>
+    <string name="error_deleting_image">Error deleting the image.</string>
+    <string name="error_uploading_image">Error uploading the image.</string>
+    <string name="no_authenticated_user">There is no authenticated user.</string>
+    <string name="could_not_save_training">The training could not be saved.</string>
+    <string name="error_listening_changes">Error listening changes.</string>
+    <string name="user_document_not_found">User document not found.</string>
+    <string name="error_getting_trainings">Error getting trainings.</string>
+    <string name="error_bluetooth_required">Bluetooth required.</string>
+    <string name="error_permission_required">Error: Permission required.</string>
+    <string name="error_image_permission">Image Error: Permission denied</string>
+    <string name="no_changes">No changes.</string>
+    <string name="unknown_error">Unknown error.</string>
+    <string name="error">Error:</string>
+</resources>
