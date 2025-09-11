@@ -10,9 +10,11 @@ local.properties
 
 # Android Studio generated files and folders
 captures/
+release/
 .externalNativeBuild/
 .cxx/
 *.apk
+*.aab
 output-metadata.json
 
 # IntelliJ
