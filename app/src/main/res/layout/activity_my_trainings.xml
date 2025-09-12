@@ -109,7 +109,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/no_trainings"
-            android:textSize="18sp" />
+            android:textSize="@dimen/font_size_body_large" />
+
     </LinearLayout>
 
     <ProgressBar

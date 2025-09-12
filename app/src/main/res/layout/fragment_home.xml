@@ -38,6 +38,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:text="@string/short_weapon" />
 
             </LinearLayout>
@@ -64,6 +66,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:text="@string/long_weapon" />
 
             </LinearLayout>
@@ -99,6 +103,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:text="@string/reaction" />
 
             </LinearLayout>
@@ -125,6 +131,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:text="@string/advanced_reaction" />
 
             </LinearLayout>
@@ -160,6 +168,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:text="@string/infinite" />
 
             </LinearLayout>

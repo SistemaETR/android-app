@@ -88,7 +88,7 @@
     <!-- Training item screen strings -->
     <string name="score_value">Score: %d pts.</string>
     <string name="accuracy_value">Accuracy: %.2f%%</string>
-    <string name="reaction_time_value">Reaction time: %.3f s</string>
+    <string name="reaction_time_value">Reaction time: %.3fs</string>
     <string name="hits_value">%d hits</string>
     <string name="misses_value">%d misses</string>
     <string name="unknown_modality">Unknown</string>

@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:textSize="18sp"
+            android:textSize="@dimen/font_size_body_large"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/tvTrainingDate"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
             android:id="@+id/tvTrainingDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="@dimen/font_size_body_small"
             app:layout_constraintBottom_toBottomOf="@id/tvModalityTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvModalityTitle" />
@@ -51,7 +51,6 @@
             android:layout_marginTop="12dp"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
-            android:textSize="16sp"
             app:drawableStartCompat="@drawable/ic_trophy"
             app:drawableTint="@color/yellow"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,9 +63,8 @@
             android:layout_marginTop="8dp"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
-            android:textSize="16sp"
-            app:drawableTint="@color/red"
             app:drawableStartCompat="@drawable/ic_gun_target"
+            app:drawableTint="@color/red"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvScore" />
 
@@ -77,9 +75,8 @@
             android:layout_marginTop="8dp"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
-            android:textSize="16sp"
-            app:drawableTint="@color/blue"
             app:drawableStartCompat="@drawable/ic_chronometer"
+            app:drawableTint="@color/blue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvAccuracy" />
 
@@ -91,7 +88,6 @@
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:textColor="@color/green"
-            android:textSize="16sp"
             app:drawableStartCompat="@drawable/ic_dot"
             app:drawableTint="@color/green"
             app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +100,6 @@
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:textColor="@color/red"
-            android:textSize="16sp"
             app:drawableStartCompat="@drawable/ic_dot"
             app:drawableTint="@color/red"
             app:layout_constraintEnd_toEndOf="parent"

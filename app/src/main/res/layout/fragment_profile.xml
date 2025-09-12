@@ -32,7 +32,7 @@
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textSize="22sp"
+                android:textSize="@dimen/font_size_body_large"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/tvRegistrationDate"
                 app:layout_constraintEnd_toStartOf="@id/btnEditProfile"
@@ -80,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/statistics"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/font_size_body_large"
                         android:textStyle="bold" />
 
                     <TextView
@@ -90,7 +90,6 @@
                         android:layout_marginTop="12dp"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical"
-                        android:textSize="16sp"
                         app:drawableStartCompat="@drawable/ic_gun_target"
                         app:drawableTint="@color/red" />
 
@@ -101,7 +100,6 @@
                         android:layout_marginTop="8dp"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical"
-                        android:textSize="16sp"
                         app:drawableStartCompat="@drawable/ic_chronometer"
                         app:drawableTint="@color/blue" />
 
@@ -112,7 +110,6 @@
                         android:layout_marginTop="8dp"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical"
-                        android:textSize="16sp"
                         app:drawableStartCompat="@drawable/ic_shooting_target" />
 
                 </LinearLayout>
@@ -128,7 +125,7 @@
                 android:gravity="center_vertical"
                 android:padding="16dp"
                 android:text="@string/configuration"
-                android:textSize="18sp"
+                android:textSize="@dimen/font_size_body_large"
                 app:drawableEndCompat="@drawable/ic_chevron_right"
                 app:drawableStartCompat="@drawable/ic_configuration"
                 app:layout_constraintTop_toBottomOf="@id/cvStats" />
@@ -142,7 +139,7 @@
                 android:gravity="center_vertical"
                 android:padding="16dp"
                 android:text="@string/my_trainings"
-                android:textSize="18sp"
+                android:textSize="@dimen/font_size_body_large"
                 app:drawableEndCompat="@drawable/ic_chevron_right"
                 app:drawableStartCompat="@drawable/ic_clipboard"
                 app:layout_constraintTop_toBottomOf="@id/tvConfiguration" />
@@ -156,7 +153,7 @@
                 android:gravity="center_vertical"
                 android:padding="16dp"
                 android:text="@string/change_password"
-                android:textSize="18sp"
+                android:textSize="@dimen/font_size_body_large"
                 android:visibility="gone"
                 app:drawableEndCompat="@drawable/ic_chevron_right"
                 app:drawableStartCompat="@drawable/ic_change_password"
@@ -170,7 +167,7 @@
                 android:drawablePadding="16dp"
                 android:gravity="center_vertical"
                 android:padding="16dp"
-                android:textSize="18sp"
+                android:textSize="@dimen/font_size_body_large"
                 app:drawableEndCompat="@drawable/ic_chevron_right"
                 app:drawableStartCompat="@drawable/ic_theme"
                 app:layout_constraintTop_toBottomOf="@id/tvChangePassword" />
@@ -183,7 +180,7 @@
                 android:drawablePadding="16dp"
                 android:gravity="center_vertical"
                 android:padding="16dp"
-                android:textSize="18sp"
+                android:textSize="@dimen/font_size_body_large"
                 app:drawableEndCompat="@drawable/ic_chevron_right"
                 app:layout_constraintTop_toBottomOf="@id/tvThemeSwitcher" />
 
@@ -202,7 +199,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/sign_out"
             android:textColor="@color/etr_white"
-            android:textSize="24sp"
+            android:textSize="@dimen/font_size_headline_small"
             app:backgroundTint="@color/red"
             app:strokeColor="@color/red" />
 

@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/hits"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/font_size_body_large" />
 
             </LinearLayout>
 
@@ -76,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/misses"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/font_size_body_large" />
 
             </LinearLayout>
 
@@ -112,7 +112,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="12dp"
                 android:text="@string/na"
-                android:textSize="32sp" />
+                android:textSize="@dimen/font_size_headline_medium" />
 
         </LinearLayout>
 
@@ -138,7 +138,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="12dp"
                 android:text="@string/na"
-                android:textSize="32sp" />
+                android:textSize="@dimen/font_size_headline_medium" />
 
         </LinearLayout>
 
@@ -164,7 +164,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="12dp"
                 android:text="@string/na"
-                android:textSize="32sp" />
+                android:textSize="@dimen/font_size_headline_medium" />
 
         </LinearLayout>
 
@@ -174,7 +174,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="32dp"
             android:text="@string/training_time"
-            android:textSize="32sp" />
+            android:textSize="@dimen/font_size_headline_medium" />
 
         <TextView
             android:id="@+id/tvTimer"
@@ -185,7 +185,7 @@
             android:background="@drawable/bg_timer"
             android:padding="8dp"
             android:text="@string/zero_time"
-            android:textSize="36sp"
+            android:textSize="@dimen/font_size_headline_large"
             android:textStyle="bold" />
 
         <ImageButton

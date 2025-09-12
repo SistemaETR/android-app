@@ -26,7 +26,7 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/user_registration"
-            android:textSize="28sp"
+            android:textSize="@dimen/font_size_headline_small"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -109,7 +109,7 @@
             android:layout_marginBottom="24dp"
             android:text="@string/create_account"
             android:textColor="@color/etr_white"
-            android:textSize="24sp"
+            android:textSize="@dimen/font_size_headline_small"
             app:backgroundTint="@color/blue"
             app:strokeColor="@color/blue" />
 

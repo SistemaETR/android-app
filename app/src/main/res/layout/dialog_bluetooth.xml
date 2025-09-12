@@ -22,7 +22,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/connection_required"
-        android:textSize="20sp"
+        android:textSize="@dimen/font_size_headline_small"
         android:textStyle="bold" />
 
     <TextView
@@ -32,7 +32,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="@string/connection_required_instructions" />
+        android:text="@string/connection_required_instructions"
+        android:textSize="@dimen/font_size_body_large" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,7 +72,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/continue_word"
         android:textColor="@color/etr_white"
-        android:textSize="24sp"
+        android:textSize="@dimen/font_size_headline_small"
         app:backgroundTint="@color/blue"
         app:strokeColor="@color/blue" />
 

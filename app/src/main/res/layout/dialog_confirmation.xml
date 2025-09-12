@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:textAlignment="center"
-        android:textSize="22sp" />
+        android:textSize="@dimen/font_size_body_large" />
 
     <Button
         android:id="@+id/btnPositive"
@@ -18,8 +18,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/red"
-        android:minWidth="230dp"
+        android:minWidth="250dp"
         android:textColor="@color/etr_white"
+        android:textSize="@dimen/font_size_headline_small"
         android:textStyle="bold" />
 
     <Button
@@ -29,9 +30,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/green"
-        android:minWidth="230dp"
+        android:minWidth="250dp"
         android:text="@string/cancel"
         android:textColor="@color/etr_white"
+        android:textSize="@dimen/font_size_headline_small"
         android:textStyle="bold" />
 
 </LinearLayout>
