@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.credentials.Credential;
 import androidx.credentials.CredentialManager;
@@ -41,10 +40,11 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import java.util.Objects;
 
 import dev.abzikel.sistemaetr.pojos.User;
+import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.ErrorClearingTextWatcher;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends BaseActivity {
     private FirebaseAuth mAuth;
     private CredentialManager credentialManager;
     private TextInputLayout tilEmail, tilPassword;

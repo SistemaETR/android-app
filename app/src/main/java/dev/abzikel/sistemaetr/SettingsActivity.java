@@ -90,9 +90,6 @@ public class SettingsActivity extends BaseActivity {
         TextView tvIntensity = findViewById(R.id.tvIntensity);
         Button btnSaveConfiguration = findViewById(R.id.btnSaveConfiguration);
 
-        // Initialize toolbar
-        setupToolbar(getString(R.string.settings), true);
-
         // Initialize variables
         sharedPreferencesManager = SharedPreferencesManager.getInstance(this);
         int sensibility = Integer.parseInt(sharedPreferencesManager.getSensorSensibility());

@@ -19,8 +19,8 @@ android {
         applicationId = "dev.abzikel.sistemaetr"
         minSdk = 26
         targetSdk = 35
-        versionCode = 4
-        versionName = "1.0.0-beta.4"
+        versionCode = 5
+        versionName = "1.0.0-beta.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -63,7 +63,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    debugImplementation (libs.firebase.appcheck.debug)
+    implementation(libs.firebase.appcheck.debug)
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.appcheck.playintegrity)

@@ -72,9 +72,6 @@ public class GameActivity extends BaseActivity {
         tvTimer = findViewById(R.id.tvTimer);
         btnStartStop = findViewById(R.id.btnStartStop);
 
-        // Initialize toolbar
-        setupToolbar(getString(R.string.training), true);
-
         // Get game mode, max shots and time interval
         String mode = getIntent().getStringExtra("mode");
         if (mode == null || mode.isEmpty()) {

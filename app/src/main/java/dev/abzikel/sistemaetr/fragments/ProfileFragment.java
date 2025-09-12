@@ -156,8 +156,6 @@ public class ProfileFragment extends Fragment {
             sharedPreferencesManager.removeLedRedIntensity();
             sharedPreferencesManager.removeLedBlueIntensity();
             sharedPreferencesManager.removeSensorSensibility();
-            sharedPreferencesManager.removeTheme();
-            sharedPreferencesManager.removeSelectedLanguage();
 
             // Dismiss dialog
             if (dialog.isShowing()) dialog.dismiss();

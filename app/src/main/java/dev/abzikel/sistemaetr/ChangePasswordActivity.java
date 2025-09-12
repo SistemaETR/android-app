@@ -34,9 +34,6 @@ public class ChangePasswordActivity extends BaseActivity {
         etvConfirmPassword = findViewById(R.id.etvConfirmPassword);
         MaterialButton btnChangePassword = findViewById(R.id.btnChangePassword);
 
-        // Initialize toolbar
-        setupToolbar(getString(R.string.change_password), true);
-
         // Add text watchers
         etvCurrentPassword.addTextChangedListener(new ErrorClearingTextWatcher(tilCurrentPassword));
         etvNewPassword.addTextChangedListener(new ErrorClearingTextWatcher(tilNewPassword));

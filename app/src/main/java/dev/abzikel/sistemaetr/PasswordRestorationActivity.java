@@ -5,7 +5,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -13,9 +12,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
+import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.ErrorClearingTextWatcher;
 
-public class PasswordRestorationActivity extends AppCompatActivity {
+public class PasswordRestorationActivity extends BaseActivity {
     private FirebaseAuth mAuth;
     private TextInputLayout tilEmail;
     private TextInputEditText etvEmail;

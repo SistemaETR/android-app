@@ -58,9 +58,6 @@ public class MyTrainingsActivity extends BaseActivity {
         etDateTo = findViewById(R.id.etDateTo);
         actvModality = findViewById(R.id.actvModality);
 
-        // Initialize toolbar
-        setupToolbar(getString(R.string.my_trainings), true);
-
         setupRecyclerView();
         setupPagination();
         setupFilters();

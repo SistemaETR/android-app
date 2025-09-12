@@ -90,9 +90,6 @@ public class ProfileActivity extends BaseActivity {
         MaterialButton btnSaveChanges = findViewById(R.id.btnSaveChanges);
         btnDeleteAccount = findViewById(R.id.btnDeleteAccount);
 
-        // Initialize toolbar
-        setupToolbar(getString(R.string.edit_profile), true);
-
         // Get user data from Firebase
         currentUser = FirebaseManager.getInstance().getCurrentUserData();
 

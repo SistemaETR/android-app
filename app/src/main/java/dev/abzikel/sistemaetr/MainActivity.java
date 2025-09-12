@@ -5,8 +5,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -15,7 +13,6 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import dev.abzikel.sistemaetr.dialogs.BluetoothDialog;
 import dev.abzikel.sistemaetr.fragments.HomeFragment;
 import dev.abzikel.sistemaetr.fragments.ProfileFragment;
 import dev.abzikel.sistemaetr.pojos.User;
@@ -49,9 +46,6 @@ public class MainActivity extends BaseActivity {
                     else Log.d("Permissions", "Notification permission denied.");
                 });
         askForNotificationPermission();
-
-        // Initialize toolbar
-        setupToolbar(getString(R.string.app_name), false);
 
         // Initialize BottomNavigationView
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -111,27 +105,6 @@ public class MainActivity extends BaseActivity {
                 requestPermissionLauncher.launch(permission);
             }
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu
-        getMenuInflater().inflate(R.menu.toolbar, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.configuration) {
-            // Show dialog
-            BluetoothDialog dialog = BluetoothDialog.newInstance("bluetooth_request_settings");
-            dialog.show(getSupportFragmentManager(), "BluetoothCheckDialog");
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
 }
