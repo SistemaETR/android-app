@@ -29,7 +29,9 @@ import dev.abzikel.sistemaetr.ChangePasswordActivity;
 import dev.abzikel.sistemaetr.MyTrainingsActivity;
 import dev.abzikel.sistemaetr.ProfileActivity;
 import dev.abzikel.sistemaetr.R;
+import dev.abzikel.sistemaetr.SettingsActivity;
 import dev.abzikel.sistemaetr.SignInActivity;
+import dev.abzikel.sistemaetr.dialogs.BluetoothDialog;
 import dev.abzikel.sistemaetr.pojos.User;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
 import dev.abzikel.sistemaetr.utils.LocaleHelper;
@@ -60,12 +62,19 @@ public class ProfileFragment extends Fragment {
         TextView tvPrecision = view.findViewById(R.id.tvPrecision);
         TextView tvReactionTime = view.findViewById(R.id.tvReactionTime);
         TextView tvTotalTrainings = view.findViewById(R.id.tvTotalTrainings);
+        TextView tvConfiguration = view.findViewById(R.id.tvConfiguration);
         TextView tvMyTrainings = view.findViewById(R.id.tvMyTrainings);
         TextView tvChangePassword = view.findViewById(R.id.tvChangePassword);
         tvThemeSwitcher = view.findViewById(R.id.tvThemeSwitcher);
         tvLanguageSwitcher = view.findViewById(R.id.tvLanguageSwitcher);
         ImageButton btnEditProfile = view.findViewById(R.id.btnEditProfile);
         Button btnSignOut = view.findViewById(R.id.btnSignOut);
+
+        // Listen for the Bluetooth request
+        getParentFragmentManager().setFragmentResultListener("bluetooth_request_settings", this, (requestKey, bundle) -> {
+            boolean isReady = bundle.getBoolean("isBluetoothReady");
+            if (isReady) startActivity(new Intent(requireContext(), SettingsActivity.class));
+        });
 
         // Initialize SharedPreferencesManager
         sharedPreferencesManager = SharedPreferencesManager.getInstance(requireContext());
@@ -105,11 +114,18 @@ public class ProfileFragment extends Fragment {
 
         // Add listeners
         btnEditProfile.setOnClickListener(v -> startActivity(new Intent(requireContext(), ProfileActivity.class)));
+        tvConfiguration.setOnClickListener(v -> showBluetoothDialog());
         tvMyTrainings.setOnClickListener(v -> startActivity(new Intent(requireContext(), MyTrainingsActivity.class)));
         tvChangePassword.setOnClickListener(v -> startActivity(new Intent(requireContext(), ChangePasswordActivity.class)));
         tvThemeSwitcher.setOnClickListener(v -> cycleTheme());
         tvLanguageSwitcher.setOnClickListener(v -> switchLanguage());
         btnSignOut.setOnClickListener(v -> signOut());
+    }
+
+    private void showBluetoothDialog() {
+        // Show dialog
+        BluetoothDialog dialog = BluetoothDialog.newInstance("bluetooth_request_settings");
+        dialog.show(getParentFragmentManager(), "BluetoothCheckDialog");
     }
 
     private void signOut() {

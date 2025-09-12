@@ -119,10 +119,24 @@
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
-                android:id="@+id/tvMyTrainings"
+                android:id="@+id/tvConfiguration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:drawablePadding="16dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:text="@string/configuration"
+                android:textSize="18sp"
+                app:drawableEndCompat="@drawable/ic_chevron_right"
+                app:drawableStartCompat="@drawable/ic_configuration"
+                app:layout_constraintTop_toBottomOf="@id/cvStats" />
+
+            <TextView
+                android:id="@+id/tvMyTrainings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:drawablePadding="16dp"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
@@ -131,7 +145,7 @@
                 android:textSize="18sp"
                 app:drawableEndCompat="@drawable/ic_chevron_right"
                 app:drawableStartCompat="@drawable/ic_clipboard"
-                app:layout_constraintTop_toBottomOf="@id/cvStats" />
+                app:layout_constraintTop_toBottomOf="@id/tvConfiguration" />
 
             <TextView
                 android:id="@+id/tvChangePassword"

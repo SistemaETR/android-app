@@ -30,12 +30,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Listen for the Bluetooth request
-        getSupportFragmentManager().setFragmentResultListener("bluetooth_request_settings", this, (requestKey, bundle) -> {
-            boolean isReady = bundle.getBoolean("isBluetoothReady");
-            if (isReady) startActivity(new Intent(this, SettingsActivity.class));
-        });
-
         // Start listening for user's documents changes
         startListeningForUserChanges();
 
