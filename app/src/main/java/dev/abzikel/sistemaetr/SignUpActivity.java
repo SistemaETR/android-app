@@ -1,6 +1,7 @@
 package dev.abzikel.sistemaetr;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import java.util.Objects;
 import dev.abzikel.sistemaetr.pojos.User;
 import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.ErrorClearingTextWatcher;
+import dev.abzikel.sistemaetr.utils.OnSingleClickListener;
 
 public class SignUpActivity extends BaseActivity {
     private TextInputLayout tilEmail, tilUsername, tilPassword, tilConfirmPassword;
@@ -50,7 +52,12 @@ public class SignUpActivity extends BaseActivity {
         etvConfirmPassword.addTextChangedListener(new ErrorClearingTextWatcher(tilConfirmPassword));
 
         // Add click listener to button
-        btnCreateAccount.setOnClickListener(v -> createAccount());
+        btnCreateAccount.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                createAccount();
+            }
+        });
     }
 
     private void createAccount() {

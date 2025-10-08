@@ -1,6 +1,7 @@
 package dev.abzikel.sistemaetr;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import java.util.Objects;
 
 import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.ErrorClearingTextWatcher;
+import dev.abzikel.sistemaetr.utils.OnSingleClickListener;
 
 public class PasswordRestorationActivity extends BaseActivity {
     private FirebaseAuth mAuth;
@@ -40,7 +42,12 @@ public class PasswordRestorationActivity extends BaseActivity {
         etvEmail.addTextChangedListener(new ErrorClearingTextWatcher(tilEmail));
 
         // Add click listener to send email button
-        btnSendEmail.setOnClickListener(v -> restorePassword());
+        btnSendEmail.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                restorePassword();
+            }
+        });
     }
 
     private void restorePassword() {

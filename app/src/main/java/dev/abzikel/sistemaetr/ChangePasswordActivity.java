@@ -1,6 +1,7 @@
 package dev.abzikel.sistemaetr;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -12,6 +13,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.ErrorClearingTextWatcher;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
+import dev.abzikel.sistemaetr.utils.OnSingleClickListener;
 
 public class ChangePasswordActivity extends BaseActivity {
     private TextInputLayout tilCurrentPassword, tilNewPassword, tilConfirmPassword;
@@ -40,7 +42,12 @@ public class ChangePasswordActivity extends BaseActivity {
         etvConfirmPassword.addTextChangedListener(new ErrorClearingTextWatcher(tilConfirmPassword));
 
         // Add listeners
-        btnChangePassword.setOnClickListener(v -> changePassword());
+        btnChangePassword.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                changePassword();
+            }
+        });
     }
 
     private void changePassword() {

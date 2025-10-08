@@ -35,6 +35,7 @@ import dev.abzikel.sistemaetr.dialogs.BluetoothDialog;
 import dev.abzikel.sistemaetr.pojos.User;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
 import dev.abzikel.sistemaetr.utils.LocaleHelper;
+import dev.abzikel.sistemaetr.utils.OnSingleClickListener;
 import dev.abzikel.sistemaetr.utils.SharedPreferencesManager;
 
 public class ProfileFragment extends Fragment {
@@ -113,13 +114,48 @@ public class ProfileFragment extends Fragment {
         }
 
         // Add listeners
-        btnEditProfile.setOnClickListener(v -> startActivity(new Intent(requireContext(), ProfileActivity.class)));
-        tvConfiguration.setOnClickListener(v -> showBluetoothDialog());
-        tvMyTrainings.setOnClickListener(v -> startActivity(new Intent(requireContext(), MyTrainingsActivity.class)));
-        tvChangePassword.setOnClickListener(v -> startActivity(new Intent(requireContext(), ChangePasswordActivity.class)));
-        tvThemeSwitcher.setOnClickListener(v -> cycleTheme());
-        tvLanguageSwitcher.setOnClickListener(v -> switchLanguage());
-        btnSignOut.setOnClickListener(v -> signOut());
+        btnEditProfile.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                startActivity(new Intent(requireContext(), ProfileActivity.class));
+            }
+        });
+        tvConfiguration.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                showBluetoothDialog();
+            }
+        });
+        tvMyTrainings.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                startActivity(new Intent(requireContext(), MyTrainingsActivity.class));
+            }
+        });
+        tvChangePassword.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                startActivity(new Intent(requireContext(), ChangePasswordActivity.class));
+            }
+        });
+        tvThemeSwitcher.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                cycleTheme();
+            }
+        });
+        tvLanguageSwitcher.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                switchLanguage();
+            }
+        });
+        btnSignOut.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                signOut();
+            }
+        });
     }
 
     private void showBluetoothDialog() {
@@ -149,34 +185,42 @@ public class ProfileFragment extends Fragment {
         AlertDialog dialog = builder.create();
 
         // Add listeners
-        btnPositive.setOnClickListener(v -> {
-            // Connect to Firebase Authentication and get user
-            FirebaseAuth auth = FirebaseAuth.getInstance();
+        btnPositive.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                // Connect to Firebase Authentication and get user
+                FirebaseAuth auth = FirebaseAuth.getInstance();
 
-            // Remove listener for user's documents changes
-            FirebaseManager.getInstance().stopListening();
+                // Remove listener for user's documents changes
+                FirebaseManager.getInstance().stopListening();
 
-            // Sign out
-            auth.signOut();
+                // Sign out
+                auth.signOut();
 
-            // Return to login activity
-            Toast.makeText(context, context.getResources().getString(R.string.session_closed), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(context, SignInActivity.class);
-            startActivity(intent);
-            requireActivity().finish();
+                // Return to login activity
+                Toast.makeText(context, context.getResources().getString(R.string.session_closed), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, SignInActivity.class);
+                startActivity(intent);
+                requireActivity().finish();
 
-            // Remove data from SharedPreferences
-            SharedPreferencesManager sharedPreferencesManager = SharedPreferencesManager.getInstance(context);
-            sharedPreferencesManager.removeServiceUUID();
-            sharedPreferencesManager.removeMacAddresses();
-            sharedPreferencesManager.removeLedRedIntensity();
-            sharedPreferencesManager.removeLedBlueIntensity();
-            sharedPreferencesManager.removeSensorSensibility();
+                // Remove data from SharedPreferences
+                SharedPreferencesManager sharedPreferencesManager = SharedPreferencesManager.getInstance(context);
+                sharedPreferencesManager.removeServiceUUID();
+                sharedPreferencesManager.removeMacAddresses();
+                sharedPreferencesManager.removeLedRedIntensity();
+                sharedPreferencesManager.removeLedBlueIntensity();
+                sharedPreferencesManager.removeSensorSensibility();
 
-            // Dismiss dialog
-            if (dialog.isShowing()) dialog.dismiss();
+                // Dismiss dialog
+                if (dialog.isShowing()) dialog.dismiss();
+            }
         });
-        btnNegative.setOnClickListener(v -> dialog.dismiss());
+        btnNegative.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
         // Show Alert Dialog
         dialog.show();

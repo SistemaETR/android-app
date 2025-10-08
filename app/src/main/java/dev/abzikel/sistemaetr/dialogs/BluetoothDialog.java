@@ -32,6 +32,7 @@ import java.util.Map;
 
 import dev.abzikel.sistemaetr.R;
 import dev.abzikel.sistemaetr.services.BLEServerService;
+import dev.abzikel.sistemaetr.utils.OnSingleClickListener;
 
 public class BluetoothDialog extends DialogFragment {
     private static final String ARG_REQUEST_KEY = "request_key";
@@ -130,7 +131,12 @@ public class BluetoothDialog extends DialogFragment {
         if (bluetoothAdapter == null) setupUnsupportedState();
         else {
             // Update UI when the dialog is opened
-            btnContinue.setOnClickListener(v -> checkAndProceed());
+            btnContinue.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    checkAndProceed();
+                }
+            });
             updateStatusUI();
         }
 
@@ -223,7 +229,12 @@ public class BluetoothDialog extends DialogFragment {
 
         // Change button color to red to indicate an error/stop action.
         btnContinue.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red));
-        btnContinue.setOnClickListener(v -> dismiss());
+        btnContinue.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                dismiss();
+            }
+        });
     }
 
     private void goToSettings() {

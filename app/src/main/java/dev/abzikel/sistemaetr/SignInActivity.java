@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ import dev.abzikel.sistemaetr.pojos.User;
 import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.ErrorClearingTextWatcher;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
+import dev.abzikel.sistemaetr.utils.OnSingleClickListener;
 
 public class SignInActivity extends BaseActivity {
     private FirebaseAuth mAuth;
@@ -96,18 +98,36 @@ public class SignInActivity extends BaseActivity {
         etvPassword.addTextChangedListener(new ErrorClearingTextWatcher(tilPassword));
 
         // Add click listener to sign in button
-        btnSignIn.setOnClickListener(v -> signIn());
+        btnSignIn.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                signIn();
+            }
+        });
 
         // Add click listener to google sign in button
-        btnGoogleSignIn.setOnClickListener(v -> signInWithGoogle());
+        btnGoogleSignIn.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                signInWithGoogle();
+            }
+        });
 
         // Add click listener to text view to navigate to password restoration screen
-        tvForgotPassword.setOnClickListener(v ->
-                startActivity(new Intent(SignInActivity.this, PasswordRestorationActivity.class)));
+        tvForgotPassword.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                startActivity(new Intent(SignInActivity.this, PasswordRestorationActivity.class));
+            }
+        });
 
         // Add click listener to text view to navigate to sign up screen
-        tvCreateAccount.setOnClickListener(v ->
-                startActivity(new Intent(SignInActivity.this, SignUpActivity.class)));
+        tvCreateAccount.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+            }
+        });
     }
 
     private void signIn() {

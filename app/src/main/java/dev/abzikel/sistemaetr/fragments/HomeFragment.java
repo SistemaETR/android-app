@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import dev.abzikel.sistemaetr.GameActivity;
 import dev.abzikel.sistemaetr.R;
 import dev.abzikel.sistemaetr.dialogs.BluetoothDialog;
+import dev.abzikel.sistemaetr.utils.OnSingleClickListener;
 
 public class HomeFragment extends Fragment {
     private String selectedMode;
@@ -46,11 +47,36 @@ public class HomeFragment extends Fragment {
         LinearLayout btnInfinite = view.findViewById(R.id.btnInfinite);
 
         // Listeners
-        btnShortWeapon.setOnClickListener(v -> onModeSelected("Classic6"));
-        btnLongWeapon.setOnClickListener(v -> onModeSelected("Classic12"));
-        btnReaction.setOnClickListener(v -> onModeSelected("Reaction6"));
-        btnAdvancedReaction.setOnClickListener(v -> onModeSelected("Advanced6"));
-        btnInfinite.setOnClickListener(v -> onModeSelected("Infinite"));
+        btnShortWeapon.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                onModeSelected("Classic6");
+            }
+        });
+        btnLongWeapon.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                onModeSelected("Classic12");
+            }
+        });
+        btnReaction.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                onModeSelected("Reaction6");
+            }
+        });
+        btnAdvancedReaction.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                onModeSelected("Advanced6");
+            }
+        });
+        btnInfinite.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                onModeSelected("Infinite");
+            }
+        });
     }
 
     private void onModeSelected(String mode) {

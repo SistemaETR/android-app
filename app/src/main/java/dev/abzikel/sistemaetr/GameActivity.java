@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import dev.abzikel.sistemaetr.pojos.Training;
 import dev.abzikel.sistemaetr.services.BLEServerService;
 import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
+import dev.abzikel.sistemaetr.utils.OnSingleClickListener;
 
 public class GameActivity extends BaseActivity {
     private BLEServerService mService;
@@ -121,27 +123,30 @@ public class GameActivity extends BaseActivity {
         lastUpdateTimeInterval = 0L;
 
         // Add listeners
-        btnStartStop.setOnClickListener(v -> {
-            if (action.equals(getResources().getString(R.string.start))) {
-                // Start the game
-                startGame();
-                btnStartStop.setImageResource(R.drawable.ic_pause);
-            } else if (action.equals(getResources().getString(R.string.stop))) {
-                // Stop the game
-                stopGame();
-            } else if (action.equals(getResources().getString(R.string.restart))) {
-                // Change mode
-                mService.setMode(action);
-                action = getResources().getString(R.string.start);
+        btnStartStop.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                if (action.equals(getResources().getString(R.string.start))) {
+                    // Start the game
+                    startGame();
+                    btnStartStop.setImageResource(R.drawable.ic_pause);
+                } else if (action.equals(getResources().getString(R.string.stop))) {
+                    // Stop the game
+                    stopGame();
+                } else if (action.equals(getResources().getString(R.string.restart))) {
+                    // Change mode
+                    mService.setMode(action);
+                    action = getResources().getString(R.string.start);
 
-                // Restart timer and button image resource
-                tvTimer.setText(getString(R.string.zero_time));
-                btnStartStop.setImageResource(R.drawable.ic_play);
+                    // Restart timer and button image resource
+                    tvTimer.setText(getString(R.string.zero_time));
+                    btnStartStop.setImageResource(R.drawable.ic_play);
 
-                // Restart text views
-                tvPrecision.setText(getString(R.string.na));
-                tvReactionTime.setText(getString(R.string.na));
-                tvScore.setText(getString(R.string.na));
+                    // Restart text views
+                    tvPrecision.setText(getString(R.string.na));
+                    tvReactionTime.setText(getString(R.string.na));
+                    tvScore.setText(getString(R.string.na));
+                }
             }
         });
     }

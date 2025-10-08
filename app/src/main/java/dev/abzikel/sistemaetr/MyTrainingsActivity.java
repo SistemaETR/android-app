@@ -27,6 +27,7 @@ import dev.abzikel.sistemaetr.adapters.TrainingAdapter;
 import dev.abzikel.sistemaetr.pojos.Training;
 import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
+import dev.abzikel.sistemaetr.utils.OnSingleClickListener;
 
 public class MyTrainingsActivity extends BaseActivity {
     // Views and adapter
@@ -74,10 +75,20 @@ public class MyTrainingsActivity extends BaseActivity {
 
     private void setupFilters() {
         // Configure selector of start date
-        etDateFrom.setOnClickListener(v -> showDatePicker(true));
+        etDateFrom.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                showDatePicker(true);
+            }
+        });
 
         // Configure selector of end date
-        etDateTo.setOnClickListener(v -> showDatePicker(false));
+        etDateTo.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                showDatePicker(false);
+            }
+        });
 
         // Configure selector of modality
         ArrayAdapter<CharSequence> modalityAdapter = ArrayAdapter.createFromResource(this,

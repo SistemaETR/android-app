@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -25,6 +26,7 @@ import java.util.Locale;
 
 import dev.abzikel.sistemaetr.services.BLEServerService;
 import dev.abzikel.sistemaetr.utils.BaseActivity;
+import dev.abzikel.sistemaetr.utils.OnSingleClickListener;
 import dev.abzikel.sistemaetr.utils.SharedPreferencesManager;
 
 public class SettingsActivity extends BaseActivity {
@@ -158,7 +160,12 @@ public class SettingsActivity extends BaseActivity {
             }
         });
 
-        btnSaveConfiguration.setOnClickListener(v -> saveConfiguration(String.valueOf(seekBarIntensity.getProgress() + 1), chipGroupSensibility.getCheckedChipId()));
+        btnSaveConfiguration.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                saveConfiguration(String.valueOf(seekBarIntensity.getProgress() + 1), chipGroupSensibility.getCheckedChipId());
+            }
+        });
     }
 
     private void updateBatteryStatus() {

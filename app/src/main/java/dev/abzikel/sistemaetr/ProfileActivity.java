@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ import dev.abzikel.sistemaetr.pojos.User;
 import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.ErrorClearingTextWatcher;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
+import dev.abzikel.sistemaetr.utils.OnSingleClickListener;
 
 public class ProfileActivity extends BaseActivity {
     private final Handler holdHandler = new Handler(Looper.getMainLooper());
@@ -111,8 +113,18 @@ public class ProfileActivity extends BaseActivity {
         etvUsername.addTextChangedListener(new ErrorClearingTextWatcher(tilUsername));
 
         // Add listeners
-        tvChangePhoto.setOnClickListener(v -> displayMenu());
-        btnSaveChanges.setOnClickListener(v -> saveChanges());
+        tvChangePhoto.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                displayMenu();
+            }
+        });
+        btnSaveChanges.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                saveChanges();
+            }
+        });
         setupDeleteButtonListener();
     }
 
