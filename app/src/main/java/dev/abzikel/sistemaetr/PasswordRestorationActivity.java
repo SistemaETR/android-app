@@ -3,6 +3,7 @@ package dev.abzikel.sistemaetr;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -21,6 +22,8 @@ public class PasswordRestorationActivity extends BaseActivity {
     private FirebaseAuth mAuth;
     private TextInputLayout tilEmail;
     private TextInputEditText etvEmail;
+    private ProgressBar progressBar;
+    private Button btnSendEmail;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,7 +36,8 @@ public class PasswordRestorationActivity extends BaseActivity {
         // Link XML to Java
         tilEmail = findViewById(R.id.tilEmail);
         etvEmail = findViewById(R.id.etvEmail);
-        Button btnSendEmail = findViewById(R.id.btnSendEmail);
+        progressBar = findViewById(R.id.progressBar);
+        btnSendEmail = findViewById(R.id.btnSendEmail);
 
         // Initialize Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
@@ -45,6 +49,7 @@ public class PasswordRestorationActivity extends BaseActivity {
         btnSendEmail.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                changeVisibility(false);
                 restorePassword();
             }
         });
@@ -60,9 +65,11 @@ public class PasswordRestorationActivity extends BaseActivity {
         // Make validations
         if (email.isEmpty()) {
             tilEmail.setError(getString(R.string.unfilled_fields));
+            changeVisibility(true);
             return;
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             tilEmail.setError(getString(R.string.invalid_email));
+            changeVisibility(true);
             return;
         }
 
@@ -80,8 +87,21 @@ public class PasswordRestorationActivity extends BaseActivity {
                         Toast.makeText(PasswordRestorationActivity.this,
                                 getString(R.string.error_sending_email),
                                 Toast.LENGTH_SHORT).show();
+                        changeVisibility(true);
                     }
                 });
+    }
+
+    private void changeVisibility(boolean visibility) {
+        if (visibility) {
+            // Show button
+            btnSendEmail.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        } else {
+            // Hide button
+            btnSendEmail.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
 }

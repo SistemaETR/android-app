@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +50,8 @@ public class ProfileActivity extends BaseActivity {
     private ImageView ivProfile;
     private TextInputLayout tilUsername;
     private TextInputEditText etvUsername;
-    private MaterialButton btnDeleteAccount;
+    private ProgressBar progressBar;
+    private MaterialButton btnSaveChanges, btnDeleteAccount;
     private Uri selectedImageUri;
     private boolean imageRemoved = false;
 
@@ -89,7 +91,8 @@ public class ProfileActivity extends BaseActivity {
         TextView tvChangePhoto = findViewById(R.id.tvChangePhoto);
         tilUsername = findViewById(R.id.tilUsername);
         etvUsername = findViewById(R.id.etvUsername);
-        MaterialButton btnSaveChanges = findViewById(R.id.btnSaveChanges);
+        progressBar = findViewById(R.id.progressBar);
+        btnSaveChanges = findViewById(R.id.btnSaveChanges);
         btnDeleteAccount = findViewById(R.id.btnDeleteAccount);
 
         // Get user data from Firebase
@@ -122,6 +125,7 @@ public class ProfileActivity extends BaseActivity {
         btnSaveChanges.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                changeVisibility(false);
                 saveChanges();
             }
         });
@@ -139,12 +143,15 @@ public class ProfileActivity extends BaseActivity {
         // Make validations
         if (newUsername.isEmpty()) {
             tilUsername.setError(getString(R.string.unfilled_fields));
+            changeVisibility(true);
             return;
         } else if (newUsername.length() < 4) {
             tilUsername.setError(getString(R.string.username_length));
+            changeVisibility(true);
             return;
         } else if (currentUser != null && currentUser.getUsername() != null && newUsername.equals(currentUser.getUsername()) && !imageRemoved && selectedImageUri == null) {
             tilUsername.setError(getString(R.string.no_changes));
+            changeVisibility(true);
         }
 
         // Verify if the image was removed
@@ -159,6 +166,7 @@ public class ProfileActivity extends BaseActivity {
                 @Override
                 public void onFailure(Exception e) {
                     Toast.makeText(ProfileActivity.this, getString(R.string.error_deleting_image), Toast.LENGTH_SHORT).show();
+                    changeVisibility(true);
                 }
             });
         } else if (selectedImageUri != null) {
@@ -172,6 +180,7 @@ public class ProfileActivity extends BaseActivity {
                 @Override
                 public void onFailure(Exception e) {
                     Toast.makeText(ProfileActivity.this, getString(R.string.error_uploading_image), Toast.LENGTH_SHORT).show();
+                    changeVisibility(true);
                 }
             });
         } else {
@@ -198,6 +207,7 @@ public class ProfileActivity extends BaseActivity {
             @Override
             public void onFailure(Exception e) {
                 Toast.makeText(ProfileActivity.this, getString(R.string.error_saving_user), Toast.LENGTH_SHORT).show();
+                changeVisibility(true);
             }
         });
     }
@@ -334,6 +344,18 @@ public class ProfileActivity extends BaseActivity {
                 btnDeleteAccount.setText(getString(R.string.delete_account));
             }
         });
+    }
+
+    private void changeVisibility(boolean visibility) {
+        if (visibility) {
+            // Show button
+            btnSaveChanges.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        } else {
+            // Hide button
+            btnSaveChanges.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

@@ -3,6 +3,7 @@ package dev.abzikel.sistemaetr;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -24,6 +25,8 @@ import dev.abzikel.sistemaetr.utils.OnSingleClickListener;
 public class SignUpActivity extends BaseActivity {
     private TextInputLayout tilEmail, tilUsername, tilPassword, tilConfirmPassword;
     private TextInputEditText etvEmail, etvUsername, etvPassword, etvConfirmPassword;
+    private ProgressBar progressBar;
+    private Button btnCreateAccount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +46,8 @@ public class SignUpActivity extends BaseActivity {
         etvUsername = findViewById(R.id.etvUsername);
         etvPassword = findViewById(R.id.etvPassword);
         etvConfirmPassword = findViewById(R.id.etvConfirmPassword);
-        Button btnCreateAccount = findViewById(R.id.btnCreateAccount);
+        progressBar = findViewById(R.id.progressBar);
+        btnCreateAccount = findViewById(R.id.btnCreateAccount);
 
         // Add text watchers
         etvEmail.addTextChangedListener(new ErrorClearingTextWatcher(tilEmail));
@@ -55,6 +59,7 @@ public class SignUpActivity extends BaseActivity {
         btnCreateAccount.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                changeVisibility(false);
                 createAccount();
             }
         });
@@ -76,24 +81,31 @@ public class SignUpActivity extends BaseActivity {
         // Make validations
         if (email.isEmpty()) {
             tilEmail.setError(getString(R.string.unfilled_fields));
+            changeVisibility(true);
             return;
         } else if (username.isEmpty()) {
             tilUsername.setError(getString(R.string.unfilled_fields));
+            changeVisibility(true);
             return;
         } else if (password.isEmpty()) {
             tilPassword.setError(getString(R.string.unfilled_fields));
+            changeVisibility(true);
             return;
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             tilEmail.setError(getString(R.string.invalid_email));
+            changeVisibility(true);
             return;
         } else if (username.length() < 4) {
             tilUsername.setError(getString(R.string.username_length));
+            changeVisibility(true);
             return;
         } else if (password.length() < 6) {
             tilPassword.setError(getString(R.string.password_length));
+            changeVisibility(true);
             return;
         } else if (!password.equals(confirmPassword)) {
             tilConfirmPassword.setError(getString(R.string.unmatched_passwords));
+            changeVisibility(true);
             return;
         }
 
@@ -129,14 +141,31 @@ public class SignUpActivity extends BaseActivity {
                                         Toast.makeText(this, getString(R.string.user_created), Toast.LENGTH_SHORT).show();
                                         finish();
                                     })
-                                    .addOnFailureListener(e -> Toast.makeText(this, getString(R.string.error_saving_user), Toast.LENGTH_SHORT).show());
-                        }
+                                    .addOnFailureListener(e -> {
+                                        // Error and show message and button
+                                        Toast.makeText(this, getString(R.string.error_saving_user), Toast.LENGTH_SHORT).show();
+                                        changeVisibility(true);
+                                    });
+                        } else changeVisibility(true);
                     } else {
                         // If sign in fails, display a message to the user.
                         String errorMsg = task.getException() != null ? task.getException().getMessage() : getString(R.string.unknown_error);
                         Toast.makeText(this, getString(R.string.error_creating_account) + errorMsg, Toast.LENGTH_LONG).show();
+                        changeVisibility(true);
                     }
                 });
+    }
+
+    private void changeVisibility(boolean visibility) {
+        if (visibility) {
+            // Show button
+            btnCreateAccount.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        } else {
+            // Hide button
+            btnCreateAccount.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
 }

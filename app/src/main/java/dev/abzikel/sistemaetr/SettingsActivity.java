@@ -11,6 +11,7 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -30,6 +31,8 @@ import dev.abzikel.sistemaetr.utils.OnSingleClickListener;
 import dev.abzikel.sistemaetr.utils.SharedPreferencesManager;
 
 public class SettingsActivity extends BaseActivity {
+    private Button btnSaveConfiguration;
+    private ProgressBar progressBar;
     private BLEServerService mService;
     private SharedPreferencesManager sharedPreferencesManager;
     private final Handler batteryUpdateHandler = new Handler();
@@ -90,7 +93,8 @@ public class SettingsActivity extends BaseActivity {
         SwitchCompat switchChangeLedColor = findViewById(R.id.switchChangeLedColor);
         AppCompatSeekBar seekBarIntensity = findViewById(R.id.seekBarIntensity);
         TextView tvIntensity = findViewById(R.id.tvIntensity);
-        Button btnSaveConfiguration = findViewById(R.id.btnSaveConfiguration);
+        progressBar = findViewById(R.id.progressBar);
+        btnSaveConfiguration = findViewById(R.id.btnSaveConfiguration);
 
         // Initialize variables
         sharedPreferencesManager = SharedPreferencesManager.getInstance(this);
@@ -163,6 +167,7 @@ public class SettingsActivity extends BaseActivity {
         btnSaveConfiguration.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                changeVisibility(false);
                 saveConfiguration(String.valueOf(seekBarIntensity.getProgress() + 1), chipGroupSensibility.getCheckedChipId());
             }
         });
@@ -223,6 +228,20 @@ public class SettingsActivity extends BaseActivity {
         else if (radioBtnId == R.id.chipTest)
             sharedPreferencesManager.saveSensorSensibility("05");
 
+        // Show button again
+        changeVisibility(true);
+    }
+
+    private void changeVisibility(boolean visibility) {
+        if (visibility) {
+            // Show button
+            btnSaveConfiguration.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        } else {
+            // Hide button
+            btnSaveConfiguration.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

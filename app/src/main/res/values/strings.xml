@@ -126,7 +126,7 @@
     <string name="target6">Target 6</string>
     <string name="change_led_color">Change LED color</string>
     <string name="full_intensity">Intensity: 100%</string>
-    <string name="save_configuration">Save configuration</string>
+    <string name="save_configuration">Save</string>
     <string name="intensity">Intensity:</string>
     <string name="ic_led">LED icon</string>
     <!-- Change password screen strings -->

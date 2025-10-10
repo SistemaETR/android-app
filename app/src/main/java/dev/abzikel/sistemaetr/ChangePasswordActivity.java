@@ -2,6 +2,7 @@ package dev.abzikel.sistemaetr;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -18,6 +19,8 @@ import dev.abzikel.sistemaetr.utils.OnSingleClickListener;
 public class ChangePasswordActivity extends BaseActivity {
     private TextInputLayout tilCurrentPassword, tilNewPassword, tilConfirmPassword;
     private TextInputEditText etvCurrentPassword, etvNewPassword, etvConfirmPassword;
+    private ProgressBar progressBar;
+    private MaterialButton btnChangePassword;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,7 +37,8 @@ public class ChangePasswordActivity extends BaseActivity {
         etvCurrentPassword = findViewById(R.id.etvCurrentPassword);
         etvNewPassword = findViewById(R.id.etvNewPassword);
         etvConfirmPassword = findViewById(R.id.etvConfirmPassword);
-        MaterialButton btnChangePassword = findViewById(R.id.btnChangePassword);
+        progressBar = findViewById(R.id.progressBar);
+        btnChangePassword = findViewById(R.id.btnChangePassword);
 
         // Add text watchers
         etvCurrentPassword.addTextChangedListener(new ErrorClearingTextWatcher(tilCurrentPassword));
@@ -45,6 +49,7 @@ public class ChangePasswordActivity extends BaseActivity {
         btnChangePassword.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                changeVisibility(false);
                 changePassword();
             }
         });
@@ -64,14 +69,17 @@ public class ChangePasswordActivity extends BaseActivity {
         // Make validations
         if (currentPassword.isEmpty()) {
             tilCurrentPassword.setError(getString(R.string.incorrect_password));
+            changeVisibility(true);
             return;
         }
         if (newPassword.length() < 6) {
             tilNewPassword.setError(getString(R.string.password_length));
+            changeVisibility(true);
             return;
         }
         if (!newPassword.equals(confirmPassword)) {
             tilConfirmPassword.setError(getString(R.string.unmatched_passwords));
+            changeVisibility(true);
             return;
         }
 
@@ -94,8 +102,23 @@ public class ChangePasswordActivity extends BaseActivity {
                         Toast.makeText(ChangePasswordActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
+
+                // Show button again
+                changeVisibility(true);
             }
         });
+    }
+
+    private void changeVisibility(boolean visibility) {
+        if (visibility) {
+            // Show button
+            btnChangePassword.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        } else {
+            // Hide button
+            btnChangePassword.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
 }

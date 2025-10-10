@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,8 @@ public class SignInActivity extends BaseActivity {
     private CredentialManager credentialManager;
     private TextInputLayout tilEmail, tilPassword;
     private TextInputEditText etvEmail, etvPassword;
+    private ProgressBar progressBar;
+    private Button btnSignIn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,7 +83,8 @@ public class SignInActivity extends BaseActivity {
         tilPassword = findViewById(R.id.tilPassword);
         etvEmail = findViewById(R.id.etvEmail);
         etvPassword = findViewById(R.id.etvPassword);
-        Button btnSignIn = findViewById(R.id.btnSignIn);
+        progressBar = findViewById(R.id.progressBar);
+        btnSignIn = findViewById(R.id.btnSignIn);
         Button btnGoogleSignIn = findViewById(R.id.btnGoogleSignIn);
 
         // Initialize view
@@ -101,6 +105,7 @@ public class SignInActivity extends BaseActivity {
         btnSignIn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                changeVisibility(false);
                 signIn();
             }
         });
@@ -142,12 +147,15 @@ public class SignInActivity extends BaseActivity {
         // Make validations
         if (email.isEmpty()) {
             tilEmail.setError(getString(R.string.unfilled_fields));
+            changeVisibility(true);
             return;
         } else if (password.isEmpty()) {
             tilPassword.setError(getString(R.string.unfilled_fields));
+            changeVisibility(true);
             return;
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             tilEmail.setError(getString(R.string.invalid_email));
+            changeVisibility(true);
             return;
         }
 
@@ -165,6 +173,7 @@ public class SignInActivity extends BaseActivity {
                         Toast.makeText(SignInActivity.this,
                                 getString(R.string.error_signing_in) + " " + Objects.requireNonNull(task.getException()).getMessage(),
                                 Toast.LENGTH_SHORT).show();
+                        changeVisibility(true);
                     }
                 });
     }
@@ -295,6 +304,18 @@ public class SignInActivity extends BaseActivity {
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void changeVisibility(boolean visibility) {
+        if (visibility) {
+            // Show button
+            btnSignIn.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        } else {
+            // Hide button
+            btnSignIn.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
 }
