@@ -43,7 +43,9 @@
                 android:id="@+id/etvUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789._-"
+                android:inputType="text"
+                android:maxLength="24" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

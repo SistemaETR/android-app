@@ -41,7 +41,8 @@
                 android:id="@+id/etvEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:maxLength="320" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,7 +58,9 @@
                 android:id="@+id/etvUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName" />
+                android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789._-"
+                android:inputType="textPersonName"
+                android:maxLength="24" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,7 +77,8 @@
                 android:id="@+id/etvPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:maxLength="64" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,7 +95,8 @@
                 android:id="@+id/etvConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:maxLength="64" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
