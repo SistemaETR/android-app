@@ -1,6 +1,5 @@
 package dev.abzikel.sistemaetr;
 
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,12 +13,14 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import dev.abzikel.sistemaetr.fragments.HomeFragment;
+import dev.abzikel.sistemaetr.fragments.LeaderboardFragment;
 import dev.abzikel.sistemaetr.fragments.ProfileFragment;
 import dev.abzikel.sistemaetr.pojos.User;
 import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
 
 public class MainActivity extends BaseActivity {
+    private final LeaderboardFragment leaderboardFragment = new LeaderboardFragment();
     private final HomeFragment homeFragment = new HomeFragment();
     private final ProfileFragment profileFragment = new ProfileFragment();
     private ActivityResultLauncher<String> requestPermissionLauncher;
@@ -49,6 +50,7 @@ public class MainActivity extends BaseActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.nav_host_fragment, new HomeFragment())
                     .commit();
+            bottomNavigationView.setSelectedItemId(R.id.navigation_home);
         }
 
         // Handle navigation item clicks
@@ -58,7 +60,8 @@ public class MainActivity extends BaseActivity {
 
             // Check which item is selected
             int itemId = item.getItemId();
-            if (itemId == R.id.navigation_home) selectedFragment = homeFragment;
+            if (itemId == R.id.navigation_leaderboard) selectedFragment = leaderboardFragment;
+            else if (itemId == R.id.navigation_home) selectedFragment = homeFragment;
             else if (itemId == R.id.navigation_profile) selectedFragment = profileFragment;
 
             // Replace the fragment

@@ -39,6 +39,9 @@
     <string name="nearby_devices_granted">Permiso de Dispositivos Cercanos</string>
     <string name="continue_word">Continuar</string>
     <string name="ic_bluetooth_status">Icono del Estatus Bluetooth</string>
+    <!-- Leaderboard screen strings -->
+    <string name="score_value_leaderboard">%,d Pts</string>
+    <string name="chevron_right">Chevron right</string>
     <!-- Home screen strings -->
     <string name="short_weapon">Arma corta</string>
     <string name="long_weapon">Arma larga</string>
@@ -144,6 +147,7 @@
     <string name="cancel">Cancelar</string>
     <!-- Bottom navigation menu and toolbar-->
     <string name="configuration">Configuración</string>
+    <string name="leaderboard">Clasificación</string>
     <string name="home">Inicio</string>
     <string name="profile">Perfil</string>
     <!-- Success messages -->

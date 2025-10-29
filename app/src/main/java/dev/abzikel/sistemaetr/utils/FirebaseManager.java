@@ -15,6 +15,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import dev.abzikel.sistemaetr.R;
+import dev.abzikel.sistemaetr.pojos.LeaderboardEntry;
 import dev.abzikel.sistemaetr.pojos.Training;
 import dev.abzikel.sistemaetr.pojos.User;
 
@@ -316,6 +318,51 @@ public class FirebaseManager {
         mDb.collection("users").document(uid).delete()
                 .addOnSuccessListener(aVoid -> listener.onSuccess())
                 .addOnFailureListener(listener::onFailure);
+    }
+
+    // Interface for handling leaderboard fetching
+    public interface OnLeaderboardFetchedListener {
+        void onSuccess(List<LeaderboardEntry> entries, @Nullable DocumentSnapshot lastVisible);
+
+        void onFailure(Exception e);
+    }
+
+    public void fetchLeaderboard(int modalityId, int pageSize, @Nullable DocumentSnapshot lastVisibleDocument, OnLeaderboardFetchedListener listener) {
+        // Query Firestore for the leaderboard
+        Query query = mDb.collection("leaderboard")
+                .whereEqualTo("modality", modalityId)
+                .orderBy("score", Query.Direction.DESCENDING)
+                .limit(pageSize);
+
+        // If there is a last visible document, start after it
+        if (lastVisibleDocument != null) {
+            query = query.startAfter(lastVisibleDocument);
+        }
+
+        // Execute the query
+        query.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                List<LeaderboardEntry> entries = new ArrayList<>();
+                List<DocumentSnapshot> documents = task.getResult().getDocuments();
+
+                // Convert the documents to a list of LeaderboardEntry objects
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    LeaderboardEntry entry = document.toObject(LeaderboardEntry.class);
+                    entry.setLeaderboardId(document.getId());
+                    entries.add(entry);
+                }
+
+                // Get the last visible document in the query result
+                DocumentSnapshot lastVisible = documents.isEmpty() ? null : documents.get(documents.size() - 1);
+
+                // Return the list of entries and the last visible document
+                listener.onSuccess(entries, lastVisible);
+
+            } else {
+                // Handle errors
+                listener.onFailure(task.getException() != null ? task.getException() : new Exception("Error al cargar el leaderboard"));
+            }
+        });
     }
 
 }

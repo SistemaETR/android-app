@@ -2,6 +2,7 @@ package dev.abzikel.sistemaetr.dialogs;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
@@ -161,8 +162,10 @@ public class BluetoothDialog extends DialogFragment {
 
         // Start BLE server service
         Context context = requireContext();
-        Intent serviceIntent = new Intent(context, BLEServerService.class);
-        context.startService(serviceIntent);
+        if (!isServiceRunning(context)) {
+            Intent serviceIntent = new Intent(context, BLEServerService.class);
+            context.startService(serviceIntent);
+        }
 
         // If all conditions are met, notify the FragmentManager
         Bundle result = new Bundle();
@@ -244,6 +247,22 @@ public class BluetoothDialog extends DialogFragment {
         intent.setData(uri);
         startActivity(intent);
         dismiss();
+    }
+
+    private boolean isServiceRunning(Context context) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (manager == null) {
+            return false;
+        }
+
+        // Iterate over running services (limited to this app on modern Android, which is fine)
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (BLEServerService.class.getName().equals(service.service.getClassName())) {
+                // Check if the service is actually started
+                return service.started;
+            }
+        }
+        return false;
     }
 
 }

@@ -39,6 +39,9 @@
     <string name="nearby_devices_granted">Nearby Devices Permission</string>
     <string name="continue_word">Continue</string>
     <string name="ic_bluetooth_status">Bluetooth Status Icon</string>
+    <!-- Leaderboard screen strings -->
+    <string name="score_value_leaderboard">%,d Pts</string>
+    <string name="chevron_right">Chevron right</string>
     <!-- Home screen strings -->
     <string name="short_weapon">Short weapon</string>
     <string name="long_weapon">Long weapon</string>
@@ -144,6 +147,7 @@
     <string name="cancel">Cancel</string>
     <!-- Bottom navigation menu and toolbar-->
     <string name="configuration">Settings</string>
+    <string name="leaderboard">Leaderboard</string>
     <string name="home">Home</string>
     <string name="profile">Profile</string>
     <!-- Success messages -->
