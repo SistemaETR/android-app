@@ -18,6 +18,7 @@ import dev.abzikel.sistemaetr.fragments.ProfileFragment;
 import dev.abzikel.sistemaetr.pojos.User;
 import dev.abzikel.sistemaetr.utils.BaseActivity;
 import dev.abzikel.sistemaetr.utils.FirebaseManager;
+import dev.abzikel.sistemaetr.utils.ModelManager;
 
 public class MainActivity extends BaseActivity {
     private final LeaderboardFragment leaderboardFragment = new LeaderboardFragment();
@@ -41,6 +42,9 @@ public class MainActivity extends BaseActivity {
                     else Log.d("Permissions", "Notification permission denied.");
                 });
         askForNotificationPermission();
+
+        // Download the model
+        ModelManager.getInstance().loadModel(null);
 
         // Initialize BottomNavigationView
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

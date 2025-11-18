@@ -78,6 +78,7 @@
     <string name="since">From</string>
     <string name="to">To</string>
     <string name="modality">Modality</string>
+    <string name="analyze_performance">Analyze performance</string>
     <string name="no_trainings">There are no trainings yet.</string>
     <string name="ic_trainings">Trainings icon</string>
     <string-array name="modality_array">
@@ -185,4 +186,133 @@
     <string name="no_changes">No changes.</string>
     <string name="unknown_error">Unknown error.</string>
     <string name="error">Error:</string>
+    <!-- Recommendations -->
+    <string name="def_name_0">Critical Precision | Critical Time</string>
+    <string name="def_name_1">Critical Precision | Deficient Time</string>
+    <string name="def_name_2">Critical Precision | Elite Time</string>
+    <string name="def_name_3">Critical Precision | Optimal Time</string>
+    <string name="def_name_4">Deficient Precision | Critical Time</string>
+    <string name="def_name_5">Deficient Precision | Deficient Time</string>
+    <string name="def_name_6">Deficient Precision | Elite Time</string>
+    <string name="def_name_7">Deficient Precision | Optimal Time</string>
+    <string name="def_name_8">Improvable Precision | Critical Time</string>
+    <string name="def_name_9">Improvable Precision | Deficient Time</string>
+    <string name="def_name_10">Improvable Precision | Elite Time</string>
+    <string name="def_name_11">Improvable Precision | Optimal Time</string>
+    <string name="def_name_12">Optimal Precision | Critical Time</string>
+    <string name="def_name_13">Optimal Precision | Deficient Time</string>
+    <string name="def_name_14">Optimal Precision | Elite Time</string>
+    <string name="def_name_15">Optimal Precision | Optimal Time</string>
+
+    <string-array name="def_rec_0">
+        <item>Focus 100% on fundamentals: grip, stance, and sight alignment. Ignore the clock.</item>
+        <item>Your only goal is to hit the target, no matter how long it takes. Do not rush.</item>
+        <item>Practice dry-firing to feel a smooth trigger press without anticipating the shot.</item>
+        <item>A jerky trigger pull is the most common error. Squeeze the trigger slowly and smoothly.</item>
+    </string-array>
+
+    <string-array name="def_rec_1">
+        <item>Accuracy is the priority. Forget the clock. Master the fundamentals of your grip and stance.</item>
+        <item>Your precision is very low. Focus on "dot drills"—hitting a small dot from a short distance.</item>
+        <item>Ensure your sight picture is perfect *before* you even think about pressing the trigger.</item>
+        <item>Slow down. A perfect shot that takes 5 seconds is better than a miss that takes 2.</item>
+    </string-array>
+
+    <string-array name="def_rec_2">
+        <item>You are shooting far too fast. SLOW DOWN. Speed is useless without accuracy.</item>
+        <item>You must force yourself to see a clear sight picture *before* every single shot.</item>
+        <item>Your speed is uncontrolled. Go back to slow, deliberate shots to build correct muscle memory.</item>
+        <item>Practice "call your shot" drills: say where the shot will hit *before* you check the target.</item>
+    </string-array>
+
+    <string-array name="def_rec_3">
+        <item>Your speed is ahead of your skill. Focus on precision first, then speed.</item>
+        <item>You are rushing your shots. Confirm your sight alignment for every single shot. Don\'t rush.</item>
+        <item>A good shot you *almost* make is a complete miss. Slow down to guarantee the hit.</item>
+        <item>Practice shooting at different, slower cadences to find your balance of speed and control.</item>
+    </string-array>
+
+    <string-array name="def_rec_4">
+        <item>Your precision needs work. Focus on a steady grip and a smooth, continuous trigger press.</item>
+        <item>Your speed is very slow, which is okay for now. Master accuracy first.</item>
+        <item>Practice "grouping" shots. Try to get all shots within a 3-inch circle, ignoring time.</item>
+        <item>Are you flinching? Try mixing dummy rounds (snap caps) with live rounds to diagnose a flinch.</item>
+    </string-array>
+
+    <string-array name="def_rec_5">
+        <item>You are inconsistent. Focus on making every shot identical, from grip to follow-through.</item>
+        <item>Practice "trigger reset" drills. After a slow shot, release the trigger only to the reset point, then press again.</item>
+        <item>Your fundamentals are shaky. Do a 10-point check of your grip, stance, and sight picture before you fire.</item>
+        <item>Don\'t try to fix speed and accuracy at the same time. Fix your accuracy, then add speed.</item>
+    </string-array>
+
+    <string-array name="def_rec_6">
+        <item>You are sacrificing accuracy for speed. You must slow down to make your hits count.</item>
+        <item>Your speed is impressive, but uncontrolled. Practice "throttle control"—shoot fast on easy targets and slow on hard ones.</item>
+        <item>You are likely snatching the trigger. Practice a smooth, continuous trigger press, even when moving fast.</item>
+        <item>Force yourself to confirm your sights are aligned for every shot. "You can\'t miss fast enough to win."</item>
+    </string-array>
+
+    <string-array name="def_rec_7">
+        <item>Your accuracy is inconsistent. Focus on seeing what you need to see (a clear sight picture) for every shot.</item>
+        <item>Your speed is average, but your precision is holding you back. Refine your trigger control.</item>
+        <item>Try "target transition" drills, but focus on *pausing* at each target to confirm the hit before firing.</item>
+        <item>A smooth draw and presentation can save time without sacrificing accuracy. Practice this part of your drill.</item>
+    </string-array>
+
+    <string-array name="def_rec_8">
+        <item>Your accuracy is good! You have a solid foundation, but you are far too slow.</item>
+        <item>You are being too cautious. Start trusting your sight picture and press the trigger sooner.</item>
+        <item>Practice with a "par time". Set a timer and try to get all your (good) shots in before it beeps.</item>
+        <item>Work on the "in-between" actions: your draw, your target transitions, and your reloads. This is where you save time.</item>
+    </string-array>
+
+    <string-array name="def_rec_9">
+        <item>Your precision is reliable. It\'s time to start pushing your speed.</item>
+        <item>Don\'t just shoot faster; be more efficient. Eliminate wasted movement in your draw or presentation.</item>
+        <item>Use a shot timer to measure your "split times" (time between shots) and try to reduce them by 0.05 seconds.</item>
+        <item>You\'re ready for more dynamic drills. Try shooting while moving or engaging multiple targets.</item>
+    </string-array>
+
+    <string-array name="def_rec_10">
+        <item>This is excellent performance. Your speed and accuracy are well-matched.</item>
+        <item>To get to the "Optimal" level, focus on micro-adjustments. Is your first-shot-on-target *perfect*?</item>
+        <item>Practice on more difficult targets (smaller, farther) to see if your precision holds up at this speed.</item>
+        <item>Add complexity: shoot from awkward positions (kneeling, prone) or after physical exertion.</item>
+    </string-array>
+
+    <string-array name="def_rec_11">
+        <item>You are a competent and reliable shooter. This is a great baseline.</item>
+        <item>The next step is "throttle control": learning to shoot at *exactly* the speed a target requires (no faster, no slower).</item>
+        <item>Introduce pressure. Compete against a timer or a friend to improve performance under stress.</item>
+        <item>Work on your "visual processing." How fast can you see the target, see your sights, and make the decision to shoot?</item>
+    </string-array>
+
+    <string-array name="def_rec_12">
+        <item>Your precision is perfect. You have mastered the fundamentals, but you are extremely slow.</item>
+        <item>You are too cautious and obsessed with a "perfect" sight picture. You *must* push your speed.</item>
+        <item>Trust your sights. The moment you see a "good enough" sight picture, press the trigger.</item>
+        <item>Use a shot timer relentlessly. Work to shave tenths of a second off your draw and your split times.</item>
+    </string-array>
+
+    <string-array name="def_rec_13">
+        <item>Your accuracy is excellent. Do not let it make you complacent or slow.</item>
+        <item>Your foundation is solid. Now it\'s time to build speed on top of it. Trust your skills.</item>
+        <item>Practice accelerating *between* shots (fast trigger reset and sight re-acquisition).</item>
+        <item>Introduce movement. Practice entering and exiting positions quickly while maintaining your accuracy.</item>
+    </string-array>
+
+    <string-array name="def_rec_14">
+        <item>This is peak performance. Your goal now is 100% consistency.</item>
+        <item>Can you maintain this performance under stress, when tired, or in bad weather?</item>
+        <item>Introduce more complex problems: multiple targets at varying distances, and "no-shoot" targets.</item>
+        <item>Teach someone else. Explaining your process will reinforce your own mastery of the skills.</item>
+    </string-array>
+
+    <string-array name="def_rec_15">
+        <item>Excellent work! You are both accurate and efficient. This is the goal.</item>
+        <item>To reach the "Elite" speed tier, you must optimize your visual processing and split times.</item>
+        <item>Practice "calling your shots" at speed. This confirms you are seeing your sights for every shot.</item>
+        <item>Find your failure point. Push your speed until your accuracy *just* starts to drop, then work at that boundary.</item>
+    </string-array>
 </resources>

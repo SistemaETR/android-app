@@ -78,6 +78,7 @@
     <string name="since">Desde</string>
     <string name="to">Hasta</string>
     <string name="modality">Modalidad</string>
+    <string name="analyze_performance">Analizar rendimiento</string>
     <string name="no_trainings">No hay entrenamientos aún.</string>
     <string name="ic_trainings">Icono de entrenamientos</string>
     <string-array name="modality_array">
@@ -185,4 +186,133 @@
     <string name="no_changes">Sin cambios.</string>
     <string name="unknown_error">Error desconocido.</string>
     <string name="error">Error:</string>
+    <!-- Recommendations -->
+    <string name="def_name_0">Precisión Crítica | Tiempo Crítico</string>
+    <string name="def_name_1">Precisión Crítica | Tiempo Deficiente</string>
+    <string name="def_name_2">Precisión Crítica | Tiempo Élite</string>
+    <string name="def_name_3">Precisión Crítica | Tiempo Óptimo</string>
+    <string name="def_name_4">Precisión Deficiente | Tiempo Crítico</string>
+    <string name="def_name_5">Precisión Deficiente | Tiempo Deficiente</string>
+    <string name="def_name_6">Precisión Deficiente | Tiempo Élite</string>
+    <string name="def_name_7">Precisión Deficiente | Tiempo Óptimo</string>
+    <string name="def_name_8">Precisión Mejorable | Tiempo Crítico</string>
+    <string name="def_name_9">Precisión Mejorable | Tiempo Deficiente</string>
+    <string name="def_name_10">Precisión Mejorable | Tiempo Élite</string>
+    <string name="def_name_11">Precisión Mejorable | Tiempo Óptimo</string>
+    <string name="def_name_12">Precisión Óptima | Tiempo Crítico</string>
+    <string name="def_name_13">Precisión Óptima | Tiempo Deficiente</string>
+    <string name="def_name_14">Precisión Óptima | Tiempo Élite</string>
+    <string name="def_name_15">Precisión Óptima | Tiempo Óptimo</string>
+
+    <string-array name="def_rec_0">
+        <item>Enfócate 100% en fundamentos: agarre, postura y alineación de miras. Ignora el reloj.</item>
+        <item>Tu único objetivo es acertar al blanco, sin importar cuánto tardes. No te apresures.</item>
+        <item>Practica disparar en seco (dry-fire) para sentir un apretón suave del gatillo sin anticipar el disparo.</item>
+        <item>Un "gatillazo" (tirón) es el error más común. Aprieta el gatillo de forma lenta y suave.</item>
+    </string-array>
+
+    <string-array name="def_rec_1">
+        <item>La precisión es la prioridad. Olvida el reloj. Domina los fundamentos de tu agarre y postura.</item>
+        <item>Tu precisión es muy baja. Enfócate en "dot drills" (ejercicios de punto) golpeando un punto pequeño a corta distancia.</item>
+        <item>Asegúrate de que tu imagen de miras sea perfecta *antes* de siquiera pensar en apretar el gatillo.</item>
+        <item>Baja la velocidad. Un disparo perfecto que toma 5 segundos es mejor que un fallo que toma 2.</item>
+    </string-array>
+
+    <string-array name="def_rec_2">
+        <item>Estás disparando demasiado rápido. BAJA LA VELOCIDAD. La velocidad es inútil sin precisión.</item>
+        <item>Debes forzarte a ver una imagen de miras clara *antes* de cada disparo.</item>
+        <item>Tu velocidad está descontrolada. Vuelve a disparos lentos y deliberados para construir la memoria muscular correcta.</item>
+        <item>Practica ejercicios de "cantar el tiro": di dónde crees que pegó el tiro *antes* de revisar el blanco.</item>
+    </string-array>
+
+    <string-array name="def_rec_3">
+        <item>Tu velocidad está por delante de tu habilidad. Enfócate en la precisión primero, luego en la velocidad.</item>
+        <item>Estás apresurando tus disparos. Confirma tu alineación de miras en cada disparo. No te apures.</item>
+        <item>Un buen disparo que *casi* aciertas es un fallo completo. Baja la velocidad para garantizar el impacto.</item>
+        <item>Practica disparar a diferentes cadencias (más lentas) para encontrar tu equilibrio entre velocidad y control.</item>
+    </string-array>
+
+    <string-array name="def_rec_4">
+        <item>Tu precisión necesita trabajo. Enfócate en un agarre firme y un apretón de gatillo suave y continuo.</item>
+        <item>Tu velocidad es muy lenta, lo cual está bien por ahora. Domina la precisión primero.</item>
+        <item>Practica "agrupación". Intenta meter todos los disparos en un círculo de 8 cm (3 pulgadas), ignorando el tiempo.</item>
+        <item>¿Estás anticipando el disparo (flinch)? Intenta mezclar cartuchos de alivio (dummy rounds) con munición real para diagnosticarlo.</item>
+    </string-array>
+
+    <string-array name="def_rec_5">
+        <item>Eres inconsistente. Enfócate en hacer que cada disparo sea idéntico, desde el agarre hasta el seguimiento (follow-through).</item>
+        <item>Practica ejercicios de "reseteo del gatillo". Tras un disparo lento, suelta el gatillo solo hasta el punto de reseteo, y vuelve a apretar.</item>
+        <item>Tus fundamentos son débiles. Haz una revisión de 10 puntos de tu agarre, postura e imagen de miras antes de disparar.</item>
+        <item>No intentes arreglar velocidad y precisión al mismo tiempo. Arregla tu precisión, luego añade velocidad.</item>
+    </string-array>
+
+    <string-array name="def_rec_6">
+        <item>Estás sacrificando precisión por velocidad. Debes bajar el ritmo para que tus disparos cuenten.</item>
+        <item>Tu velocidad es impresionante, pero descontrolada. Practica el "control del acelerador": dispara rápido en blancos fáciles y lento en difíciles.</item>
+        <item>Es probable que estés "cacheteando" el gatillo. Practica un apretón suave y continuo, incluso yendo rápido.</item>
+        <item>Fórzate a confirmar que tus miras están alineadas en cada disparo. "No puedes fallar lo suficientemente rápido como para ganar."</item>
+    </string-array>
+
+    <string-array name="def_rec_7">
+        <item>Tu precisión es inconsistente. Enfócate en ver lo que necesitas ver (una imagen de miras clara) en cada disparo.</item>
+        <item>Tu velocidad es promedio, pero tu precisión te está frenando. Refina tu control del gatillo.</item>
+        <item>Intenta ejercicios de "transición de blancos", pero enfócate en *pausar* en cada blanco para confirmar el tiro antes de disparar.</item>
+        <item>Un desenfunde y presentación suaves pueden ahorrar tiempo sin sacrificar precisión. Practica esa parte de tu ejercicio.</item>
+    </string-array>
+
+    <string-array name="def_rec_8">
+        <item>¡Tu precisión es buena! Tienes una base sólida, pero eres demasiado lento.</item>
+        <item>Estás siendo demasiado cuidadoso. Empieza a confiar en tu imagen de miras y aprieta el gatillo antes.</item>
+        <item>Practica con un "tiempo Par". Fija un temporizador e intenta meter todos tus (buenos) disparos antes de que suene.</item>
+        <item>Trabaja en las acciones "intermedias": tu desenfunde, tus transiciones entre blancos y tus recargas. Ahí es donde se ahorra tiempo.</item>
+    </string-array>
+
+    <string-array name="def_rec_9">
+        <item>Tu precisión es confiable. Es hora de empezar a forzar tu velocidad.</item>
+        <item>No solo dispares más rápido; sé más eficiente. Elimina movimientos innecesarios en tu desenfunde o presentación.</item>
+        <item>Usa un cronómetro (shot timer) para medir tus "tiempos split" (tiempo entre disparos) e intenta reducirlos en 0.05 segundos.</item>
+        <item>Estás listo para ejercicios más dinámicos. Intenta disparar mientras te mueves o enfrentas múltiples blancos.</item>
+    </string-array>
+
+    <string-array name="def_rec_10">
+        <item>Este es un rendimiento excelente. Tu velocidad y precisión están bien equilibradas.</item>
+        <item>Para llegar al nivel "Óptimo", enfócate en micro-ajustes. ¿Es tu primer disparo al blanco *perfecto*?</item>
+        <item>Practica en blancos más difíciles (pequeños, lejanos) para ver si tu precisión se mantiene a esta velocidad.</item>
+        <item>Añade complejidad: dispara desde posiciones incómodas (rodilla en tierra, tendido) o después de esfuerzo físico.</item>
+    </string-array>
+
+    <string-array name="def_rec_11">
+        <item>Eres un tirador competente y confiable. Esta es una gran base.</item>
+        <item>El siguiente paso es el "control del acelerador": aprender a disparar *exactamente* a la velocidad que el blanco requiere (ni más rápido, ni más lento).</item>
+        <item>Introduce presión. Compite contra un cronómetro o un amigo para mejorar tu rendimiento bajo estrés.</item>
+        <item>Trabaja en tu "procesamiento visual." ¿Qué tan rápido puedes ver el blanco, ver tus miras y tomar la decisión de disparar?</item>
+    </string-array>
+
+    <string-array name="def_rec_12">
+        <item>Tu precisión es perfecta. Has dominado los fundamentos, pero eres extremadamente lento.</item>
+        <item>Eres demasiado cuidadoso y estás obsesionado con una imagen de miras "perfecta". *Debes* forzar tu velocidad.</item>
+        <item>Confía en tus miras. En el momento en que veas una imagen "suficientemente buena", aprieta el gatillo.</item>
+        <item>Usa un cronómetro (shot timer) implacablemente. Trabaja en reducir décimas de segundo de tu desenfunde y tus tiempos split.</item>
+    </string-array>
+
+    <string-array name="def_rec_13">
+        <item>Tu precisión es excelente. No dejes que eso te vuelva complaciente o lento.</item>
+        <item>Tu base es sólida. Ahora es tiempo de construir velocidad sobre ella. Confía en tus habilidades.</item>
+        <item>Practica acelerar *entre* disparos (reseteo rápido del gatillo y readquisición de miras).</item>
+        <item>Introduce movimiento. Practica entrar y salir de posiciones rápidamente mientras mantienes tu precisión.</item>
+    </string-array>
+
+    <string-array name="def_rec_14">
+        <item>Esto es rendimiento élite. Tu objetivo ahora es 100% de consistencia.</item>
+        <item>¿Puedes mantener este rendimiento bajo estrés, cansado o con mal clima?</item>
+        <item>Introduce problemas más complejos: múltiples blancos a distancias variadas, y blancos de "no-disparar" (no-shoots).</item>
+        <item>Enseña a alguien más. Explicar tu proceso reforzará tu propio dominio de las habilidades.</item>
+    </string-array>
+
+    <string-array name="def_rec_15">
+        <item>¡Excelente trabajo! Eres preciso y eficiente. Este es el objetivo.</item>
+        <item>Para alcanzar el nivel de velocidad "Élite", debes optimizar tu procesamiento visual y tus tiempos split.</item>
+        <item>Practica "cantar tus disparos" a velocidad. Esto confirma que estás viendo tus miras en cada disparo.</item>
+        <item>Encuentra tu punto de fallo. Fuerza tu velocidad hasta que tu precisión *apenas* comience a caer, y trabaja en esa frontera.</item>
+    </string-array>
 </resources>

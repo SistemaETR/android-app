@@ -1,0 +1,18 @@
+{
+    "Critical Precision_Critical Time": 0,
+    "Critical Precision_Deficient Time": 1,
+    "Critical Precision_Elite Time": 2,
+    "Critical Precision_Optimal Time": 3,
+    "Deficient Precision_Critical Time": 4,
+    "Deficient Precision_Deficient Time": 5,
+    "Deficient Precision_Elite Time": 6,
+    "Deficient Precision_Optimal Time": 7,
+    "Improvable Precision_Critical Time": 8,
+    "Improvable Precision_Deficient Time": 9,
+    "Improvable Precision_Elite Time": 10,
+    "Improvable Precision_Optimal Time": 11,
+    "Optimal Precision_Critical Time": 12,
+    "Optimal Precision_Deficient Time": 13,
+    "Optimal Precision_Elite Time": 14,
+    "Optimal Precision_Optimal Time": 15
+}

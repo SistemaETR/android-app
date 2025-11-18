@@ -219,6 +219,7 @@ public class BLEServerService extends Service {
         Intent intent = new Intent("GAME_STATS_UPDATED");
         intent.putExtra("hits", hits);
         intent.putExtra("failures", failures);
+        intent.setPackage(getPackageName());
         sendBroadcast(intent);
     }
 

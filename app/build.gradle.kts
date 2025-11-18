@@ -19,8 +19,8 @@ android {
         applicationId = "dev.abzikel.sistemaetr"
         minSdk = 26
         targetSdk = 35
-        versionCode = 6
-        versionName = "1.1.0"
+        versionCode = 7
+        versionName = "1.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -80,4 +80,7 @@ dependencies {
     implementation(libs.ucrop)
     // Glide
     implementation(libs.glide)
+    // Machine Learning
+    implementation(libs.firebase.ml.modeldownloader)
+    implementation(libs.tensorflow.lite)
 }
